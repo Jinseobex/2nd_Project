@@ -109,7 +109,6 @@
         <div class="section-title">
           <h3>코로나19 선별진료소 <span>검색</span></h3>
           <p>찾고자 하는 진료소의 위치를 시, 군, 구까지 입력해주세요.</p>
-          
     <footer id="footer">
      <div class="footer-newsletter">
       <div class="container">
@@ -126,11 +125,7 @@
     </div>
     </footer>
         </div>
-        <div class="row">
-          <div class="col-lg-6" data-aos="fade-right" data-aos-delay="100">
-              <iframe class="mb-4 mb-lg-0" src="https://maps.google.com/maps?q=%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C%20%EC%A2%85%EB%A1%9C%EA%B5%AC%20%EC%98%A5%EC%9D%B8%EB%8F%99%20%EC%9E%90%ED%95%98%EB%AC%B8%EB%A1%9C19%EA%B8%B8%2036&t=&z=15&ie=UTF8&iwloc=&output=embed" frameborder="0" style="border:0; width: 200%; height: 450px;" allowfullscreen></iframe>
-          </div>
- 	</div>
+        <jsp:include page="kakaomapapi.jsp" flush="false" />
     </section><!-- End About Section -->
 
     <!-- ======= Skills Section ======= -->
