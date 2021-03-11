@@ -1,3 +1,6 @@
+<%@page import="org.json.JSONArray"%>
+<%@page import="org.covid19.statusBoardApi.StatusBoard"%>
+<%@page import="org.json.JSONObject"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -11,8 +14,10 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/g_logo.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <!-- status Board1 -->
+  <link rel="shortcut icon" type="image/x-icon" href="https://corona-19.kr/img/favicon.ico">
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
@@ -27,10 +32,299 @@
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
+  
+  <!-- status Board2 -->
+  <!-- fontawesome -->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  
+  <!-- XEICON -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
 
+  <!-- Custom CSS -->
+  <link href="assets/css/c3.min.css" rel="stylesheet">
+  <link href="assets/libs/chartist/dist/chartist.min.css" rel="stylesheet">
+  <link href="assets/extra-libs/jvector/jquery-jvectormap-2.0.2.css" rel="stylesheet" />
+  
+  <!-- Custom CSS -->
+  <link href="dist/css/style.min.css" rel="stylesheet">
+
+  <!-- SweetAlert -->
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  
+   <!-- 구글 애널리틱스 -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-158925427-1"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'UA-158925427-1');
+	</script>
+	
+	<script src="assets/libs/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="assets/libs/popper.js/dist/umd/popper.min.js"></script>
+    <script src="assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- apps -->
+    <!-- apps -->
+    <script src="dist/js/app-style-switcher.js"></script>
+    <script src="dist/js/feather.min.js"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+    <script src="assets/extra-libs/sparkline/sparkline.js"></script>
+    <!--Wave Effects -->
+    <!-- themejs -->
+    <!--Menu sidebar -->
+    <script src="dist/js/sidebarmenu.js"></script>
+    <!--Custom JavaScript -->
+    <script src="dist/js/custom.min.js"></script>
+    <!-- This Page JS -->
+    <script src="assets/js/d3-5.8.2.min.js"></script>
+    <script src="assets/js/c3.min.js"></script>
+    <script src="../assets/libs/chartist/dist/chartist.min.js"></script>
+    <script src="../assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
+    <script src="../dist/js/pages/dashboards/dashboard1.min.js"></script>	
+    <!--Morris JavaScript -->
+    <script src="assets/libs/raphael/raphael.min.js"></script>
+    <script src="assets/libs/morris.js/morris.min.js"></script>
+	
+	<!-- Chart JS -->
+    <script src="dist/js/pages/chartjs/chartjs.init.js"></script>
+    <script src="assets/libs/chart.js/dist/Chart.min.js"></script>
+    
+    <!-- c3 CDN -->
+    <!-- Load c3.css -->
+	<link href="assets/css/c3.css" rel="stylesheet">
+	<!-- Load d3.js and c3.js -->
+	<script src="assets/js/d3-5.8.2.min.js" charset="utf-8"></script>
+	<script src="assets/js/c3.js"></script>
+
+
+
+	<!-- 현황판 api -->
+	<%	
+	JSONObject jsonKorea = StatusBoard.status_korea();
+	JSONObject jsonCity = StatusBoard.status_city();
+	
+	JSONObject stringKorea = new JSONObject(jsonCity.get("korea").toString());
+	JSONObject stringSeoul = new JSONObject(jsonCity.get("seoul").toString());
+	JSONObject stringBusan = new JSONObject(jsonCity.get("busan").toString());
+	JSONObject stringDaegu = new JSONObject(jsonCity.get("daegu").toString());
+	JSONObject stringIncheon = new JSONObject(jsonCity.get("incheon").toString());
+	JSONObject stringGwangju = new JSONObject(jsonCity.get("gwangju").toString());
+	JSONObject stringDaejeon = new JSONObject(jsonCity.get("daejeon").toString());
+	JSONObject stringUlsan = new JSONObject(jsonCity.get("ulsan").toString());
+	JSONObject stringSejong = new JSONObject(jsonCity.get("sejong").toString());
+	JSONObject stringGyeonggi = new JSONObject(jsonCity.get("gyeonggi").toString());
+	JSONObject stringGangwon = new JSONObject(jsonCity.get("gangwon").toString());
+	JSONObject stringChungbuk = new JSONObject(jsonCity.get("chungbuk").toString());
+	JSONObject stringChungnam = new JSONObject(jsonCity.get("chungnam").toString());
+	JSONObject stringJeonbuk = new JSONObject(jsonCity.get("jeonbuk").toString());
+	JSONObject stringJeonnam = new JSONObject(jsonCity.get("jeonnam").toString());
+	JSONObject stringGyeongbuk = new JSONObject(jsonCity.get("gyeongbuk").toString());
+	JSONObject stringGyeongnam = new JSONObject(jsonCity.get("gyeongnam").toString());
+	JSONObject stringJeju = new JSONObject(jsonCity.get("jeju").toString());
+	JSONObject stringQuarantine = new JSONObject(jsonCity.get("quarantine").toString());
+	
+	// 국내 확진자 계산
+	String a = jsonKorea.get("TotalCase").toString();
+	a = a.replace(",", "");
+	
+	String b = jsonKorea.get("TotalChecking").toString();
+	b = b.replace(",", "");
+	
+	double i = Double.parseDouble(a);
+	int j = Integer.parseInt(b);
+	
+	double per = (i / j * 100);
+	String domesticConfirm = String.format("%.2f", per);
+	
+	
+	//String[] korea = {"recovered", "newCase", "totalCase", "death", "percentage", "newCcase", "newFcase"};
+	//String city = (String) stringCity.get("recovered");
+	%>
+
+	<!-- 시도별 확진환자 현황 차트 -->
+	
+	<script>
+	$(function() {
+		c3.generate({
+			bindto: "#mapAll-status",
+			data: {
+				columns: [
+					['서울', 31.4],
+					['기타', 27.44],
+					['경기', 26.89],
+					['대구', 9.33],
+					['인천', 4.92],
+				],
+				type: "donut",
+				tooltip: {
+					show: !0
+				}
+			},
+			donut: {
+				label: {
+					show: !1
+				},
+				title: "시도별 확진환자 현황 / 단위: %",
+				width: 18
+			},
+			legend: {
+				hide: !0
+			},
+			color: {
+				pattern: ["#5f76e8", "#ff4f70", "#01caf1", "#28a745", "#edf2f6"]
+			}
+		});
+		d3.select("#mapAll-status .c3-chart-arcs-title").style("font-family", "Rubik");
+		var e = {
+			axisX: {
+				showGrid: !1
+			},
+			seriesBarDistance: 1,
+			chartPadding: {
+				top: 15,
+				right: 15,
+				bottom: 5,
+				left: 0
+			},
+			plugins: [Chartist.plugins.tooltip()],
+			width: "100%"
+		};
+	});	
+	</script>
+	
+	<script>
+	$(function() {
+		c3.generate({
+			bindto: "#Day-status",
+			data: {
+				columns: [
+				  ['서울 (+102)',  102],
+				  ['부산 (+19)',  19],
+				  ['대구 (+3)',  3],
+				  ['인천 (+20)',  20],
+				  ['광주 (+33)',  33],
+				  ['대전 (+1)',  1],
+				  ['울산 (+11)',  11],
+				  ['세종 (+0)',  0],
+				  ['경기 (+188)',  188],
+				  ['강원 (+13)',  13],
+				  ['충북 (+21)',  21],
+				  ['충남 (+15)',  15],
+				  ['전북 (+8)',  8],
+				  ['전남 (+3)',  3],
+				  ['경북 (+2)',  2],
+				  ['경남 (+1)',  1],
+				  ['제주 (+2)',  2],
+				  ['검역 (+4)',  4],
+				],
+				type: "donut",
+				tooltip: {
+					show: !0
+				}
+			},
+			donut: {
+				label: {
+					show: !1
+				},
+				title: "전일대비 확진자수: 446명",
+				width: 18
+			},
+			legend: {
+				hide: !0
+			},
+			color: {
+				pattern: ["#5f76e8", "#ff4f70", "#01caf1", "#28a745", "#edf2f6", "#5f76e8", "#ff4f70", "#01caf1", "#28a745", "#edf2f6", "#5f76e8", "#ff4f70", "#01caf1", "#28a745", "#edf2f6", "#5f76e8", "#ff4f70", "#01caf1"]
+			}
+		});
+		d3.select("#mapAll-status .c3-chart-arcs-title").style("font-family", "Rubik");
+		var e = {
+			axisX: {
+				showGrid: !1
+			},
+			seriesBarDistance: 1,
+			chartPadding: {
+				top: 15,
+				right: 15,
+				bottom: 5,
+				left: 0
+			},
+			plugins: [Chartist.plugins.tooltip()],
+			width: "100%"
+		};
+	});	
+	</script>
+	
+	<script>
+	$(function() {
+		c3.generate({
+			bindto: "#mapAll-nowstatus",
+			data: {
+				columns: [
+				  ['서울 (2916명)',  2916],
+				  ['부산 (210명)',  210],
+				  ['대구 (102명)',  102],
+				  ['인천 (244명)',  244],
+				  ['광주 (145명)',  145],
+				  ['대전 (20명)',  20],
+				  ['울산 (37명)',  37],
+				  ['세종 (23명)',  23],
+				  ['경기 (2498명)',  2498],
+				  ['강원 (94명)',  94],
+				  ['충북 (205명)',  205],
+				  ['충남 (153명)',  153],
+				  ['전북 (99명)',  99],
+				  ['전남 (79명)',  79],
+				  ['경북 (109명)',  109],
+				  ['경남 (49명)',  49],
+				  ['제주 (41명)',  41],
+				  ['검역 (694명)',  694],
+				],
+				type: "donut",
+				tooltip: {
+					show: !0
+				}
+			},
+			donut: {
+				label: {
+					show: !1
+				},
+				title: "치료중인 환자 수: 7,718명",
+				width: 18
+			},
+			legend: {
+				hide: !0
+			},
+			color: {
+				pattern: ["#5f76e8", "#ff4f70", "#01caf1", "#28a745", "#edf2f6", "#5f76e8", "#ff4f70", "#01caf1", "#28a745", "#edf2f6", "#5f76e8", "#ff4f70", "#01caf1", "#28a745", "#edf2f6", "#5f76e8", "#ff4f70", "#01caf1"]
+			}
+		});
+		d3.select("#mapAll-status .c3-chart-arcs-title").style("font-family", "Rubik");
+		var e = {
+			axisX: {
+				showGrid: !1
+			},
+			seriesBarDistance: 1,
+			chartPadding: {
+				top: 15,
+				right: 15,
+				bottom: 5,
+				left: 0
+			},
+			plugins: [Chartist.plugins.tooltip()],
+			width: "100%"
+		};
+	});	
+	</script>
+      
+      
+  
 </head>
 
 <body>
+
 
   <!-- ======= Top Bar ======= -->
   <section id="topbar" class="d-flex align-items-center">
@@ -58,12 +352,12 @@
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link scrollto active" href="#hero">안내</a></li>
+         <li><a class="nav-link scrollto active" href="#hero">안내</a></li>
           <li><a class="nav-link scrollto" href="#about">진료소 찾기</a></li>
-          <li><a class="nav-link scrollto" href="#services">Services</a></li>
+          <li><a class="nav-link scrollto" href="#services">국내 현황판</a></li>
           <li><a class="nav-link scrollto " href="#portfolio">Portfolio</a></li>
-          <li><a class="nav-link scrollto" href="#team">Team</a></li>
-          <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
+          <li><a class="nav-link scrollto" href="#team">미디어</a></li>
+          <!-- <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               <li><a href="#">Drop Down 1</a></li>
               <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
@@ -80,7 +374,8 @@
               <li><a href="#">Drop Down 4</a></li>
             </ul>
           </li>
-          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+          -->
+          <li><a class="nav-link scrollto" href="#contact">관리자</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -95,7 +390,7 @@
       <h2>찾고자 하는 선별진료소의 시, 군, 구를 입력해주세요</h2>
       <div class="d-flex">
         <a href="#about" class="btn-get-started scrollto">진료소 찾기</a>
-        <!-- <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="glightbox btn-watch-video"><i class="bi bi-play-circle"></i><span>Watch Video</span></a> -->
+        <a href="https://www.youtube.com/watch?v=vZAtsL6t_4Y" class="glightbox btn-watch-video"><i class="bi bi-play-circle"></i><span>코로나19 정부 브리핑</span></a> 
       </div>
     </div>
   </section><!-- End Hero -->
@@ -128,207 +423,541 @@
         <jsp:include page="kakaomapapi.jsp" flush="false" />
     </section><!-- End About Section -->
 
-    <!-- ======= Skills Section ======= -->
-    <section id="skills" class="skills">
-      <div class="container" data-aos="fade-up">
-
-        <div class="row skills-content">
-
-          <div class="col-lg-6">
-
-            <div class="progress">
-              <span class="skill">HTML <i class="val">100%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div>
-
-            <div class="progress">
-              <span class="skill">CSS <i class="val">90%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div>
-
-            <div class="progress">
-              <span class="skill">JavaScript <i class="val">75%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div>
-
-          </div>
-
-          <div class="col-lg-6">
-
-            <div class="progress">
-              <span class="skill">PHP <i class="val">80%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div>
-
-            <div class="progress">
-              <span class="skill">WordPress/CMS <i class="val">90%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div>
-
-            <div class="progress">
-              <span class="skill">Photoshop <i class="val">55%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-    </section><!-- End Skills Section -->
-
-    <!-- ======= Counts Section ======= -->
-    <section id="counts" class="counts">
-      <div class="container" data-aos="fade-up">
-
-        <div class="row">
-
-          <div class="col-lg-3 col-md-6">
-            <div class="count-box">
-              <i class="bi bi-emoji-smile"></i>
-              <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Happy Clients</p>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6 mt-5 mt-md-0">
-            <div class="count-box">
-              <i class="bi bi-journal-richtext"></i>
-              <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Projects</p>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
-            <div class="count-box">
-              <i class="bi bi-headset"></i>
-              <span data-purecounter-start="0" data-purecounter-end="1463" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Hours Of Support</p>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
-            <div class="count-box">
-              <i class="bi bi-people"></i>
-              <span data-purecounter-start="0" data-purecounter-end="15" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Hard Workers</p>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </section><!-- End Counts Section -->
-
-    <!-- ======= Clients Section ======= -->
-    <section id="clients" class="clients section-bg">
-      <div class="container" data-aos="zoom-in">
-
-        <div class="row">
-
-          <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-            <img src="assets/img/clients/client-1.png" class="img-fluid" alt="">
-          </div>
-
-          <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-            <img src="assets/img/clients/client-2.png" class="img-fluid" alt="">
-          </div>
-
-          <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-            <img src="assets/img/clients/client-3.png" class="img-fluid" alt="">
-          </div>
-
-          <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-            <img src="assets/img/clients/client-4.png" class="img-fluid" alt="">
-          </div>
-
-          <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-            <img src="assets/img/clients/client-5.png" class="img-fluid" alt="">
-          </div>
-
-          <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-            <img src="assets/img/clients/client-6.png" class="img-fluid" alt="">
-          </div>
-
-        </div>
-
-      </div>
-    </section><!-- End Clients Section -->
-
-    <!-- ======= Services Section ======= -->
+    <!-- ======= 현황판, services Section ======= -->
     <section id="services" class="services">
       <div class="container" data-aos="fade-up">
 
-        <div class="section-title">
-          <h2>Services</h2>
-          <h3>Check our <span>Services</span></h3>
-          <p>Ut possimus qui ut temporibus culpa velit eveniet modi omnis est adipisci expedita at voluptas atque vitae autem.</p>
-        </div>
-
-        <div class="row">
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bxl-dribbble"></i></div>
-              <h4><a href="">Lorem Ipsum</a></h4>
-              <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p>
+            <div class="page-breadcrumb">
+                <div class="section-title">
+                					<% String upTime = jsonKorea.get("updateTime").toString();
+									String after = upTime.substring(22);
+									%>
+									<h3>코로나바이러스감염증-19 국내 발생현황 </h3><h4><span><%=after%></span></h4>
+									<p>00시 데이터 기준으로 오전 <span>9시~10시</span> 사이에 자동으로 업데이트 됩니다.</p>
+                        </div>
+                    </div>
+                    <div class="col-5 align-self-center">
+                        <div class="customize-input float-right">
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
+            <div class="container-fluid">
+                <div class="card-group">
+                    <div class="card border-right">
+                        <div class="card-body">
+                            <div class="d-flex d-lg-flex d-md-block align-items-center">
+                                <div>
+                                    <div class="d-inline-flex align-items-center">
+                                        <h2 class="text-dark mb-1 font-weight-medium">
+										<span style="color: #f89009;">
+										<!-- 국내 확진자 -->
+										<%=jsonKorea.get("TotalCase")%>명
+										</span>
+										</h2>
+                                        <span
+                                            class="badge bg-warning font-12 text-white font-weight-medium badge-pill ml-2 d-lg-block d-md-none">+
+											<%=stringKorea.get("newCase")%>명										</span>
+                                    </div>
+                                    <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">국내 확진자</h6>
+                                </div>
+                                <div class="ml-auto mt-md-3 mt-lg-0">
+                                    <span class="opacity-7 text-muted"><i data-feather="users"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card border-right">
+                        <div class="card-body">
+                            <div class="d-flex d-lg-flex d-md-block align-items-center">
+                                <div>
+                                    <div class="d-inline-flex align-items-center">
+                                        <h2 class="text-dark mb-1 font-weight-medium">
+										<span style="color: #009a87;">
+										<!-- 국내 완치자 -->
+										<%=jsonKorea.get("TotalRecovered")%>명
+										</span>
+										</h2>
+                                        <span
+                                            class="badge bg-success font-12 text-white font-weight-medium badge-pill ml-2 d-lg-block d-md-none">+
+											<%=jsonKorea.get("TodayRecovered")%>명										</span>
+                                    </div>
+                                    <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">국내 완치자</h6>
+                                </div>
+                                <div class="ml-auto mt-md-3 mt-lg-0">
+                                    <span class="opacity-7 text-muted"><i data-feather="pocket"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card border-right">
+                        <div class="card-body">
+                            <div class="d-flex d-lg-flex d-md-block align-items-center">
+                                <div>
+                                    <div class="d-inline-flex align-items-center">
+                                        <h2 class="text-dark mb-1 font-weight-medium">
+										<span style="color: #ee2323;">
+										<!-- 국내 사망자 -->
+										<%=jsonKorea.get("TotalDeath")%>명
+										</span>
+										</h2>
+										<span class="badge bg-danger font-12 text-white font-weight-medium badge-pill ml-2 d-lg-block d-md-none">
+										+<%=jsonKorea.get("TodayDeath")%>명
+										</span>                                    </div>
+                                    <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">국내 사망자</h6>
+                                </div>
+                                <div class="ml-auto mt-md-3 mt-lg-0">
+                                    <span class="opacity-7 text-muted"><i data-feather="clipboard"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card border-right">
+                        <div class="card-body">
+                            <div class="d-flex d-lg-flex d-md-block align-items-center">
+                                <div>
+                                    <div class="d-inline-flex align-items-center">
+                                        <h2 class="text-dark mb-1 font-weight-medium">
+										<span style="color: #006dd7;">
+										<!-- 국내 치료 중 -->
+										<%=jsonKorea.get("TotalRecovered")%>명
+										</span>
+										</h2>
+                                        <span
+                                            class="badge bg-primary font-12 text-white font-weight-medium badge-pill ml-2 d-lg-block d-md-none">
+											+<%=jsonKorea.get("TodayRecovered")%>명										</span>
+                                    </div>
+                                    <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">국내 치료중</h6>
+                                </div>
+                                <div class="ml-auto mt-md-3 mt-lg-0">
+                                    <span class="opacity-7 text-muted"><i data-feather="activity"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+             
+                </div>
+		
+                <div class="row">
+       
+                    <div class="col-lg-4 col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">전일대비 확진환자 증감 비율</h4>
+                                
+                                <div id="Day-status"></div>
+                                
+                                <ul class="list-inline text-center mt-5 mb-2">
+                                    <li class="list-inline-item text-muted">당일 00시 데이터가 아직 없는 경우 전날의 데이터가 연계됩니다.</li>
+									<br><br>
+                                    <li class="list-inline-item text-muted">해외입국확진(검역)은 <b>4명</b>, 국내 확진자는 <b>442명</b> 입니다.</li>
+									<br><br>
+                                </ul>
+                            </div>
+						</div>
+                    </div>
+					<div class="col-lg-4 col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">시도별 치료중 환자 현황</h4>
+                                <div id="mapAll-nowstatus"></div>
+                                <ul class="list-inline text-center mt-5 mb-2">
+                                    <li class="list-inline-item text-muted">당일 00시 데이터가 아직 없는 경우 전날의 데이터가 연계됩니다.</li>
+									<br><br>
+                                    <li class="list-inline-item text-muted">차트에 마우스를 올리거나 클릭하면 정확한 수치를 확인할 수 있습니다.</li>
+									<br><br>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+					<div class="col-lg-4 col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">국내 부가 정보</h4>
+								<div class="card border-right">
+									<div class="card-body">
+										<div class="d-flex d-lg-flex d-md-block align-items-center">
+											<div>
+												<div class="d-inline-flex align-items-center">
+													<h2 class="text-dark mb-1 font-weight-medium">
+													<span style="color: #f89009;">
+													<!-- 국내 확진자 -->
+													<%=domesticConfirm%>%
+													</span>
+													</h2>
+												</div>
+												<h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">국내 확진율</h6>
+											</div>
+											<div class="ml-auto mt-md-3 mt-lg-0">
+												<span class="opacity-7 text-muted"><i data-feather="users"></i></span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="card border-right">
+									<div class="card-body">
+										<div class="d-flex d-lg-flex d-md-block align-items-center">
+											<div>
+													<h2 class="text-dark mb-1 font-weight-medium">
+													<span style="color: #009a87;">
+													<!-- 국내 완치율 -->
+													<%=jsonKorea.get("recoveredPercentage")%>%
+													</span>
+													</h2>
+												<h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">국내 완치율</h6>
+											</div>
+											<div class="ml-auto mt-md-3 mt-lg-0">
+												<span class="opacity-7 text-muted"><i data-feather="pocket"></i></span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="card border-right">
+									<div class="card-body">
+										<div class="d-flex d-lg-flex d-md-block align-items-center">
+											<div>
+												<div class="d-inline-flex align-items-center">
+													<h2 class="text-dark mb-1 font-weight-medium">
+													<span style="color: #ee2323;">
+													<!-- 국내 사망률 -->
+													<%=jsonKorea.get("deathPercentage")%>%
+													</span>
+													</h2>
+													<!-- <span
+														class="badge bg-danger font-12 text-white font-weight-medium badge-pill ml-2 d-md-none d-lg-block">-18.33%</span> -->
+												</div>
+												<h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">국내 사망률</h6>
+											</div>
+											<div class="ml-auto mt-md-3 mt-lg-0">
+												<span class="opacity-7 text-muted"><i data-feather="clipboard"></i></span>
+											</div>
+										</div>
+									</div>
+								</div>
 
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-file"></i></div>
-              <h4><a href="">Sed ut perspiciatis</a></h4>
-              <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0" data-aos="zoom-in" data-aos-delay="300">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-tachometer"></i></div>
-              <h4><a href="">Magni Dolores</a></h4>
-              <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</p>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="100">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-world"></i></div>
-              <h4><a href="">Nemo Enim</a></h4>
-              <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis</p>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="200">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-slideshow"></i></div>
-              <h4><a href="">Dele cardo</a></h4>
-              <p>Quis consequatur saepe eligendi voluptatem consequatur dolor consequuntur</p>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-arch"></i></div>
-              <h4><a href="">Divera don</a></h4>
-              <p>Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
+                                <ul class="list-inline text-center mt-5 mb-2">
+                                    <li class="list-inline-item text-muted">당일 데이터가 없는 경우 전날의 데이터가 연계됩니다.</li>
+									<br>
+                                    <li class="list-inline-item text-muted">확진율 = 결과양성(<%=jsonKorea.get("caseCount")%>) / 총 검사완료수(<%=jsonKorea.get("TotalChecking")%>) * 100%</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+         
+					<div class="col-md-6 col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+							<h4 class="card-title style="text-align: center;" data-ke-size="size20"><b><i class="xi-eye"></i> 대한민국 시도별 발생동향 한눈에 보기</b></h4>
+							<hr>
+							<div class="row">
+								<div class="col-sm-4">
+								<br><br>
+																		대한민국 시도별 발생동향을 확인하실 수 있습니다.<br><br>
+									발생률: 인구 10만명당 (지역별 인구 출처 : 행정안전부, 주민등록인구현황 (’20.1월 기준))<br><br>
+									※ 지역구분은 신고지를 기준으로 하며, 초기 신고 이후 소관지역이 변경된 경우 변동 가능<br>
+									※ 발생률은 반올림되어 표기되었습니다.
+								</div>
+								<div class="col-sm-4">
+									<!-- 시도별 발생동향 그래프 -->
+									<br>
+									<div id="mapAll-status"></div>
+								</div>
+								<div class="col-sm-4">
+									<br>
+									<ul class="list-style-none mb-0">
+										<li>
+											<i class="fas fa-circle text-primary font-10 mr-2"></i>
+											<span class="text-muted">서울</span>
+											<span class="text-dark float-right font-weight-medium">
+											31.4%
+											</span>
+										</li>
+										<li class="mt-3">
+											<i class="fas fa-circle text-danger font-10 mr-2"></i>
+											<span class="text-muted">기타</span>
+											<span class="text-dark float-right font-weight-medium">
+											27.44%
+											</span>
+										</li>
+										<li class="mt-3">
+											<i class="fas fa-circle text-cyan font-10 mr-2"></i>
+											<span class="text-muted">경기</span>
+											<span class="text-dark float-right font-weight-medium">
+											26.89%
+											</span>
+										</li>
+										<li class="mt-3">
+											<i class="fas fa-circle text-success font-10 mr-2"></i>
+											<span class="text-muted">대구</span>
+											<span class="text-dark float-right font-weight-medium">
+											9.33%
+											</span>
+										</li>
+										<li class="mt-3">
+											<i class="fas fa-circle text-light font-10 mr-2"></i>
+											<span class="text-muted">인천</span>
+											<span class="text-dark float-right font-weight-medium">
+											4.92%
+											</span>
+										</li>
+									</ul>
+									<ul class="list-inline text-center mt-5 mb-2">
+										<li class="list-inline-item text-muted">차트에 마우스를 올리거나 클릭하면 정확한 수치를 확인할 수 있습니다.</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					</div>
+					
+							<div class="col-lg-3 col-md-6">
+								<div class="card">
+									<div class="card-body collapse show">
+										<h4 class="card-title"><a href="http://ncov.mohw.go.kr/"target="_blank"><span style="color: #000000;"><u>대한민국</u></span><u>(정보보기)</u></a></h4> 
+										확진자: <span style="color: #f89009;">93,263명</span> <span style="color: #ffbb33;">[+446명]</span>
+										<br>
+										완치자: <span style="color: #009a87;">83,900명</span><br>
+										사망자: <span style="color: #ee2323;">1,645명</span><br>
+										치료중: <span style="color: #5f76e8;">7718명</span><br>
+										발생률: <span style="color: #006dd7;">179.88 %</span>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-3 col-md-6">
+								<div class="card">
+									<div class="card-body collapse show">
+										<h4 class="card-title"><a href="http://www.seoul.go.kr/coronaV/coronaStatus.do"target="_blank"><span style="color: #000000;"><u>서울</u></span><u>(정보보기)</u></a></h4> 
+										확진자: <span style="color: #f89009;">29,281명</span> <span style="color: #ffbb33;">[+102명]</span>
+										<br>
+										완치자: <span style="color: #009a87;">25,969명</span><br>
+										사망자: <span style="color: #ee2323;">396명</span><br>
+										치료중: <span style="color: #5f76e8;">2916명</span><br>
+										발생률: <span style="color: #006dd7;">300.83 %</span>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-3 col-md-6">
+								<div class="card">
+									<div class="card-body collapse show">
+										<h4 class="card-title"><a href="http://www.busan.go.kr/corona19/index"target="_blank"><span style="color: #000000;"><u>부산</u></span><u>(정보보기)</u></a></h4> 
+										확진자: <span style="color: #f89009;">3,351명</span> <span style="color: #ffbb33;">[+19명]</span>
+										<br>
+										완치자: <span style="color: #009a87;">3,031명</span><br>
+										사망자: <span style="color: #ee2323;">110명</span><br>
+										치료중: <span style="color: #5f76e8;">210명</span><br>
+										발생률: <span style="color: #006dd7;">98.22 %</span>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-3 col-md-6">
+								<div class="card">
+									<div class="card-body collapse show">
+										<h4 class="card-title"><a href="http://www.daegu.go.kr/"target="_blank"><span style="color: #000000;"><u>대구</u></span><u>(정보보기)</u></a></h4> 
+										확진자: <span style="color: #f89009;">8,697명</span> <span style="color: #ffbb33;">[+3명]</span>
+										<br>
+										완치자: <span style="color: #009a87;">8,381명</span><br>
+										사망자: <span style="color: #ee2323;">214명</span><br>
+										치료중: <span style="color: #5f76e8;">102명</span><br>
+										발생률: <span style="color: #006dd7;">356.95 %</span>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-3 col-md-6">
+								<div class="card">
+									<div class="card-body collapse show">
+										<h4 class="card-title"><a href="https://www.incheon.go.kr/"target="_blank"><span style="color: #000000;"><u>인천</u></span><u>(정보보기)</u></a></h4> 
+										확진자: <span style="color: #f89009;">4,590명</span> <span style="color: #ffbb33;">[+20명]</span>
+										<br>
+										완치자: <span style="color: #009a87;">4,292명</span><br>
+										사망자: <span style="color: #ee2323;">54명</span><br>
+										치료중: <span style="color: #5f76e8;">244명</span><br>
+										발생률: <span style="color: #006dd7;">155.27 %</span>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-3 col-md-6">
+								<div class="card">
+									<div class="card-body collapse show">
+										<h4 class="card-title"><a href="https://www.gwangju.go.kr/"target="_blank"><span style="color: #000000;"><u>광주</u></span><u>(정보보기)</u></a></h4> 
+										확진자: <span style="color: #f89009;">2,166명</span> <span style="color: #ffbb33;">[+33명]</span>
+										<br>
+										완치자: <span style="color: #009a87;">2,000명</span><br>
+										사망자: <span style="color: #ee2323;">21명</span><br>
+										치료중: <span style="color: #5f76e8;">145명</span><br>
+										발생률: <span style="color: #006dd7;">148.69 %</span>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-3 col-md-6">
+								<div class="card">
+									<div class="card-body collapse show">
+										<h4 class="card-title"><a href="https://www.daejeon.go.kr/corona19/index.do"target="_blank"><span style="color: #000000;"><u>대전</u></span><u>(정보보기)</u></a></h4> 
+										확진자: <span style="color: #f89009;">1,198명</span> <span style="color: #ffbb33;">[+1명]</span>
+										<br>
+										완치자: <span style="color: #009a87;">1,163명</span><br>
+										사망자: <span style="color: #ee2323;">15명</span><br>
+										치료중: <span style="color: #5f76e8;">20명</span><br>
+										발생률: <span style="color: #006dd7;">81.27 %</span>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-3 col-md-6">
+								<div class="card">
+									<div class="card-body collapse show">
+										<h4 class="card-title"><a href="http://www.ulsan.go.kr/corona.jsp"target="_blank"><span style="color: #000000;"><u>울산</u></span><u>(정보보기)</u></a></h4> 
+										확진자: <span style="color: #f89009;">1,039명</span> <span style="color: #ffbb33;">[+11명]</span>
+										<br>
+										완치자: <span style="color: #009a87;">965명</span><br>
+										사망자: <span style="color: #ee2323;">37명</span><br>
+										치료중: <span style="color: #5f76e8;">37명</span><br>
+										발생률: <span style="color: #006dd7;">90.58 %</span>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-3 col-md-6">
+								<div class="card">
+									<div class="card-body collapse show">
+										<h4 class="card-title"><a href="https://www.sejong.go.kr/life/sub05_0704.do"target="_blank"><span style="color: #000000;"><u>세종</u></span><u>(정보보기)</u></a></h4> 
+										확진자: <span style="color: #f89009;">242명</span> <span style="color: #ffbb33;"></span>
+										<br>
+										완치자: <span style="color: #009a87;">218명</span><br>
+										사망자: <span style="color: #ee2323;">1명</span><br>
+										치료중: <span style="color: #5f76e8;">23명</span><br>
+										발생률: <span style="color: #006dd7;">70.69 %</span>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-3 col-md-6">
+								<div class="card">
+									<div class="card-body collapse show">
+										<h4 class="card-title"><a href="https://www.gg.go.kr/bbs/boardView.do?bsIdx=464&bIdx=2296956&menuId=1535"target="_blank"><span style="color: #000000;"><u>경기</u></span><u>(정보보기)</u></a></h4> 
+										확진자: <span style="color: #f89009;">25,076명</span> <span style="color: #ffbb33;">[+188명]</span>
+										<br>
+										완치자: <span style="color: #009a87;">22,070명</span><br>
+										사망자: <span style="color: #ee2323;">508명</span><br>
+										치료중: <span style="color: #5f76e8;">2498명</span><br>
+										발생률: <span style="color: #006dd7;">189.25 %</span>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-3 col-md-6">
+								<div class="card">
+									<div class="card-body collapse show">
+										<h4 class="card-title"><a href="http://www.provin.gangwon.kr/"target="_blank"><span style="color: #000000;"><u>강원</u></span><u>(정보보기)</u></a></h4> 
+										확진자: <span style="color: #f89009;">1,927명</span> <span style="color: #ffbb33;">[+13명]</span>
+										<br>
+										완치자: <span style="color: #009a87;">1,791명</span><br>
+										사망자: <span style="color: #ee2323;">42명</span><br>
+										치료중: <span style="color: #5f76e8;">94명</span><br>
+										발생률: <span style="color: #006dd7;">125.09 %</span>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-3 col-md-6">
+								<div class="card">
+									<div class="card-body collapse show">
+										<h4 class="card-title"><a href="http://www.chungbuk.go.kr/"target="_blank"><span style="color: #000000;"><u>충북</u></span><u>(정보보기)</u></a></h4> 
+										확진자: <span style="color: #f89009;">1,892명</span> <span style="color: #ffbb33;">[+21명]</span>
+										<br>
+										완치자: <span style="color: #009a87;">1,629명</span><br>
+										사망자: <span style="color: #ee2323;">58명</span><br>
+										치료중: <span style="color: #5f76e8;">205명</span><br>
+										발생률: <span style="color: #006dd7;">118.30 %</span>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-3 col-md-6">
+								<div class="card">
+									<div class="card-body collapse show">
+										<h4 class="card-title"><a href="http://www.chungnam.go.kr/coronaStatus.do"target="_blank"><span style="color: #000000;"><u>충남</u></span><u>(정보보기)</u></a></h4> 
+										확진자: <span style="color: #f89009;">2,511명</span> <span style="color: #ffbb33;">[+15명]</span>
+										<br>
+										완치자: <span style="color: #009a87;">2,323명</span><br>
+										사망자: <span style="color: #ee2323;">35명</span><br>
+										치료중: <span style="color: #5f76e8;">153명</span><br>
+										발생률: <span style="color: #006dd7;">118.31 %</span>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-3 col-md-6">
+								<div class="card">
+									<div class="card-body collapse show">
+										<h4 class="card-title"><a href="http://www.jeonbuk.go.kr/"target="_blank"><span style="color: #000000;"><u>전북</u></span><u>(정보보기)</u></a></h4> 
+										확진자: <span style="color: #f89009;">1,245명</span> <span style="color: #ffbb33;">[+8명]</span>
+										<br>
+										완치자: <span style="color: #009a87;">1,090명</span><br>
+										사망자: <span style="color: #ee2323;">56명</span><br>
+										치료중: <span style="color: #5f76e8;">99명</span><br>
+										발생률: <span style="color: #006dd7;">68.51 %</span>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-3 col-md-6">
+								<div class="card">
+									<div class="card-body collapse show">
+										<h4 class="card-title"><a href="https://www.jeonnam.go.kr/coronaMainPage.do"target="_blank"><span style="color: #000000;"><u>전남</u></span><u>(정보보기)</u></a></h4> 
+										확진자: <span style="color: #f89009;">890명</span> <span style="color: #ffbb33;">[+3명]</span>
+										<br>
+										완치자: <span style="color: #009a87;">803명</span><br>
+										사망자: <span style="color: #ee2323;">8명</span><br>
+										치료중: <span style="color: #5f76e8;">79명</span><br>
+										발생률: <span style="color: #006dd7;">47.73 %</span>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-3 col-md-6">
+								<div class="card">
+									<div class="card-body collapse show">
+										<h4 class="card-title"><a href="http://www.gb.go.kr/Main/index.html"target="_blank"><span style="color: #000000;"><u>경북</u></span><u>(정보보기)</u></a></h4> 
+										확진자: <span style="color: #f89009;">3,323명</span> <span style="color: #ffbb33;">[+2명]</span>
+										<br>
+										완치자: <span style="color: #009a87;">3,143명</span><br>
+										사망자: <span style="color: #ee2323;">71명</span><br>
+										치료중: <span style="color: #5f76e8;">109명</span><br>
+										발생률: <span style="color: #006dd7;">124.81 %</span>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-3 col-md-6">
+								<div class="card">
+									<div class="card-body collapse show">
+										<h4 class="card-title"><a href="http://www.gyeongnam.go.kr/corona.html"target="_blank"><span style="color: #000000;"><u>경남</u></span><u>(정보보기)</u></a></h4> 
+										확진자: <span style="color: #f89009;">2,221명</span> <span style="color: #ffbb33;">[+1명]</span>
+										<br>
+										완치자: <span style="color: #009a87;">2,158명</span><br>
+										사망자: <span style="color: #ee2323;">14명</span><br>
+										치료중: <span style="color: #5f76e8;">49명</span><br>
+										발생률: <span style="color: #006dd7;">66.07 %</span>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-3 col-md-6">
+								<div class="card">
+									<div class="card-body collapse show">
+										<h4 class="card-title"><a href="https://jeju.go.kr/covid19.jsp"target="_blank"><span style="color: #000000;"><u>제주</u></span><u>(정보보기)</u></a></h4> 
+										확진자: <span style="color: #f89009;">598명</span> <span style="color: #ffbb33;">[+2명]</span>
+										<br>
+										완치자: <span style="color: #009a87;">556명</span><br>
+										사망자: <span style="color: #ee2323;">1명</span><br>
+										치료중: <span style="color: #5f76e8;">41명</span><br>
+										발생률: <span style="color: #006dd7;">89.15 %</span>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-3 col-md-6">
+								<div class="card">
+									<div class="card-body collapse show">
+										<h4 class="card-title"><a href="http://ncov.mohw.go.kr/"target="_blank"><span style="color: #000000;"><u>검역</u></span><u>(정보보기)</u></a></h4> 
+										확진자: <span style="color: #f89009;">3,016명</span> <span style="color: #ffbb33;">[+4명]</span>
+										<br>
+										완치자: <span style="color: #009a87;">2,318명</span><br>
+										사망자: <span style="color: #ee2323;">4명</span><br>
+										치료중: <span style="color: #5f76e8;">694명</span><br>
+										발생률: <span style="color: #006dd7;">- %</span>
+									</div>
+								</div>
+							</div>				</div>
+			</div>
     </section><!-- End Services Section -->
 
     <!-- ======= Testimonials Section ======= -->

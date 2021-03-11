@@ -17,13 +17,13 @@ public class JU {
 		
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
-			System.out.println("MSSQL 접속 성공!");
+			System.out.println("MariaDB 접속 성공!");
 			conn = DriverManager.getConnection(url, user, password);
 		} catch (ClassNotFoundException e) {
-			System.out.println("MSSQL 접속 실패! 1 (ClsNotFoundExcep)");
+			System.out.println("MariaDB 접속 실패! 1 (ClsNotFoundExcep)");
 			e.printStackTrace();
 		} catch (SQLException e) {
-			System.out.println("MSSQL 접속 실패! 2 (SQLExcep)");
+			System.out.println("MariaDB 접속 실패! 2 (SQLExcep)");
 			e.printStackTrace(); }
 		
 		return conn;
