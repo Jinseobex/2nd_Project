@@ -101,14 +101,11 @@
   </section><!-- End Hero -->
 
   <main id="main">
-
     <!-- ======= About Section ======= -->
     <section id="about" class="about section-bg">
       <div class="container" data-aos="fade-up">
-
         <div class="section-title">
           <h3>코로나19 선별진료소 <span>검색</span></h3>
-          <p>찾고자 하는 진료소의 위치를 시, 군, 구까지 입력해주세요.</p>
     <footer id="footer">
      <div class="footer-newsletter">
       <div class="container">
@@ -116,16 +113,20 @@
           <div class="col-lg-6">
             <!-- <h4>Join Our Newsletter</h4>
             <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>-->
-            <form action="" method="post">
-              <input type="search" name="search"><input type="submit" value="찾기">
+            <form onsubmit="searchPlaces(); return false;" >
+              <input type="search" name="keyword" id="keyword"><input type="submit" value="찾기">
             </form>
           </div>
         </div>
       </div>
     </div>
+    <p> 마포구 선별진료소, 남구 선별진료소와 같이 검색해주세요.</p>
     </footer>
         </div>
+        <div style="weight:1300px; height:600px;">
         <jsp:include page="kakaomapapi.jsp" flush="false" />
+        </div>
+        </div>
     </section><!-- End About Section -->
 
     <!-- ======= Skills Section ======= -->
