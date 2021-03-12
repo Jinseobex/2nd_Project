@@ -26,8 +26,6 @@ var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 // 지도를 생성합니다    
 var map = new kakao.maps.Map(mapContainer, mapOption); 
 
-
-
 // 장소 검색 객체를 생성합니다
 var ps = new kakao.maps.services.Places(); 
 
@@ -56,6 +54,7 @@ function placesSearchCB (data, status, pagination) {
         map.setBounds(bounds);
     } 
 }
+
 // 지도에 마커를 표시하는 함수입니다
 function displayMarker(place) { 
     // 마커를 생성하고 지도에 표시합니다
@@ -63,6 +62,8 @@ function displayMarker(place) {
         map: map,
         position: new kakao.maps.LatLng(place.y, place.x) 
     });	
+    
+    var placename = place.place_name.split(" ");
     // 마커에 클릭이벤트를 등록합니다
     kakao.maps.event.addListener(marker, 'click', function() {
         // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다

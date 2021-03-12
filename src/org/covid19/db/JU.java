@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 public class JU {
 
-	static String url = "jdbc:mariadb://localhost:3306/comstudy21";
+	static String url = "jdbc:mariadb://localhost:3306/2nd_project";
 	static String user = "admin";
 	static String password = "1234";
 	static Connection conn = null;
