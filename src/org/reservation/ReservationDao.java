@@ -9,23 +9,22 @@ import java.util.ArrayList;
 
 import org.reservation.util.*;
 
-
 public class ReservationDao {
 
-	final String SELECT_ALL = "SELECT * FROM RESERV";
-	final String SELECT_ONE = "SELECT * FROM RESERV WHERE NO=?";
-	final String UPDATE = "UPDATE RESERV SET NAME=?, DATE=?, TIME=? WHERE NO=?";
-	final String DELETE = "DELETE FROM RESERV WHERE no=?";
-	final String INSERT = "INSERT INTO RESERV(name, jumin, symptoms, date, time) VALUES(?,?,?,?,?)";
-	final String INSERT1 = "INSERT INTO RESERV(name, jumin, symptoms) VALUES(?,?,?)";
-	final String INSERT2 = "INSERT INTO RESERV(date, time) VALUES(?,?)";
+	static String SELECT_ALL = "SELECT * FROM RESERV ORDER BY NO DESC";
+	static String SELECT_ONE = "SELECT * FROM RESERV WHERE NO=?";
+	static String UPDATE = "UPDATE RESERV SET NAME=?, JUMIN=?, TEL=?, SYMPTOMS, DATE=?, TIME=? WHERE NO=?";
+	static String DELETE = "DELETE FROM RESERV WHERE NO=?";
+	static String INSERT = "INSERT INTO RESERV(NAME, JUMIN, TEL, SYMPTOMS, DATE, TIME) VALUES(?,?,?,?,?,?)";
+	static String INSERT1 = "INSERT INTO RESERV(NAME, JUMIN, TEL, SYMPTOMS) VALUES(?,?,?,?)";
+	static String INSERT2 = "INSERT INTO RESERV(DATE, TIME) VALUES(?,?)";
 
-	private Connection conn = null;
-	private Statement stmt = null;
-	private PreparedStatement pstmt = null;
-	private ResultSet rs = null;
+	private static Connection conn = null;
+	private static Statement stmt = null;
+	private static PreparedStatement pstmt = null;
+	private static ResultSet rs = null;
 
-	public ArrayList<ReservationDto> selectAll() {
+	public static ArrayList<ReservationDto> selectAll() {
 		ArrayList<ReservationDto> list = new ArrayList<ReservationDto>();
 		conn = JdbcUtil.getConnection();
 		try {
@@ -35,55 +34,63 @@ public class ReservationDao {
 				int no = rs.getInt(1);
 				String name = rs.getString(2);
 				String jumin = rs.getString(3);
-				String symptoms = rs.getString(4);
-				String date = rs.getString(5);
-				String time = rs.getString(6);
-				list.add(new ReservationDto(no, name, jumin, symptoms, date, time));
+				String tel = rs.getString(4);
+				String symptoms = rs.getString(5);
+				String date = rs.getString(6);
+				String time = rs.getString(7);
+				list.add(new ReservationDto(no, name, jumin, tel, symptoms, date, time));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			JdbcUtil.close(conn, pstmt, rs);
 		}
-
 		return list;
 	}
 
-	public ReservationDto selectOne(ReservationDto dto) {
-		ReservationDto saram = null;
+	public static ReservationDto selectOne(ReservationDto dto) {
+		ReservationDto reserv = null;
 		conn = JdbcUtil.getConnection();
 		try {
 			pstmt = conn.prepareStatement(SELECT_ONE);
 			pstmt.setInt(1, dto.getNo());
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-
+				reserv = new ReservationDto();
+				reserv.setNo(rs.getInt(1));
+				reserv.setName(rs.getString(2));
+				reserv.setJumin(rs.getString(3));
+				reserv.setTel(rs.getString(4));
+				reserv.setSymptoms(rs.getString(5));
+				reserv.setDate(rs.getString(6));
+				reserv.setTime(rs.getString(7));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			JdbcUtil.close(conn, pstmt, rs);
 		}
-		return saram;
+		return reserv;
 	}
 
-	public void insert(ReservationDto dto) {
+	public static void insert(ReservationDto dto) {
 		conn = JdbcUtil.getConnection();
 		try {
 			pstmt = conn.prepareStatement(INSERT);
-			// pstmt.setInt(1, dto.getNo());
 			pstmt.setString(1, dto.getName());
 			pstmt.setString(2, dto.getJumin());
-			pstmt.setString(3, dto.getSymptoms());
-			pstmt.setString(4, dto.getDate());
-			pstmt.setString(5, dto.getTime());
+			pstmt.setString(3, dto.getTel());
+			pstmt.setString(4, dto.getSymptoms());
+			pstmt.setString(5, dto.getDate());
+			pstmt.setString(6, dto.getTime());
 
 			int cnt = pstmt.executeUpdate();
+
 			if (cnt > 0) {
 				conn.commit();
-				System.out.println("저장 완료");
+				System.out.println("insert 완료");
 			} else {
-				System.out.println("저장 실패!");
+				System.out.println("insert 실패!");
 				conn.rollback();
 			}
 		} catch (SQLException e) {
@@ -93,13 +100,18 @@ public class ReservationDao {
 		}
 	}
 
-	public void update(ReservationDto dto) {
+// no, name, jumin, symptoms, date, time
+	public static void update(ReservationDto dto) {
 		conn = JdbcUtil.getConnection();
 		try {
 			pstmt = conn.prepareStatement(UPDATE);
 			pstmt.setString(1, dto.getName());
-
-			pstmt.setInt(3, dto.getNo());
+			pstmt.setString(2, dto.getJumin());
+			pstmt.setString(3, dto.getTel());
+			pstmt.setString(4, dto.getSymptoms());
+			pstmt.setString(5, dto.getDate());
+			pstmt.setString(6, dto.getTime());
+			pstmt.setInt(6, dto.getNo());
 			int cnt = pstmt.executeUpdate();
 			if (cnt > 0) {
 				conn.commit();
@@ -113,7 +125,7 @@ public class ReservationDao {
 		}
 	}
 
-	public void delete(ReservationDto dto) {
+	public static void delete(ReservationDto dto) {
 		conn = JdbcUtil.getConnection();
 		try {
 			pstmt = conn.prepareStatement(DELETE);

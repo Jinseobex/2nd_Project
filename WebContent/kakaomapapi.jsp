@@ -92,7 +92,7 @@ function displayMarker(place) {
     				st += "<span>평일 : " + week + '</span><br/>';
     				st += "<span>토요일 : " + sat + '</span><br/>';
     				st += "<span>번호 : " + num + '</span><br/>';
-    				st += '<div style = "text-align:center;"><a href = "join.jsp?name='+name+'"> 예약하기 </a></div>';
+    				st += '<div style = "text-align:center;"><a href = "reserv_join.jsp?name='+name+'"> 예약하기 </a></div>';
     				console.log(name);
     				infowindow.setContent('<div style="margin:5px;font-size:12px;">' + st + '</div>'
     				);
