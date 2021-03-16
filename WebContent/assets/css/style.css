@@ -201,6 +201,7 @@ h1, h2, h3, h4, h5, h6 {
 
 #header .logo a span {
   color: #106eea;
+  font-size: 20px;
 }
 
 #header .logo img {
@@ -607,6 +608,7 @@ section {
   font-size: 32px;
   font-weight: 700;
   display:inline;
+  color: black;
 }
 
 .section-title h3 span {

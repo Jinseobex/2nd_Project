@@ -1,3 +1,4 @@
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="org.json.JSONArray"%>
 <%@page import="org.covid19.statusBoardApi.StatusBoard"%>
 <%@page import="org.json.JSONObject"%>
@@ -14,10 +15,9 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="assets/img/g_logo.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
   <!-- status Board1 -->
-  <link rel="shortcut icon" type="image/x-icon" href="https://corona-19.kr/img/favicon.ico">
+  <link rel="shortcut icon" type="image/x-icon" href="assets/img/g_logo.png">
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
@@ -35,32 +35,17 @@
   
   <!-- status Board2 -->
   <!-- fontawesome -->
-  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <script src="https://kit.fontawesome.com/41caffd54e.js" crossorigin="anonymous"></script>
   
   <!-- XEICON -->
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
-
-  <!-- Custom CSS -->
-  <link href="assets/css/c3.min.css" rel="stylesheet">
-  <link href="assets/libs/chartist/dist/chartist.min.css" rel="stylesheet">
-  <link href="assets/extra-libs/jvector/jquery-jvectormap-2.0.2.css" rel="stylesheet" />
   
   <!-- Custom CSS -->
-  <link href="dist/css/style.min.css" rel="stylesheet">
+  <link href="assets/css/style.min.css" rel="stylesheet">
 
   <!-- SweetAlert -->
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  
-   <!-- 구글 애널리틱스 -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-158925427-1"></script>
-	<script>
-	  window.dataLayer = window.dataLayer || [];
-	  function gtag(){dataLayer.push(arguments);}
-	  gtag('js', new Date());
-
-	  gtag('config', 'UA-158925427-1');
-	</script>
-	
+ 
 	<script src="assets/libs/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
     <script src="assets/libs/popper.js/dist/umd/popper.min.js"></script>
@@ -78,34 +63,24 @@
     <script src="dist/js/sidebarmenu.js"></script>
     <!--Custom JavaScript -->
     <script src="dist/js/custom.min.js"></script>
-    <!-- This Page JS -->
-    <script src="assets/js/d3-5.8.2.min.js"></script>
-    <script src="assets/js/c3.min.js"></script>
-    <script src="../assets/libs/chartist/dist/chartist.min.js"></script>
-    <script src="../assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
-    <script src="../dist/js/pages/dashboards/dashboard1.min.js"></script>	
-    <!--Morris JavaScript -->
-    <script src="assets/libs/raphael/raphael.min.js"></script>
-    <script src="assets/libs/morris.js/morris.min.js"></script>
-	
+    
 	<!-- Chart JS -->
     <script src="dist/js/pages/chartjs/chartjs.init.js"></script>
     <script src="assets/libs/chart.js/dist/Chart.min.js"></script>
     
     <!-- c3 CDN -->
-    <!-- Load c3.css -->
+   	<!-- Load c3.css -->
 	<link href="assets/css/c3.css" rel="stylesheet">
-	<!-- Load d3.js and c3.js -->
-	<script src="assets/js/d3-5.8.2.min.js" charset="utf-8"></script>
 	<script src="assets/js/c3.js"></script>
-
-
+	<script src="https://d3js.org/d3.v5.min.js"></script>
+	<script src="assets/js/c3.min.js"></script>
+	<link href="assets/css/c3.css" rel="stylesheet">
 
 	<!-- 현황판 api -->
 	<%	
 	JSONObject jsonKorea = StatusBoard.status_korea();
-	JSONObject jsonCity = StatusBoard.status_city();
 	
+	JSONObject jsonCity = StatusBoard.status_city();
 	JSONObject stringKorea = new JSONObject(jsonCity.get("korea").toString());
 	JSONObject stringSeoul = new JSONObject(jsonCity.get("seoul").toString());
 	JSONObject stringBusan = new JSONObject(jsonCity.get("busan").toString());
@@ -126,10 +101,9 @@
 	JSONObject stringJeju = new JSONObject(jsonCity.get("jeju").toString());
 	JSONObject stringQuarantine = new JSONObject(jsonCity.get("quarantine").toString());
 	
-	// 국내 확진자 계산
+	// 확진율 계산
 	String a = jsonKorea.get("TotalCase").toString();
 	a = a.replace(",", "");
-	
 	String b = jsonKorea.get("TotalChecking").toString();
 	b = b.replace(",", "");
 	
@@ -139,201 +113,44 @@
 	double per = (i / j * 100);
 	String domesticConfirm = String.format("%.2f", per);
 	
+	// 국내 확진자 계산
+	String c = stringKorea.get("newCase").toString();
+	c = c.replace(",", "");
 	
-	//String[] korea = {"recovered", "newCase", "totalCase", "death", "percentage", "newCcase", "newFcase"};
-	//String city = (String) stringCity.get("recovered");
-	%>
+	String d = stringQuarantine.get("newCase").toString();
+	d = d.replace(",", "");
+	
+	int o = Integer.parseInt(c);
+	int p = Integer.parseInt(d);
 
-	<!-- 시도별 확진환자 현황 차트 -->
+	int domestic = (o - p);
 	
-	<script>
-	$(function() {
-		c3.generate({
-			bindto: "#mapAll-status",
-			data: {
-				columns: [
-					['서울', 31.4],
-					['기타', 27.44],
-					['경기', 26.89],
-					['대구', 9.33],
-					['인천', 4.92],
-				],
-				type: "donut",
-				tooltip: {
-					show: !0
-				}
-			},
-			donut: {
-				label: {
-					show: !1
-				},
-				title: "시도별 확진환자 현황 / 단위: %",
-				width: 18
-			},
-			legend: {
-				hide: !0
-			},
-			color: {
-				pattern: ["#5f76e8", "#ff4f70", "#01caf1", "#28a745", "#edf2f6"]
-			}
-		});
-		d3.select("#mapAll-status .c3-chart-arcs-title").style("font-family", "Rubik");
-		var e = {
-			axisX: {
-				showGrid: !1
-			},
-			seriesBarDistance: 1,
-			chartPadding: {
-				top: 15,
-				right: 15,
-				bottom: 5,
-				left: 0
-			},
-			plugins: [Chartist.plugins.tooltip()],
-			width: "100%"
-		};
-	});	
-	</script>
+	// 국내 치료중 계산
 	
-	<script>
-	$(function() {
-		c3.generate({
-			bindto: "#Day-status",
-			data: {
-				columns: [
-				  ['서울 (+102)',  102],
-				  ['부산 (+19)',  19],
-				  ['대구 (+3)',  3],
-				  ['인천 (+20)',  20],
-				  ['광주 (+33)',  33],
-				  ['대전 (+1)',  1],
-				  ['울산 (+11)',  11],
-				  ['세종 (+0)',  0],
-				  ['경기 (+188)',  188],
-				  ['강원 (+13)',  13],
-				  ['충북 (+21)',  21],
-				  ['충남 (+15)',  15],
-				  ['전북 (+8)',  8],
-				  ['전남 (+3)',  3],
-				  ['경북 (+2)',  2],
-				  ['경남 (+1)',  1],
-				  ['제주 (+2)',  2],
-				  ['검역 (+4)',  4],
-				],
-				type: "donut",
-				tooltip: {
-					show: !0
-				}
-			},
-			donut: {
-				label: {
-					show: !1
-				},
-				title: "전일대비 확진자수: 446명",
-				width: 18
-			},
-			legend: {
-				hide: !0
-			},
-			color: {
-				pattern: ["#5f76e8", "#ff4f70", "#01caf1", "#28a745", "#edf2f6", "#5f76e8", "#ff4f70", "#01caf1", "#28a745", "#edf2f6", "#5f76e8", "#ff4f70", "#01caf1", "#28a745", "#edf2f6", "#5f76e8", "#ff4f70", "#01caf1"]
-			}
-		});
-		d3.select("#mapAll-status .c3-chart-arcs-title").style("font-family", "Rubik");
-		var e = {
-			axisX: {
-				showGrid: !1
-			},
-			seriesBarDistance: 1,
-			chartPadding: {
-				top: 15,
-				right: 15,
-				bottom: 5,
-				left: 0
-			},
-			plugins: [Chartist.plugins.tooltip()],
-			width: "100%"
-		};
-	});	
-	</script>
+	String e = jsonKorea.getString("TotalCase").toString();
+	String f = jsonKorea.getString("TotalRecovered").toString();
+	String g = jsonKorea.getString("TotalDeath").toString();
+	e = e.replace(",", "");
+	f = f.replace(",", "");
+	g = g.replace(",", "");
+
+	int tc = Integer.parseInt(e);
+	int tr = Integer.parseInt(f);
+	int td = Integer.parseInt(g);
 	
-	<script>
-	$(function() {
-		c3.generate({
-			bindto: "#mapAll-nowstatus",
-			data: {
-				columns: [
-				  ['서울 (2916명)',  2916],
-				  ['부산 (210명)',  210],
-				  ['대구 (102명)',  102],
-				  ['인천 (244명)',  244],
-				  ['광주 (145명)',  145],
-				  ['대전 (20명)',  20],
-				  ['울산 (37명)',  37],
-				  ['세종 (23명)',  23],
-				  ['경기 (2498명)',  2498],
-				  ['강원 (94명)',  94],
-				  ['충북 (205명)',  205],
-				  ['충남 (153명)',  153],
-				  ['전북 (99명)',  99],
-				  ['전남 (79명)',  79],
-				  ['경북 (109명)',  109],
-				  ['경남 (49명)',  49],
-				  ['제주 (41명)',  41],
-				  ['검역 (694명)',  694],
-				],
-				type: "donut",
-				tooltip: {
-					show: !0
-				}
-			},
-			donut: {
-				label: {
-					show: !1
-				},
-				title: "치료중인 환자 수: 7,718명",
-				width: 18
-			},
-			legend: {
-				hide: !0
-			},
-			color: {
-				pattern: ["#5f76e8", "#ff4f70", "#01caf1", "#28a745", "#edf2f6", "#5f76e8", "#ff4f70", "#01caf1", "#28a745", "#edf2f6", "#5f76e8", "#ff4f70", "#01caf1", "#28a745", "#edf2f6", "#5f76e8", "#ff4f70", "#01caf1"]
-			}
-		});
-		d3.select("#mapAll-status .c3-chart-arcs-title").style("font-family", "Rubik");
-		var e = {
-			axisX: {
-				showGrid: !1
-			},
-			seriesBarDistance: 1,
-			chartPadding: {
-				top: 15,
-				right: 15,
-				bottom: 5,
-				left: 0
-			},
-			plugins: [Chartist.plugins.tooltip()],
-			width: "100%"
-		};
-	});	
-	</script>
-      
-      
-  
+	int domesticTreatment = (tc-tr) - td;
+	
+	DecimalFormat format = new DecimalFormat("###,###");
+	
+	%>
+	
 </head>
 
 <body>
 
-
   <!-- ======= Top Bar ======= -->
   <section id="topbar" class="d-flex align-items-center">
     <div class="container d-flex justify-content-center justify-content-md-between">
-     <!-- <div class="contact-info d-flex align-items-center">
-        <i class="bi bi-envelope d-flex align-items-center"><a href="main.jsp">코로나바이러스감염증-19</a></i>
-        <i class="bi bi-phone d-flex align-items-center ms-4"><span>(COVID-19)</span></i>
-      </div>
-      -->
       <div class="social-links d-none d-md-flex align-items-center">
         <a href="http://ncv.kdca.go.kr/" class="link1"><img src="assets/img/g_logo.png" width="20px" height="20px"> 코로나19 백신 및 예방접종</a>
         <a href="http://www.mohw.go.kr/" class="link2"><img src="assets/img/g_logo.png" width="20px" height="20px"> 중앙사고수습본부</a>
@@ -346,17 +163,14 @@
   <header id="header" class="d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
 
-      <h1 class="logo"><a href="#">코로나바이러스감염증-19<span> (COVID-19)</span></a></h1>
+      <h1 class="logo"><a href="#" class="logo"><img src="assets/img/g_logo.png" alt=""></a><a href="#"> 코로나바이러스감염증-19<span> (COVID-19)</span></a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
-      <!-- <a href="index.html" class="logo"><img src="assets/img/logo.png" alt=""></a>-->
 
       <nav id="navbar" class="navbar">
         <ul>
          <li><a class="nav-link scrollto active" href="#hero">안내</a></li>
           <li><a class="nav-link scrollto" href="#about">진료소 찾기</a></li>
           <li><a class="nav-link scrollto" href="#services">국내 현황판</a></li>
-          <li><a class="nav-link scrollto " href="#portfolio">Portfolio</a></li>
-          <li><a class="nav-link scrollto" href="#team">미디어</a></li>
           <!-- <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               <li><a href="#">Drop Down 1</a></li>
@@ -395,7 +209,6 @@
     </div>
   </section><!-- End Hero -->
 
-  <main id="main">
     <!-- ======= About Section ======= -->
     <section id="about" class="about section-bg">
       <div class="container" data-aos="fade-up">
@@ -406,8 +219,6 @@
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-lg-6">
-            <!-- <h4>Join Our Newsletter</h4>
-            <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>-->
             <form onsubmit="searchPlaces(); return false;" >
               <input type="search" name="keyword" id="keyword"><input type="submit" value="찾기">
             </form>
@@ -434,7 +245,7 @@
 									String after = upTime.substring(22);
 									%>
 									<h3>코로나바이러스감염증-19 국내 발생현황 </h3><h4><span><%=after%></span></h4>
-									<p>00시 데이터 기준으로 오전 <span>9시~10시</span> 사이에 자동으로 업데이트 됩니다.</p>
+									<p>오전 <span>9시~10시</span> 사이에 00시 데이터 기준으로 자동 업데이트 됩니다.</p>
                         </div>
                     </div>
                     <div class="col-5 align-self-center">
@@ -448,8 +259,8 @@
                     <div class="card border-right">
                         <div class="card-body">
                             <div class="d-flex d-lg-flex d-md-block align-items-center">
-                                <div>
-                                    <div class="d-inline-flex align-items-center">
+                                <div class="test" style="margin-right:130px;">
+                                <div class="d-inline-flex align-items-center">
                                         <h2 class="text-dark mb-1 font-weight-medium">
 										<span style="color: #f89009;">
 										<!-- 국내 확진자 -->
@@ -460,18 +271,26 @@
                                             class="badge bg-warning font-12 text-white font-weight-medium badge-pill ml-2 d-lg-block d-md-none">+
 											<%=stringKorea.get("newCase")%>명										</span>
                                     </div>
-                                    <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">국내 확진자</h6>
+                                    <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">국내 확진자</h6>   
+                                </div>	
+                                
+                                <div class="ml-auto mt-md-3 mt-lg-0">
+                                    <span class="opacity-7 text-muted"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></span>
                                 </div>
+                                
                                 <div class="ml-auto mt-md-3 mt-lg-0">
                                     <span class="opacity-7 text-muted"><i data-feather="users"></i></span>
                                 </div>
+                                
                             </div>
                         </div>
                     </div>
+                    
+                    
                     <div class="card border-right">
                         <div class="card-body">
                             <div class="d-flex d-lg-flex d-md-block align-items-center">
-                                <div>
+                                <div class="test" style="margin-right:130px;">
                                     <div class="d-inline-flex align-items-center">
                                         <h2 class="text-dark mb-1 font-weight-medium">
 										<span style="color: #009a87;">
@@ -485,6 +304,11 @@
                                     </div>
                                     <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">국내 완치자</h6>
                                 </div>
+                                
+                                <div class="ml-auto mt-md-3 mt-lg-0">
+                                    <span class="opacity-7 text-muted"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-pocket"><path d="M4 3h16a2 2 0 0 1 2 2v6a10 10 0 0 1-10 10A10 10 0 0 1 2 11V5a2 2 0 0 1 2-2z"></path><polyline points="8 10 12 14 16 10"></polyline></svg></span>
+                                </div>
+                                
                                 <div class="ml-auto mt-md-3 mt-lg-0">
                                     <span class="opacity-7 text-muted"><i data-feather="pocket"></i></span>
                                 </div>
@@ -494,7 +318,7 @@
                     <div class="card border-right">
                         <div class="card-body">
                             <div class="d-flex d-lg-flex d-md-block align-items-center">
-                                <div>
+                                <div class="test" style="margin-right:130px;">
                                     <div class="d-inline-flex align-items-center">
                                         <h2 class="text-dark mb-1 font-weight-medium">
 										<span style="color: #ee2323;">
@@ -507,6 +331,11 @@
 										</span>                                    </div>
                                     <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">국내 사망자</h6>
                                 </div>
+                                
+                                <div class="ml-auto mt-md-3 mt-lg-0">
+                                    <span class="opacity-7 text-muted"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clipboard"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg></span>
+                                </div>
+                                
                                 <div class="ml-auto mt-md-3 mt-lg-0">
                                     <span class="opacity-7 text-muted"><i data-feather="clipboard"></i></span>
                                 </div>
@@ -516,20 +345,25 @@
                     <div class="card border-right">
                         <div class="card-body">
                             <div class="d-flex d-lg-flex d-md-block align-items-center">
-                                <div>
+                                <div class="test" style="margin-right:130px;">
                                     <div class="d-inline-flex align-items-center">
                                         <h2 class="text-dark mb-1 font-weight-medium">
 										<span style="color: #006dd7;">
 										<!-- 국내 치료 중 -->
-										<%=jsonKorea.get("TotalRecovered")%>명
+										<%=format.format(domesticTreatment)%>명
 										</span>
 										</h2>
                                         <span
                                             class="badge bg-primary font-12 text-white font-weight-medium badge-pill ml-2 d-lg-block d-md-none">
-											+<%=jsonKorea.get("TodayRecovered")%>명										</span>
+											+<%=jsonKorea.get("TotalCaseBefore")%>명										</span>
                                     </div>
                                     <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">국내 치료중</h6>
                                 </div>
+                                
+                                <div class="ml-auto mt-md-3 mt-lg-0">
+                                    <span class="opacity-7 text-muted"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-activity"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg></span>
+                                </div>
+                                
                                 <div class="ml-auto mt-md-3 mt-lg-0">
                                     <span class="opacity-7 text-muted"><i data-feather="activity"></i></span>
                                 </div>
@@ -541,36 +375,64 @@
 		
                 <div class="row">
        
-                    <div class="col-lg-4 col-md-12">
+                    <div class="col-lg-8 col-md-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">전일대비 확진환자 증감 비율</h4>
+                                <h4 class="card-title" style="color:black" >
+                                전일대비 확진환자 증감 비율
+                                </h4>
                                 
                                 <div id="Day-status"></div>
-                                
-                                <ul class="list-inline text-center mt-5 mb-2">
+        
+								<script>
+								var chart = c3.generate({
+									bindto: "#Day-status",
+								    data: { 
+								       columns: [
+								 		  ['서울 (+<%=stringSeoul.get("newCase")%>)',  <%=stringSeoul.get("newCase")%>],
+										  ['부산 (+<%=stringBusan.get("newCase")%>)',  <%=stringBusan.get("newCase")%>],
+										  ['대구 (+<%=stringDaegu.get("newCase")%>)',  <%=stringDaegu.get("newCase")%>],
+										  ['인천 (+<%=stringIncheon.get("newCase")%>)', <%=stringIncheon.get("newCase")%>],
+										  ['광주 (+<%=stringGwangju.get("newCase")%>)',  <%=stringGwangju.get("newCase")%>],
+										  ['대전 (+<%=stringDaejeon.get("newCase")%>)',  <%=stringDaejeon.get("newCase")%>],
+										  ['울산 (+<%=stringUlsan.get("newCase")%>)',  <%=stringUlsan.get("newCase")%>],
+										  ['세종 (+<%=stringSejong.get("newCase")%>)',  <%=stringSejong.get("newCase")%>],
+										  ['경기 (+<%=stringGyeonggi.get("newCase")%>)',  <%=stringGyeonggi.get("newCase")%>],
+										  ['강원 (+<%=stringGangwon.get("newCase")%>)',  <%=stringGangwon.get("newCase")%>],
+										  ['충북 (+<%=stringChungbuk.get("newCase")%>)',  <%=stringChungbuk.get("newCase")%>],
+										  ['충남 (+<%=stringChungnam.get("newCase")%>)',  <%=stringChungnam.get("newCase")%>],
+										  ['전북 (+<%=stringJeonbuk.get("newCase")%>)',  <%=stringJeonbuk.get("newCase")%>],
+										  ['전남 (+<%=stringJeonnam.get("newCase")%>)',  <%=stringJeonnam.get("newCase")%>],
+										  ['경북 (+<%=stringGyeongbuk.get("newCase")%>)',  <%=stringGyeongbuk.get("newCase")%>],
+										  ['경남 (+<%=stringGyeongnam.get("newCase")%>)',  <%=stringGyeongnam.get("newCase")%>],
+										  ['제주 (+<%=stringJeju.get("newCase")%>)',  <%=stringJeju.get("newCase")%>],
+										  ['검역 (+<%=stringQuarantine.get("newCase")%>)',  <%=stringQuarantine.get("newCase")%>],
+								        ],
+								     
+								    type: 'donut'
+								    },
+								    donut: {
+										label: {
+											show: false
+										},
+										title: '전일대비 확진자수: <%=stringKorea.get("newCase")%>명',
+										width: 18
+									},
+									
+								});
+						
+								</script>
+	
+                                <ul class="list-inline text-center mt-2 mb-12">
                                     <li class="list-inline-item text-muted">당일 00시 데이터가 아직 없는 경우 전날의 데이터가 연계됩니다.</li>
 									<br><br>
-                                    <li class="list-inline-item text-muted">해외입국확진(검역)은 <b>4명</b>, 국내 확진자는 <b>442명</b> 입니다.</li>
+                                    <li class="list-inline-item text-muted">해외입국확진(검역)은 <b><%=stringQuarantine.get("newCase")%>명</b>, 국내 확진자는 <b><%=domestic%>명</b> 입니다.</li>
 									<br><br>
                                 </ul>
                             </div>
 						</div>
                     </div>
-					<div class="col-lg-4 col-md-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title">시도별 치료중 환자 현황</h4>
-                                <div id="mapAll-nowstatus"></div>
-                                <ul class="list-inline text-center mt-5 mb-2">
-                                    <li class="list-inline-item text-muted">당일 00시 데이터가 아직 없는 경우 전날의 데이터가 연계됩니다.</li>
-									<br><br>
-                                    <li class="list-inline-item text-muted">차트에 마우스를 올리거나 클릭하면 정확한 수치를 확인할 수 있습니다.</li>
-									<br><br>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+			
 					<div class="col-lg-4 col-md-12">
                         <div class="card">
                             <div class="card-body">
@@ -578,7 +440,7 @@
 								<div class="card border-right">
 									<div class="card-body">
 										<div class="d-flex d-lg-flex d-md-block align-items-center">
-											<div>
+											<div class="test" style="margin-right:300px;">
 												<div class="d-inline-flex align-items-center">
 													<h2 class="text-dark mb-1 font-weight-medium">
 													<span style="color: #f89009;">
@@ -589,6 +451,11 @@
 												</div>
 												<h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">국내 확진율</h6>
 											</div>
+											
+											<div class="ml-auto mt-md-3 mt-lg-0" id="icon1">
+												<span class="opacity-7 text-muted"><svg xmlns="http://www.w3.org/2000/svg" x="100" y="100" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></span>
+											</div>
+											
 											<div class="ml-auto mt-md-3 mt-lg-0">
 												<span class="opacity-7 text-muted"><i data-feather="users"></i></span>
 											</div>
@@ -598,7 +465,7 @@
 								<div class="card border-right">
 									<div class="card-body">
 										<div class="d-flex d-lg-flex d-md-block align-items-center">
-											<div>
+											<div class="test" style="margin-right:280px;">
 													<h2 class="text-dark mb-1 font-weight-medium">
 													<span style="color: #009a87;">
 													<!-- 국내 완치율 -->
@@ -607,6 +474,11 @@
 													</h2>
 												<h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">국내 완치율</h6>
 											</div>
+											
+											<div class="ml-auto mt-md-3 mt-lg-0">
+												<span class="opacity-7 text-muted"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-pocket"><path d="M4 3h16a2 2 0 0 1 2 2v6a10 10 0 0 1-10 10A10 10 0 0 1 2 11V5a2 2 0 0 1 2-2z"></path><polyline points="8 10 12 14 16 10"></polyline></svg></span>
+											</div>
+											
 											<div class="ml-auto mt-md-3 mt-lg-0">
 												<span class="opacity-7 text-muted"><i data-feather="pocket"></i></span>
 											</div>
@@ -616,7 +488,7 @@
 								<div class="card border-right">
 									<div class="card-body">
 										<div class="d-flex d-lg-flex d-md-block align-items-center">
-											<div>
+											<div class="test" style="margin-right:300px;">
 												<div class="d-inline-flex align-items-center">
 													<h2 class="text-dark mb-1 font-weight-medium">
 													<span style="color: #ee2323;">
@@ -629,6 +501,11 @@
 												</div>
 												<h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">국내 사망률</h6>
 											</div>
+											
+											<div class="ml-auto mt-md-3 mt-lg-0">
+												<span class="opacity-7 text-muted"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clipboard"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg></span>
+											</div>
+											
 											<div class="ml-auto mt-md-3 mt-lg-0">
 												<span class="opacity-7 text-muted"><i data-feather="clipboard"></i></span>
 											</div>
@@ -648,57 +525,84 @@
 					<div class="col-md-6 col-lg-12">
                         <div class="card">
                             <div class="card-body">
-							<h4 class="card-title style="text-align: center;" data-ke-size="size20"><b><i class="xi-eye"></i> 대한민국 시도별 발생동향 한눈에 보기</b></h4>
+							<h4 class="card-title"><b><strong>대한민국 시도별 발생동향 한눈에 보기</strong></b></h4>
 							<hr>
 							<div class="row">
 								<div class="col-sm-4">
 								<br><br>
-																		대한민국 시도별 발생동향을 확인하실 수 있습니다.<br><br>
+									<div class="gray" style="color:gray;">
+									대한민국 시도별 발생동향을 확인하실 수 있습니다.<br><br>
 									발생률: 인구 10만명당 (지역별 인구 출처 : 행정안전부, 주민등록인구현황 (’20.1월 기준))<br><br>
-									※ 지역구분은 신고지를 기준으로 하며, 초기 신고 이후 소관지역이 변경된 경우 변동 가능<br>
+									※ 지역구분은 신고지를 기준으로 하며, 초기 신고 이후 소관지역이 변경된 경우 변동 가능<br><br>
 									※ 발생률은 반올림되어 표기되었습니다.
+									</div>
 								</div>
+
 								<div class="col-sm-4">
+								<br><br>
 									<!-- 시도별 발생동향 그래프 -->
-									<br>
-									<div id="mapAll-status"></div>
-								</div>
+									<div id="City-status"></div>
+									<script>
+									var chart = c3.generate({
+										bindto: "#City-status",
+									    data: { 
+									       columns: [
+									 			['<%=jsonKorea.get("city1n")%>',  <%=jsonKorea.get("city1p")%>],
+									 			['<%=jsonKorea.get("city2n")%>',  <%=jsonKorea.get("city2p")%>],
+									 			['<%=jsonKorea.get("city3n")%>',  <%=jsonKorea.get("city3p")%>],
+									 			['<%=jsonKorea.get("city4n")%>',  <%=jsonKorea.get("city4p")%>],
+									 			['<%=jsonKorea.get("city5n")%>',  <%=jsonKorea.get("city5p")%>],
+									        ],
+										    type: 'donut'
+										    },
+										    donut: {
+												label: {
+													show: false
+												},
+												title: '시도별 확진환자 현황 / 단위:%',
+												width: 18
+											},
+										
+									});
+									</script>
+									</div>
+						
 								<div class="col-sm-4">
-									<br>
+								<br><br>
 									<ul class="list-style-none mb-0">
 										<li>
-											<i class="fas fa-circle text-primary font-10 mr-2"></i>
-											<span class="text-muted">서울</span>
+											<i class="fas fa-circle text-primary font-10 mr-2" style="color: tomato;"></i>
+											<span class="text-muted"><%=jsonKorea.get("city1n")%></span>
 											<span class="text-dark float-right font-weight-medium">
-											31.4%
+											<%=jsonKorea.get("city1p")%>%
 											</span>
 										</li>
 										<li class="mt-3">
 											<i class="fas fa-circle text-danger font-10 mr-2"></i>
-											<span class="text-muted">기타</span>
+											<span class="text-muted"><%=jsonKorea.get("city2n")%></span>
 											<span class="text-dark float-right font-weight-medium">
-											27.44%
+											<%=jsonKorea.get("city2p")%>%
 											</span>
 										</li>
 										<li class="mt-3">
 											<i class="fas fa-circle text-cyan font-10 mr-2"></i>
-											<span class="text-muted">경기</span>
+											<span class="text-muted"><%=jsonKorea.get("city3n")%></span>
 											<span class="text-dark float-right font-weight-medium">
-											26.89%
+											<%=jsonKorea.get("city3p")%>%
 											</span>
 										</li>
 										<li class="mt-3">
 											<i class="fas fa-circle text-success font-10 mr-2"></i>
-											<span class="text-muted">대구</span>
+											<span class="text-muted"><%=jsonKorea.get("city4n")%></span>
 											<span class="text-dark float-right font-weight-medium">
-											9.33%
+											<%=jsonKorea.get("city4p")%>%
 											</span>
 										</li>
 										<li class="mt-3">
 											<i class="fas fa-circle text-light font-10 mr-2"></i>
-											<span class="text-muted">인천</span>
+											<span class="text-muted"><%=jsonKorea.get("city5n")%></span>
 											<span class="text-dark float-right font-weight-medium">
-											4.92%
+											<%=jsonKorea.get("city5p")%>%
 											</span>
 										</li>
 									</ul>
@@ -715,12 +619,11 @@
 								<div class="card">
 									<div class="card-body collapse show">
 										<h4 class="card-title"><a href="http://ncov.mohw.go.kr/"target="_blank"><span style="color: #000000;"><u>대한민국</u></span><u>(정보보기)</u></a></h4> 
-										확진자: <span style="color: #f89009;">93,263명</span> <span style="color: #ffbb33;">[+446명]</span>
+										확진자: <span style="color: #f89009;"><%=stringKorea.get("totalCase")%>명</span> <span style="color: #ffbb33;">[+<%=stringKorea.get("newCase")%>명]</span>
 										<br>
-										완치자: <span style="color: #009a87;">83,900명</span><br>
-										사망자: <span style="color: #ee2323;">1,645명</span><br>
-										치료중: <span style="color: #5f76e8;">7718명</span><br>
-										발생률: <span style="color: #006dd7;">179.88 %</span>
+										완치자: <span style="color: #009a87;"><%=stringKorea.get("recovered")%>명</span><br>
+										사망자: <span style="color: #ee2323;"><%=stringKorea.get("death")%>명</span><br>
+										발생률: <span style="color: #006dd7;"><%=stringKorea.get("percentage")%>%</span>
 									</div>
 								</div>
 							</div>
@@ -728,12 +631,11 @@
 								<div class="card">
 									<div class="card-body collapse show">
 										<h4 class="card-title"><a href="http://www.seoul.go.kr/coronaV/coronaStatus.do"target="_blank"><span style="color: #000000;"><u>서울</u></span><u>(정보보기)</u></a></h4> 
-										확진자: <span style="color: #f89009;">29,281명</span> <span style="color: #ffbb33;">[+102명]</span>
+										확진자: <span style="color: #f89009;"><%=stringSeoul.get("totalCase")%>명</span> <span style="color: #ffbb33;">[+<%=stringSeoul.get("newCase")%>명]</span>
 										<br>
-										완치자: <span style="color: #009a87;">25,969명</span><br>
-										사망자: <span style="color: #ee2323;">396명</span><br>
-										치료중: <span style="color: #5f76e8;">2916명</span><br>
-										발생률: <span style="color: #006dd7;">300.83 %</span>
+										완치자: <span style="color: #009a87;"><%=stringSeoul.get("recovered")%>명</span><br>
+										사망자: <span style="color: #ee2323;"><%=stringSeoul.get("death")%>명</span><br>
+										발생률: <span style="color: #006dd7;"><%=stringSeoul.get("percentage")%>%</span>
 									</div>
 								</div>
 							</div>
@@ -741,12 +643,11 @@
 								<div class="card">
 									<div class="card-body collapse show">
 										<h4 class="card-title"><a href="http://www.busan.go.kr/corona19/index"target="_blank"><span style="color: #000000;"><u>부산</u></span><u>(정보보기)</u></a></h4> 
-										확진자: <span style="color: #f89009;">3,351명</span> <span style="color: #ffbb33;">[+19명]</span>
+										확진자: <span style="color: #f89009;"><%=stringBusan.get("totalCase")%>명</span> <span style="color: #ffbb33;">[+<%=stringBusan.get("newCase")%>명]</span>
 										<br>
-										완치자: <span style="color: #009a87;">3,031명</span><br>
-										사망자: <span style="color: #ee2323;">110명</span><br>
-										치료중: <span style="color: #5f76e8;">210명</span><br>
-										발생률: <span style="color: #006dd7;">98.22 %</span>
+										완치자: <span style="color: #009a87;"><%=stringBusan.get("recovered")%>명</span><br>
+										사망자: <span style="color: #ee2323;"><%=stringBusan.get("death")%>명</span><br>
+										발생률: <span style="color: #006dd7;"><%=stringBusan.get("percentage")%>%</span>
 									</div>
 								</div>
 							</div>
@@ -754,12 +655,11 @@
 								<div class="card">
 									<div class="card-body collapse show">
 										<h4 class="card-title"><a href="http://www.daegu.go.kr/"target="_blank"><span style="color: #000000;"><u>대구</u></span><u>(정보보기)</u></a></h4> 
-										확진자: <span style="color: #f89009;">8,697명</span> <span style="color: #ffbb33;">[+3명]</span>
+										확진자: <span style="color: #f89009;"><%=stringDaegu.get("totalCase")%>명</span> <span style="color: #ffbb33;">[+<%=stringDaegu.get("newCase")%>명]</span>
 										<br>
-										완치자: <span style="color: #009a87;">8,381명</span><br>
-										사망자: <span style="color: #ee2323;">214명</span><br>
-										치료중: <span style="color: #5f76e8;">102명</span><br>
-										발생률: <span style="color: #006dd7;">356.95 %</span>
+										완치자: <span style="color: #009a87;"><%=stringDaegu.get("recovered")%>명</span><br>
+										사망자: <span style="color: #ee2323;"><%=stringDaegu.get("death")%>명</span><br>
+										발생률: <span style="color: #006dd7;"><%=stringDaegu.get("percentage")%>%</span>
 									</div>
 								</div>
 							</div>
@@ -767,12 +667,11 @@
 								<div class="card">
 									<div class="card-body collapse show">
 										<h4 class="card-title"><a href="https://www.incheon.go.kr/"target="_blank"><span style="color: #000000;"><u>인천</u></span><u>(정보보기)</u></a></h4> 
-										확진자: <span style="color: #f89009;">4,590명</span> <span style="color: #ffbb33;">[+20명]</span>
+										확진자: <span style="color: #f89009;"><%=stringIncheon.get("totalCase")%>명</span> <span style="color: #ffbb33;">[+<%=stringIncheon.get("newCase")%>명]</span>
 										<br>
-										완치자: <span style="color: #009a87;">4,292명</span><br>
-										사망자: <span style="color: #ee2323;">54명</span><br>
-										치료중: <span style="color: #5f76e8;">244명</span><br>
-										발생률: <span style="color: #006dd7;">155.27 %</span>
+										완치자: <span style="color: #009a87;"><%=stringIncheon.get("recovered")%>명</span><br>
+										사망자: <span style="color: #ee2323;"><%=stringIncheon.get("death")%>명</span><br>
+										발생률: <span style="color: #006dd7;"><%=stringIncheon.get("percentage")%>%</span>
 									</div>
 								</div>
 							</div>
@@ -780,12 +679,11 @@
 								<div class="card">
 									<div class="card-body collapse show">
 										<h4 class="card-title"><a href="https://www.gwangju.go.kr/"target="_blank"><span style="color: #000000;"><u>광주</u></span><u>(정보보기)</u></a></h4> 
-										확진자: <span style="color: #f89009;">2,166명</span> <span style="color: #ffbb33;">[+33명]</span>
+										확진자: <span style="color: #f89009;"><%=stringGwangju.get("totalCase")%>명</span> <span style="color: #ffbb33;">[+<%=stringGwangju.get("newCase")%>명]</span>
 										<br>
-										완치자: <span style="color: #009a87;">2,000명</span><br>
-										사망자: <span style="color: #ee2323;">21명</span><br>
-										치료중: <span style="color: #5f76e8;">145명</span><br>
-										발생률: <span style="color: #006dd7;">148.69 %</span>
+										완치자: <span style="color: #009a87;"><%=stringGwangju.get("recovered")%>명</span><br>
+										사망자: <span style="color: #ee2323;"><%=stringGwangju.get("death")%>명</span><br>
+										발생률: <span style="color: #006dd7;"><%=stringGwangju.get("percentage")%>%</span>
 									</div>
 								</div>
 							</div>
@@ -793,12 +691,11 @@
 								<div class="card">
 									<div class="card-body collapse show">
 										<h4 class="card-title"><a href="https://www.daejeon.go.kr/corona19/index.do"target="_blank"><span style="color: #000000;"><u>대전</u></span><u>(정보보기)</u></a></h4> 
-										확진자: <span style="color: #f89009;">1,198명</span> <span style="color: #ffbb33;">[+1명]</span>
+										확진자: <span style="color: #f89009;"><%=stringDaejeon.get("totalCase")%>명</span> <span style="color: #ffbb33;">[+<%=stringDaejeon.get("newCase")%>명]</span>
 										<br>
-										완치자: <span style="color: #009a87;">1,163명</span><br>
-										사망자: <span style="color: #ee2323;">15명</span><br>
-										치료중: <span style="color: #5f76e8;">20명</span><br>
-										발생률: <span style="color: #006dd7;">81.27 %</span>
+										완치자: <span style="color: #009a87;"><%=stringDaejeon.get("recovered")%>명</span><br>
+										사망자: <span style="color: #ee2323;"><%=stringDaejeon.get("death")%>명</span><br>
+										발생률: <span style="color: #006dd7;"><%=stringDaejeon.get("percentage")%>%</span>
 									</div>
 								</div>
 							</div>
@@ -806,12 +703,11 @@
 								<div class="card">
 									<div class="card-body collapse show">
 										<h4 class="card-title"><a href="http://www.ulsan.go.kr/corona.jsp"target="_blank"><span style="color: #000000;"><u>울산</u></span><u>(정보보기)</u></a></h4> 
-										확진자: <span style="color: #f89009;">1,039명</span> <span style="color: #ffbb33;">[+11명]</span>
+										확진자: <span style="color: #f89009;"><%=stringUlsan.get("totalCase")%>명</span> <span style="color: #ffbb33;">[+<%=stringUlsan.get("newCase")%>명]</span>
 										<br>
-										완치자: <span style="color: #009a87;">965명</span><br>
-										사망자: <span style="color: #ee2323;">37명</span><br>
-										치료중: <span style="color: #5f76e8;">37명</span><br>
-										발생률: <span style="color: #006dd7;">90.58 %</span>
+										완치자: <span style="color: #009a87;"><%=stringUlsan.get("recovered")%>명</span><br>
+										사망자: <span style="color: #ee2323;"><%=stringUlsan.get("death")%>명</span><br>
+										발생률: <span style="color: #006dd7;"><%=stringUlsan.get("percentage")%>%</span>
 									</div>
 								</div>
 							</div>
@@ -819,12 +715,11 @@
 								<div class="card">
 									<div class="card-body collapse show">
 										<h4 class="card-title"><a href="https://www.sejong.go.kr/life/sub05_0704.do"target="_blank"><span style="color: #000000;"><u>세종</u></span><u>(정보보기)</u></a></h4> 
-										확진자: <span style="color: #f89009;">242명</span> <span style="color: #ffbb33;"></span>
+										확진자: <span style="color: #f89009;"><%=stringSejong.get("totalCase")%>명</span> <span style="color: #ffbb33;">[+<%=stringSejong.get("newCase")%>명]</span>
 										<br>
-										완치자: <span style="color: #009a87;">218명</span><br>
-										사망자: <span style="color: #ee2323;">1명</span><br>
-										치료중: <span style="color: #5f76e8;">23명</span><br>
-										발생률: <span style="color: #006dd7;">70.69 %</span>
+										완치자: <span style="color: #009a87;"><%=stringSejong.get("recovered")%>명</span><br>
+										사망자: <span style="color: #ee2323;"><%=stringSejong.get("death")%>명</span><br>
+										발생률: <span style="color: #006dd7;"><%=stringSejong.get("percentage")%>%</span>
 									</div>
 								</div>
 							</div>
@@ -832,12 +727,11 @@
 								<div class="card">
 									<div class="card-body collapse show">
 										<h4 class="card-title"><a href="https://www.gg.go.kr/bbs/boardView.do?bsIdx=464&bIdx=2296956&menuId=1535"target="_blank"><span style="color: #000000;"><u>경기</u></span><u>(정보보기)</u></a></h4> 
-										확진자: <span style="color: #f89009;">25,076명</span> <span style="color: #ffbb33;">[+188명]</span>
+										확진자: <span style="color: #f89009;"><%=stringGyeonggi.get("totalCase")%>명</span> <span style="color: #ffbb33;">[+<%=stringGyeonggi.get("newCase")%>명]</span>
 										<br>
-										완치자: <span style="color: #009a87;">22,070명</span><br>
-										사망자: <span style="color: #ee2323;">508명</span><br>
-										치료중: <span style="color: #5f76e8;">2498명</span><br>
-										발생률: <span style="color: #006dd7;">189.25 %</span>
+										완치자: <span style="color: #009a87;"><%=stringGyeonggi.get("recovered")%>명</span><br>
+										사망자: <span style="color: #ee2323;"><%=stringGyeonggi.get("death")%>명</span><br>
+										발생률: <span style="color: #006dd7;"><%=stringGyeonggi.get("percentage")%>%</span>
 									</div>
 								</div>
 							</div>
@@ -845,12 +739,11 @@
 								<div class="card">
 									<div class="card-body collapse show">
 										<h4 class="card-title"><a href="http://www.provin.gangwon.kr/"target="_blank"><span style="color: #000000;"><u>강원</u></span><u>(정보보기)</u></a></h4> 
-										확진자: <span style="color: #f89009;">1,927명</span> <span style="color: #ffbb33;">[+13명]</span>
+										확진자: <span style="color: #f89009;"><%=stringGangwon.get("totalCase")%>명</span> <span style="color: #ffbb33;">[+<%=stringGangwon.get("newCase")%>명]</span>
 										<br>
-										완치자: <span style="color: #009a87;">1,791명</span><br>
-										사망자: <span style="color: #ee2323;">42명</span><br>
-										치료중: <span style="color: #5f76e8;">94명</span><br>
-										발생률: <span style="color: #006dd7;">125.09 %</span>
+										완치자: <span style="color: #009a87;"><%=stringGangwon.get("recovered")%>명</span><br>
+										사망자: <span style="color: #ee2323;"><%=stringGangwon.get("death")%>명</span><br>
+										발생률: <span style="color: #006dd7;"><%=stringGangwon.get("percentage")%>%</span>
 									</div>
 								</div>
 							</div>
@@ -858,12 +751,11 @@
 								<div class="card">
 									<div class="card-body collapse show">
 										<h4 class="card-title"><a href="http://www.chungbuk.go.kr/"target="_blank"><span style="color: #000000;"><u>충북</u></span><u>(정보보기)</u></a></h4> 
-										확진자: <span style="color: #f89009;">1,892명</span> <span style="color: #ffbb33;">[+21명]</span>
+										확진자: <span style="color: #f89009;"><%=stringChungbuk.get("totalCase")%>명</span> <span style="color: #ffbb33;">[+<%=stringChungbuk.get("newCase")%>명]</span>
 										<br>
-										완치자: <span style="color: #009a87;">1,629명</span><br>
-										사망자: <span style="color: #ee2323;">58명</span><br>
-										치료중: <span style="color: #5f76e8;">205명</span><br>
-										발생률: <span style="color: #006dd7;">118.30 %</span>
+										완치자: <span style="color: #009a87;"><%=stringChungbuk.get("recovered")%>명</span><br>
+										사망자: <span style="color: #ee2323;"><%=stringChungbuk.get("death")%>명</span><br>
+										발생률: <span style="color: #006dd7;"><%=stringChungbuk.get("percentage")%>%</span>	
 									</div>
 								</div>
 							</div>
@@ -871,12 +763,11 @@
 								<div class="card">
 									<div class="card-body collapse show">
 										<h4 class="card-title"><a href="http://www.chungnam.go.kr/coronaStatus.do"target="_blank"><span style="color: #000000;"><u>충남</u></span><u>(정보보기)</u></a></h4> 
-										확진자: <span style="color: #f89009;">2,511명</span> <span style="color: #ffbb33;">[+15명]</span>
+										확진자: <span style="color: #f89009;"><%=stringChungnam.get("totalCase")%>명</span> <span style="color: #ffbb33;">[+<%=stringChungnam.get("newCase")%>명]</span>
 										<br>
-										완치자: <span style="color: #009a87;">2,323명</span><br>
-										사망자: <span style="color: #ee2323;">35명</span><br>
-										치료중: <span style="color: #5f76e8;">153명</span><br>
-										발생률: <span style="color: #006dd7;">118.31 %</span>
+										완치자: <span style="color: #009a87;"><%=stringChungnam.get("recovered")%>명</span><br>
+										사망자: <span style="color: #ee2323;"><%=stringChungnam.get("death")%>명</span><br>
+										발생률: <span style="color: #006dd7;"><%=stringChungnam.get("percentage")%>%</span>
 									</div>
 								</div>
 							</div>
@@ -884,12 +775,11 @@
 								<div class="card">
 									<div class="card-body collapse show">
 										<h4 class="card-title"><a href="http://www.jeonbuk.go.kr/"target="_blank"><span style="color: #000000;"><u>전북</u></span><u>(정보보기)</u></a></h4> 
-										확진자: <span style="color: #f89009;">1,245명</span> <span style="color: #ffbb33;">[+8명]</span>
+										확진자: <span style="color: #f89009;"><%=stringJeonbuk.get("totalCase")%>명</span> <span style="color: #ffbb33;">[+<%=stringJeonbuk.get("newCase")%>명]</span>
 										<br>
-										완치자: <span style="color: #009a87;">1,090명</span><br>
-										사망자: <span style="color: #ee2323;">56명</span><br>
-										치료중: <span style="color: #5f76e8;">99명</span><br>
-										발생률: <span style="color: #006dd7;">68.51 %</span>
+										완치자: <span style="color: #009a87;"><%=stringJeonbuk.get("recovered")%>명</span><br>
+										사망자: <span style="color: #ee2323;"><%=stringJeonbuk.get("death")%>명</span><br>
+										발생률: <span style="color: #006dd7;"><%=stringJeonbuk.get("percentage")%>%</span>
 									</div>
 								</div>
 							</div>
@@ -897,12 +787,11 @@
 								<div class="card">
 									<div class="card-body collapse show">
 										<h4 class="card-title"><a href="https://www.jeonnam.go.kr/coronaMainPage.do"target="_blank"><span style="color: #000000;"><u>전남</u></span><u>(정보보기)</u></a></h4> 
-										확진자: <span style="color: #f89009;">890명</span> <span style="color: #ffbb33;">[+3명]</span>
+										확진자: <span style="color: #f89009;"><%=stringJeonnam.get("totalCase")%>명</span> <span style="color: #ffbb33;">[+<%=stringJeonnam.get("newCase")%>명]</span>
 										<br>
-										완치자: <span style="color: #009a87;">803명</span><br>
-										사망자: <span style="color: #ee2323;">8명</span><br>
-										치료중: <span style="color: #5f76e8;">79명</span><br>
-										발생률: <span style="color: #006dd7;">47.73 %</span>
+										완치자: <span style="color: #009a87;"><%=stringJeonnam.get("recovered")%>명</span><br>
+										사망자: <span style="color: #ee2323;"><%=stringJeonnam.get("death")%>명</span><br>
+										발생률: <span style="color: #006dd7;"><%=stringJeonnam.get("percentage")%>%</span>
 									</div>
 								</div>
 							</div>
@@ -910,12 +799,11 @@
 								<div class="card">
 									<div class="card-body collapse show">
 										<h4 class="card-title"><a href="http://www.gb.go.kr/Main/index.html"target="_blank"><span style="color: #000000;"><u>경북</u></span><u>(정보보기)</u></a></h4> 
-										확진자: <span style="color: #f89009;">3,323명</span> <span style="color: #ffbb33;">[+2명]</span>
+										확진자: <span style="color: #f89009;"><%=stringGyeongbuk.get("totalCase")%>명</span> <span style="color: #ffbb33;">[+<%=stringGyeongbuk.get("newCase")%>명]</span>
 										<br>
-										완치자: <span style="color: #009a87;">3,143명</span><br>
-										사망자: <span style="color: #ee2323;">71명</span><br>
-										치료중: <span style="color: #5f76e8;">109명</span><br>
-										발생률: <span style="color: #006dd7;">124.81 %</span>
+										완치자: <span style="color: #009a87;"><%=stringGyeongbuk.get("recovered")%>명</span><br>
+										사망자: <span style="color: #ee2323;"><%=stringGyeongbuk.get("death")%>명</span><br>
+										발생률: <span style="color: #006dd7;"><%=stringGyeongbuk.get("percentage")%>%</span>
 									</div>
 								</div>
 							</div>
@@ -923,12 +811,11 @@
 								<div class="card">
 									<div class="card-body collapse show">
 										<h4 class="card-title"><a href="http://www.gyeongnam.go.kr/corona.html"target="_blank"><span style="color: #000000;"><u>경남</u></span><u>(정보보기)</u></a></h4> 
-										확진자: <span style="color: #f89009;">2,221명</span> <span style="color: #ffbb33;">[+1명]</span>
+										확진자: <span style="color: #f89009;"><%=stringKorea.get("totalCase")%>명</span> <span style="color: #ffbb33;">[+<%=stringGyeongnam.get("newCase")%>명]</span>
 										<br>
-										완치자: <span style="color: #009a87;">2,158명</span><br>
-										사망자: <span style="color: #ee2323;">14명</span><br>
-										치료중: <span style="color: #5f76e8;">49명</span><br>
-										발생률: <span style="color: #006dd7;">66.07 %</span>
+										완치자: <span style="color: #009a87;"><%=stringGyeongnam.get("recovered")%>명</span><br>
+										사망자: <span style="color: #ee2323;"><%=stringGyeongnam.get("death")%>명</span><br>
+										발생률: <span style="color: #006dd7;"><%=stringGyeongnam.get("percentage")%>%</span>
 									</div>
 								</div>
 							</div>
@@ -936,12 +823,11 @@
 								<div class="card">
 									<div class="card-body collapse show">
 										<h4 class="card-title"><a href="https://jeju.go.kr/covid19.jsp"target="_blank"><span style="color: #000000;"><u>제주</u></span><u>(정보보기)</u></a></h4> 
-										확진자: <span style="color: #f89009;">598명</span> <span style="color: #ffbb33;">[+2명]</span>
+										확진자: <span style="color: #f89009;"><%=stringJeju.get("totalCase")%>명</span> <span style="color: #ffbb33;">[+<%=stringJeju.get("newCase")%>명]</span>
 										<br>
-										완치자: <span style="color: #009a87;">556명</span><br>
-										사망자: <span style="color: #ee2323;">1명</span><br>
-										치료중: <span style="color: #5f76e8;">41명</span><br>
-										발생률: <span style="color: #006dd7;">89.15 %</span>
+										완치자: <span style="color: #009a87;"><%=stringJeju.get("recovered")%>명</span><br>
+										사망자: <span style="color: #ee2323;"><%=stringJeju.get("death")%>명</span><br>
+										발생률: <span style="color: #006dd7;"><%=stringJeju.get("percentage")%>%</span>
 									</div>
 								</div>
 							</div>
@@ -949,620 +835,20 @@
 								<div class="card">
 									<div class="card-body collapse show">
 										<h4 class="card-title"><a href="http://ncov.mohw.go.kr/"target="_blank"><span style="color: #000000;"><u>검역</u></span><u>(정보보기)</u></a></h4> 
-										확진자: <span style="color: #f89009;">3,016명</span> <span style="color: #ffbb33;">[+4명]</span>
+										확진자: <span style="color: #f89009;"><%=stringQuarantine.get("totalCase")%>명</span> <span style="color: #ffbb33;">[+<%=stringQuarantine.get("newCase")%>명]</span>
 										<br>
-										완치자: <span style="color: #009a87;">2,318명</span><br>
-										사망자: <span style="color: #ee2323;">4명</span><br>
-										치료중: <span style="color: #5f76e8;">694명</span><br>
-										발생률: <span style="color: #006dd7;">- %</span>
+										완치자: <span style="color: #009a87;"><%=stringQuarantine.get("recovered")%>명</span><br>
+										사망자: <span style="color: #ee2323;"><%=stringQuarantine.get("death")%>명</span><br>
+										발생률: <span style="color: #006dd7;"><%=stringQuarantine.get("percentage")%>%</span>
 									</div>
 								</div>
 							</div>				</div>
 			</div>
     </section><!-- End Services Section -->
-
-    <!-- ======= Testimonials Section ======= -->
-    <section id="testimonials" class="testimonials">
-      <div class="container" data-aos="zoom-in">
-
-        <div class="testimonials-slider swiper-container" data-aos="fade-up" data-aos-delay="100">
-          <div class="swiper-wrapper">
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <img src="assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
-                <h3>Saul Goodman</h3>
-                <h4>Ceo &amp; Founder</h4>
-                <p>
-                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.
-                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                </p>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <img src="assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
-                <h3>Sara Wilsson</h3>
-                <h4>Designer</h4>
-                <p>
-                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.
-                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                </p>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <img src="assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
-                <h3>Jena Karlis</h3>
-                <h4>Store Owner</h4>
-                <p>
-                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.
-                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                </p>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <img src="assets/img/testimonials/testimonials-4.jpg" class="testimonial-img" alt="">
-                <h3>Matt Brandon</h3>
-                <h4>Freelancer</h4>
-                <p>
-                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.
-                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                </p>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <img src="assets/img/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
-                <h3>John Larson</h3>
-                <h4>Entrepreneur</h4>
-                <p>
-                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.
-                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                </p>
-              </div>
-            </div><!-- End testimonial item -->
-
-          </div>
-          <div class="swiper-pagination"></div>
-        </div>
-
-      </div>
-    </section><!-- End Testimonials Section -->
-
-    <!-- ======= Portfolio Section ======= -->
-    <section id="portfolio" class="portfolio">
-      <div class="container" data-aos="fade-up">
-
-        <div class="section-title">
-          <h2>Portfolio</h2>
-          <h3>Check our <span>Portfolio</span></h3>
-          <p>Ut possimus qui ut temporibus culpa velit eveniet modi omnis est adipisci expedita at voluptas atque vitae autem.</p>
-        </div>
-
-        <div class="row" data-aos="fade-up" data-aos-delay="100">
-          <div class="col-lg-12 d-flex justify-content-center">
-            <ul id="portfolio-flters">
-              <li data-filter="*" class="filter-active">All</li>
-              <li data-filter=".filter-app">App</li>
-              <li data-filter=".filter-card">Card</li>
-              <li data-filter=".filter-web">Web</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <img src="assets/img/portfolio/portfolio-1.jpg" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>App 1</h4>
-              <p>App</p>
-              <a href="assets/img/portfolio/portfolio-1.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="App 1"><i class="bx bx-plus"></i></a>
-              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <img src="assets/img/portfolio/portfolio-2.jpg" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Web 3</h4>
-              <p>Web</p>
-              <a href="assets/img/portfolio/portfolio-2.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Web 3"><i class="bx bx-plus"></i></a>
-              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <img src="assets/img/portfolio/portfolio-3.jpg" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>App 2</h4>
-              <p>App</p>
-              <a href="assets/img/portfolio/portfolio-3.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="App 2"><i class="bx bx-plus"></i></a>
-              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-            <img src="assets/img/portfolio/portfolio-4.jpg" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Card 2</h4>
-              <p>Card</p>
-              <a href="assets/img/portfolio/portfolio-4.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Card 2"><i class="bx bx-plus"></i></a>
-              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <img src="assets/img/portfolio/portfolio-5.jpg" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Web 2</h4>
-              <p>Web</p>
-              <a href="assets/img/portfolio/portfolio-5.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Web 2"><i class="bx bx-plus"></i></a>
-              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <img src="assets/img/portfolio/portfolio-6.jpg" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>App 3</h4>
-              <p>App</p>
-              <a href="assets/img/portfolio/portfolio-6.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="App 3"><i class="bx bx-plus"></i></a>
-              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-            <img src="assets/img/portfolio/portfolio-7.jpg" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Card 1</h4>
-              <p>Card</p>
-              <a href="assets/img/portfolio/portfolio-7.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Card 1"><i class="bx bx-plus"></i></a>
-              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-            <img src="assets/img/portfolio/portfolio-8.jpg" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Card 3</h4>
-              <p>Card</p>
-              <a href="assets/img/portfolio/portfolio-8.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Card 3"><i class="bx bx-plus"></i></a>
-              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <img src="assets/img/portfolio/portfolio-9.jpg" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>Web 3</h4>
-              <p>Web</p>
-              <a href="assets/img/portfolio/portfolio-9.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Web 3"><i class="bx bx-plus"></i></a>
-              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </section><!-- End Portfolio Section -->
-
-    <!-- ======= Team Section ======= -->
-    <section id="team" class="team section-bg">
-      <div class="container" data-aos="fade-up">
-
-        <div class="section-title">
-          <h2>Team</h2>
-          <h3>Our Hardworking <span>Team</span></h3>
-          <p>Ut possimus qui ut temporibus culpa velit eveniet modi omnis est adipisci expedita at voluptas atque vitae autem.</p>
-        </div>
-
-        <div class="row">
-
-          <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
-            <div class="member">
-              <div class="member-img">
-                <img src="assets/img/team/team-1.jpg" class="img-fluid" alt="">
-                <div class="social">
-                  <a href=""><i class="bi bi-twitter"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
-              </div>
-              <div class="member-info">
-                <h4>Walter White</h4>
-                <span>Chief Executive Officer</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
-            <div class="member">
-              <div class="member-img">
-                <img src="assets/img/team/team-2.jpg" class="img-fluid" alt="">
-                <div class="social">
-                  <a href=""><i class="bi bi-twitter"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
-              </div>
-              <div class="member-info">
-                <h4>Sarah Jhonson</h4>
-                <span>Product Manager</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
-            <div class="member">
-              <div class="member-img">
-                <img src="assets/img/team/team-3.jpg" class="img-fluid" alt="">
-                <div class="social">
-                  <a href=""><i class="bi bi-twitter"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
-              </div>
-              <div class="member-info">
-                <h4>William Anderson</h4>
-                <span>CTO</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="400">
-            <div class="member">
-              <div class="member-img">
-                <img src="assets/img/team/team-4.jpg" class="img-fluid" alt="">
-                <div class="social">
-                  <a href=""><i class="bi bi-twitter"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
-              </div>
-              <div class="member-info">
-                <h4>Amanda Jepson</h4>
-                <span>Accountant</span>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </section><!-- End Team Section -->
-
-    <!-- ======= Pricing Section ======= -->
-    <section id="pricing" class="pricing">
-      <div class="container" data-aos="fade-up">
-
-        <div class="section-title">
-          <h2>Pricing</h2>
-          <h3>Check our <span>Pricing</span></h3>
-          <p>Ut possimus qui ut temporibus culpa velit eveniet modi omnis est adipisci expedita at voluptas atque vitae autem.</p>
-        </div>
-
-        <div class="row">
-
-          <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
-            <div class="box">
-              <h3>Free</h3>
-              <h4><sup>$</sup>0<span> / month</span></h4>
-              <ul>
-                <li>Aida dere</li>
-                <li>Nec feugiat nisl</li>
-                <li>Nulla at volutpat dola</li>
-                <li class="na">Pharetra massa</li>
-                <li class="na">Massa ultricies mi</li>
-              </ul>
-              <div class="btn-wrap">
-                <a href="#" class="btn-buy">Buy Now</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6 mt-4 mt-md-0" data-aos="fade-up" data-aos-delay="200">
-            <div class="box featured">
-              <h3>Business</h3>
-              <h4><sup>$</sup>19<span> / month</span></h4>
-              <ul>
-                <li>Aida dere</li>
-                <li>Nec feugiat nisl</li>
-                <li>Nulla at volutpat dola</li>
-                <li>Pharetra massa</li>
-                <li class="na">Massa ultricies mi</li>
-              </ul>
-              <div class="btn-wrap">
-                <a href="#" class="btn-buy">Buy Now</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="300">
-            <div class="box">
-              <h3>Developer</h3>
-              <h4><sup>$</sup>29<span> / month</span></h4>
-              <ul>
-                <li>Aida dere</li>
-                <li>Nec feugiat nisl</li>
-                <li>Nulla at volutpat dola</li>
-                <li>Pharetra massa</li>
-                <li>Massa ultricies mi</li>
-              </ul>
-              <div class="btn-wrap">
-                <a href="#" class="btn-buy">Buy Now</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="400">
-            <div class="box">
-              <span class="advanced">Advanced</span>
-              <h3>Ultimate</h3>
-              <h4><sup>$</sup>49<span> / month</span></h4>
-              <ul>
-                <li>Aida dere</li>
-                <li>Nec feugiat nisl</li>
-                <li>Nulla at volutpat dola</li>
-                <li>Pharetra massa</li>
-                <li>Massa ultricies mi</li>
-              </ul>
-              <div class="btn-wrap">
-                <a href="#" class="btn-buy">Buy Now</a>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </section><!-- End Pricing Section -->
-
-    <!-- ======= Frequently Asked Questions Section ======= -->
-    <section id="faq" class="faq section-bg">
-      <div class="container" data-aos="fade-up">
-
-        <div class="section-title">
-          <h2>F.A.Q</h2>
-          <h3>Frequently Asked <span>Questions</span></h3>
-          <p>Ut possimus qui ut temporibus culpa velit eveniet modi omnis est adipisci expedita at voluptas atque vitae autem.</p>
-        </div>
-
-        <div class="row justify-content-center">
-          <div class="col-xl-10">
-            <ul class="faq-list">
-
-              <li>
-                <div data-bs-toggle="collapse" class="collapsed question" href="#faq1">Non consectetur a erat nam at lectus urna duis? <i class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i></div>
-                <div id="faq1" class="collapse" data-bs-parent=".faq-list">
-                  <p>
-                    Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id volutpat lacus laoreet non curabitur gravida. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non.
-                  </p>
-                </div>
-              </li>
-
-              <li>
-                <div data-bs-toggle="collapse" href="#faq2" class="collapsed question">Feugiat scelerisque varius morbi enim nunc faucibus a pellentesque? <i class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i></div>
-                <div id="faq2" class="collapse" data-bs-parent=".faq-list">
-                  <p>
-                    Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.
-                  </p>
-                </div>
-              </li>
-
-              <li>
-                <div data-bs-toggle="collapse" href="#faq3" class="collapsed question">Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi? <i class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i></div>
-                <div id="faq3" class="collapse" data-bs-parent=".faq-list">
-                  <p>
-                    Eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Faucibus pulvinar elementum integer enim. Sem nulla pharetra diam sit amet nisl suscipit. Rutrum tellus pellentesque eu tincidunt. Lectus urna duis convallis convallis tellus. Urna molestie at elementum eu facilisis sed odio morbi quis
-                  </p>
-                </div>
-              </li>
-
-              <li>
-                <div data-bs-toggle="collapse" href="#faq4" class="collapsed question">Ac odio tempor orci dapibus. Aliquam eleifend mi in nulla? <i class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i></div>
-                <div id="faq4" class="collapse" data-bs-parent=".faq-list">
-                  <p>
-                    Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.
-                  </p>
-                </div>
-              </li>
-
-              <li>
-                <div data-bs-toggle="collapse" href="#faq5" class="collapsed question">Tempus quam pellentesque nec nam aliquam sem et tortor consequat? <i class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i></div>
-                <div id="faq5" class="collapse" data-bs-parent=".faq-list">
-                  <p>
-                    Molestie a iaculis at erat pellentesque adipiscing commodo. Dignissim suspendisse in est ante in. Nunc vel risus commodo viverra maecenas accumsan. Sit amet nisl suscipit adipiscing bibendum est. Purus gravida quis blandit turpis cursus in
-                  </p>
-                </div>
-              </li>
-
-              <li>
-                <div data-bs-toggle="collapse" href="#faq6" class="collapsed question">Tortor vitae purus faucibus ornare. Varius vel pharetra vel turpis nunc eget lorem dolor? <i class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i></div>
-                <div id="faq6" class="collapse" data-bs-parent=".faq-list">
-                  <p>
-                    Laoreet sit amet cursus sit amet dictum sit amet justo. Mauris vitae ultricies leo integer malesuada nunc vel. Tincidunt eget nullam non nisi est sit amet. Turpis nunc eget lorem dolor sed. Ut venenatis tellus in metus vulputate eu scelerisque. Pellentesque diam volutpat commodo sed egestas egestas fringilla phasellus faucibus. Nibh tellus molestie nunc non blandit massa enim nec.
-                  </p>
-                </div>
-              </li>
-
-            </ul>
-          </div>
-        </div>
-
-      </div>
-    </section><!-- End Frequently Asked Questions Section -->
-
-    <!-- ======= Contact Section ======= -->
-    <section id="contact" class="contact">
-      <div class="container" data-aos="fade-up">
-
-        <div class="section-title">
-          <h2>Contact</h2>
-          <h3><span>Contact Us</span></h3>
-          <p>Ut possimus qui ut temporibus culpa velit eveniet modi omnis est adipisci expedita at voluptas atque vitae autem.</p>
-        </div>
-
-        <div class="row" data-aos="fade-up" data-aos-delay="100">
-          <div class="col-lg-6">
-            <div class="info-box mb-4">
-              <i class="bx bx-map"></i>
-              <h3>Our Address</h3>
-              <p>A108 Adam Street, New York, NY 535022</p>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6">
-            <div class="info-box  mb-4">
-              <i class="bx bx-envelope"></i>
-              <h3>Email Us</h3>
-              <p>contact@example.com</p>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6">
-            <div class="info-box  mb-4">
-              <i class="bx bx-phone-call"></i>
-              <h3>Call Us</h3>
-              <p>+1 5589 55488 55</p>
-            </div>
-          </div>
-
-        </div>
-
-        <div class="row" data-aos="fade-up" data-aos-delay="100">
-
-          <div class="col-lg-6 ">
-            <iframe class="mb-4 mb-lg-0" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12097.433213460943!2d-74.0062269!3d40.7101282!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb89d1fe6bc499443!2sDowntown+Conference+Center!5e0!3m2!1smk!2sbg!4v1539943755621" frameborder="0" style="border:0; width: 100%; height: 384px;" allowfullscreen></iframe>
-          </div>
-
-          <div class="col-lg-6">
-            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
-              <div class="row">
-                <div class="col form-group">
-                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
-                </div>
-                <div class="col form-group">
-                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
-                </div>
-              </div>
-              <div class="form-group">
-                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
-              </div>
-              <div class="form-group">
-                <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
-              </div>
-              <div class="my-3">
-                <div class="loading">Loading</div>
-                <div class="error-message"></div>
-                <div class="sent-message">Your message has been sent. Thank you!</div>
-              </div>
-              <div class="text-center"><button type="submit">Send Message</button></div>
-            </form>
-          </div>
-
-        </div>
-
-      </div>
-    </section><!-- End Contact Section -->
-
-  </main><!-- End #main -->
-
-  <!-- ======= Footer ======= -->
-  <footer id="footer">
-
-    <div class="footer-newsletter">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-lg-6">
-            <h4>Join Our Newsletter</h4>
-            <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
-            <form action="" method="post">
-              <input type="email" name="email"><input type="submit" value="Subscribe">
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="footer-top">
-      <div class="container">
-        <div class="row">
-
-          <div class="col-lg-3 col-md-6 footer-contact">
-            <h3>BizLand<span>.</span></h3>
-            <p>
-              A108 Adam Street <br>
-              New York, NY 535022<br>
-              United States <br><br>
-              <strong>Phone:</strong> +1 5589 55488 55<br>
-              <strong>Email:</strong> info@example.com<br>
-            </p>
-          </div>
-
-          <div class="col-lg-3 col-md-6 footer-links">
-            <h4>Useful Links</h4>
-            <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
-            </ul>
-          </div>
-
-          <div class="col-lg-3 col-md-6 footer-links">
-            <h4>Our Services</h4>
-            <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
-            </ul>
-          </div>
-
-          <div class="col-lg-3 col-md-6 footer-links">
-            <h4>Our Social Networks</h4>
-            <p>Cras fermentum odio eu feugiat lide par naso tierra videa magna derita valies</p>
-            <div class="social-links mt-3">
-              <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-              <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-              <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-              <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-              <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
+   <footer>
     <div class="container py-4">
       <div class="copyright">
-        &copy; Copyright <strong><span>BizLand</span></strong>. All Rights Reserved
-      </div>
-      <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/bizland-bootstrap-business-template/ -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        &copy; Copyright <strong><span>김진섭, 최재연, 석현일</span></strong>. All Rights Reserved
       </div>
     </div>
   </footer><!-- End Footer -->
