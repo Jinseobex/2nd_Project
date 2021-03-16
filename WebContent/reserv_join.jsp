@@ -9,6 +9,8 @@
 <link rel="stylesheet" href="assets/css/bootstrap.css">
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="assets/js/bootstrap.js"></script>
+<link rel="shortcut icon" type="image/x-icon"
+	href="https://corona-19.kr/img/favicon.ico">
 
 <%
 /* String userID = null;
@@ -23,6 +25,8 @@ script.println("alert('로그인먼저하셈.')");
 script.println("location.href = 'main.jsp'");
 script.println("</script>");
 } */
+
+
 %>
 <style>
 .box{
@@ -33,13 +37,42 @@ script.println("</script>");
 	margin-top: 30px;
 }
 
-h2 {
-	text-align: center;
-}
 
 .submit {
 	margin-top: 20px;
 	text-align: center;
+}
+span{ 
+background:#3CB371;
+ border-radius:30px;
+font-color
+
+}
+
+#stitle{
+align=center;
+style=width:50%; 
+height: 70px;
+border-radius: 4em;
+background-color: #04B486;
+padding:20px;
+}
+
+h4 {
+font-weight: bold;
+color: white;
+text-align: center;
+
+}
+#ss{
+width: 20px;
+border-color: #D8D8D8;
+border-radius: 15%;
+border-style: double;
+
+}
+#aa{
+align=center;
 }
 </style>
 <title>예약 등록</title>
@@ -47,32 +80,31 @@ h2 {
 </head>
 
 <body>
-	<br>
-	<br>
-	<br>
-	<br>
+<br>
+<br>
+<br>
 
-	<center>
-		<h3 class="wv-heading--title">
-			<img class="fit-picture" src="imgs/reserv.png" alt="img">
-		</h3>
-	</center>
-	<br>
 	<div class="container">
 		<div class="row gx-5">
 		<div class="col-md-4"></div>
 			<div class="col-md-4">
+			
+			
+				<div id="stitle" ><h4>선별진료소 검사 예약</h4></div>
+<br>
+<br>
 				<div class="p-3 border bg-light">
-					<form method="post" action="join_action.jsp">
+					<form method="post" action="reserv_join_action.jsp">
 						<div class="mb-3">
-							<label for="name" class="form-label">예약자명</label> <input
+							<label for="name" class="form-label"><strong>예약자명</strong></label> <input
 								type="text" class="form-control" name="name" placeholder="성함">
 						</div>
 
-						<label for="rrn" class="form-label">주민등록번호</label>
+						<label for="rrn" class="form-label"><strong>주민등록번호</strong></label>
 						<div class="input-group mb-3">
-							<input type="text" class="form-control" name="jumin"
-								aria-label="Username" placeholder="(-없이 13자리)"> <input
+							<input type="text"  name="jumin" class="form-control"
+								aria-label="Username"><label> - </label> 
+								<input type="text" id="ss"  name="jumin"><label id="aa">******</label>  <input
 								type="button" name="button" class="btn btn-primary" value="확인하기"
 								onClick="checkAlert(this.form,this.form.jumin.value)">
 						</div>
@@ -82,71 +114,70 @@ h2 {
 								type="text" class="form-control" name="tel"
 								aria-describedby="namebox" value="010-">
 						</div>
-						<label for="name" class="form-label">* 코로나19 의심증상</label> <br>
+						<label for="name" class="form-label"><strong>* 코로나19 의심증상</strong></label> <br>
 
 						<div class="form-check form-check-inline" >
-							<input class="form-check-input" type="checkbox"
-								id="inlineCheckbox1" value="37.5°C 이상
-								발열"checked> <label
-								class="form-check-label" for="inlineCheckbox1">37.5°C 이상
-								발열</label>
+							<input class="form-check-input" type="checkbox" name="symptoms"
+								id="inlineCheckbox1" value="37.5°C 이상 발열" checked> 
+								<label class="form-check-label" for="inlineCheckbox1">37.5°C 이상 발열</label>
 						</div>
 						<div class="form-check form-check-inline box">
-							<input class="form-check-input" type="checkbox"
+							<input class="form-check-input" type="checkbox" name="symptoms"
 								id="inlineCheckbox2" value="기침"> <label
 								class="form-check-label" for="inlineCheckbox2">기침</label>
 						</div>
 						<div class="form-check form-check-inline box">
-							<input class="form-check-input" type="checkbox"
+							<input class="form-check-input" type="checkbox" name="symptoms"
 								id="inlineCheckbox3" value="인후통"> <label
 								class="form-check-label" for="inlineCheckbox3">인후통</label>
 						</div>
 						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="checkbox"
+							<input class="form-check-input" type="checkbox" name="symptoms"
 								id="inlineCheckbox4" value="호흡곤란"> <label
 								class="form-check-label" for="inlineCheckbox4">호흡곤란</label>
 						</div>
 
 						<br>
 						<div class="form-check form-check-inline box">
-							<input class="form-check-input" type="checkbox"
+							<input class="form-check-input" type="checkbox" name="symptoms"
 								id="inlineCheckbox5" value="오한"> <label
 								class="form-check-label" for="inlineCheckbox1">오한</label>
 						</div>
 						<div class="form-check form-check-inline box">
-							<input class="form-check-input" type="checkbox"
+							<input class="form-check-input" type="checkbox" name="symptoms"
 								id="inlineCheckbox6" value="근육통"> <label
 								class="form-check-label" for="inlineCheckbox2">근육통</label>
 						</div>
 						<div class="form-check form-check-inline box">
-							<input class="form-check-input" type="checkbox"
+							<input class="form-check-input" type="checkbox" name="symptoms"
 								id="inlineCheckbox7" value="두통"> <label
 								class="form-check-label" for="inlineCheckbox3">두통</label>
 						</div>
 						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="checkbox"
-								id="inlineCheckbox8" value="미각 또는
-								후각소실"> <label
+							<input class="form-check-input" type="checkbox" name="symptoms"
+								id="inlineCheckbox8" value="미각 또는 후각소실"> <label
 								class="form-check-label" for="inlineCheckbox4">미각 또는
 								후각소실</label>
 						</div>
 						<div class="form-check">
 							<input class="form-check-input" type="checkbox" value="본인 또는 동거가족의 최근 14일 이내 해외 여행력"
-								id="flexCheckDefault"> <label class="form-check-label"
-								for="flexCheckDefault"> 본인 또는 동거가족의 최근 14일 이내 해외 여행력 </label>
+								id="flexCheckDefault" name="symptoms"> <label class="form-check-label"
+								for="flexCheckDefault"> 본인 또는 동거가족의 최근 14일 이내 해외<br> 여행력 </label>
 						</div>
 						<div class="form-check">
 							<input class="form-check-input" type="checkbox" value="동거가족 중 현재 자가격리자 있음"
-								id="flexCheckChecked" > <label
+								id="flexCheckChecked" name="symptoms"> <label
 								class="form-check-label" for="flexCheckChecked"> 동거가족 중 현재 자가격리자 있음 </label>
 						</div>
 
-
 						<br> <br>
 						<div class="mb-3">
-							<label for="reservation" class="form-label">예약 날짜</label> <input
-								type='date' name="date" /> <label for="reservation"
-								class="form-label">예약 시간</label> <input type='time' name="time" />
+							<label for="reservation" class="form-label">예약 날짜</label>
+							<input type='date' name="date" /> 
+							</div>
+							<div class="mb-3">
+							<label for="reservation" class="form-label">예약 시간</label> 
+							<input type='time' name="time" />
 							<br>
 						</div>
 

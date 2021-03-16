@@ -7,8 +7,10 @@
 <%@page import="java.util.List"%>
 <!DOCTYPE html>
 <html>
+<link rel="shortcut icon" type="image/x-icon"
+	href="https://corona-19.kr/img/favicon.ico">
 
-<link href="css/styles.css" rel="stylesheet" />
+<link href="assets/css/styles.css" rel="stylesheet" />
 <head>
 <%
 /*
@@ -42,15 +44,16 @@ if (userID.equals("admin") == false) {
 <script>
 	function noDelete(delNo) {
 		if (confirm("정말 삭제하시겠습니까?"))
-			location.href = "delete.jsp?no=" + delNo;
+			location.href = "reserv_delete_action.jsp?no=" + delNo;
 	}
 
 	function noModify(modiNo) {
-		location.href = "modify.jsp?no=" + modiNo;
+		if (confirm("수정?"))
+			location.href = "reserv_modify.jsp?no=" + modiNo;
 	}
 </script>
 
-<title>리스트</title>
+<title>예약 리스트 페이지</title>
 
 <style>
 h2 {
@@ -61,8 +64,7 @@ h2 {
 
 </head>
 <body>
-<div class="container">
-	<h2>리스트페이지</h2>
+	<h2>예약 리스트</h2>
 
 	<br>
 	<form class="row row-cols-lg-auto g-3 align-items-center"
@@ -86,6 +88,7 @@ h2 {
 				<th style="background-color: #fafafa; text-align: center;">번호</th>
 				<th style="background-color: #fafafa; text-align: center;">이름</th>
 				<th style="background-color: #fafafa; text-align: center;">주민등록번호</th>
+				<th style="background-color: #fafafa; text-align: center;">전화번호</th>
 				<th style="background-color: #fafafa; text-align: center;">코로나
 					의심증상</th>
 				<th style="background-color: #fafafa; text-align: center;">선별진료소</th>
@@ -98,9 +101,7 @@ h2 {
 			</tr>
 		</thead>
 		<%
-		ReservationDto dto = new ReservationDto();
-		ReservationDao dao = new ReservationDao();
-		ArrayList<ReservationDto> list = dao.selectAll();
+		ArrayList<ReservationDto> list = ReservationDao.selectAll();
 		for (int i = 0; i < list.size(); i++) {
 			ReservationDto reserve = list.get(i);
 		%>
@@ -109,6 +110,7 @@ h2 {
 				<td><%=reserve.getNo()%></td>
 				<td><%=reserve.getName()%></td>
 				<td><%=reserve.getJumin()%></td>
+				<td><%=reserve.getTel()%></td>
 				<td><%=reserve.getSymptoms()%></td>
 				<td>선별진료소(예정)</td>
 				<td><%=reserve.getDate()%></td>
@@ -129,6 +131,5 @@ h2 {
 		
 	</table>
 	<a href="join.jsp">예약하기(테스트용)</a>
-	</div>
 </body>
 </html>
