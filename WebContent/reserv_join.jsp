@@ -11,6 +11,71 @@
 <script src="assets/js/bootstrap.js"></script>
 <link rel="shortcut icon" type="image/x-icon"
 	href="https://corona-19.kr/img/favicon.ico">
+	
+<!-- 진섭 CDN -->
+
+  <!-- Favicons -->
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <!-- status Board1 -->
+  <link rel="shortcut icon" type="image/x-icon" href="assets/img/g_logo.png">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+  
+  <!-- status Board2 -->
+  <!-- fontawesome -->
+  <script src="https://kit.fontawesome.com/41caffd54e.js" crossorigin="anonymous"></script>
+  
+  <!-- XEICON -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+  
+  <!-- Custom CSS -->
+  <link href="assets/css/style.min.css" rel="stylesheet">
+
+  <!-- SweetAlert -->
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+ 
+	<script src="assets/libs/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="assets/libs/popper.js/dist/umd/popper.min.js"></script>
+    <script src="assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- apps -->
+    <!-- apps -->
+    <script src="dist/js/app-style-switcher.js"></script>
+    <script src="dist/js/feather.min.js"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+    <script src="assets/extra-libs/sparkline/sparkline.js"></script>
+    <!--Wave Effects -->
+    <!-- themejs -->
+    <!--Menu sidebar -->
+    <script src="dist/js/sidebarmenu.js"></script>
+    <!--Custom JavaScript -->
+    <script src="dist/js/custom.min.js"></script>
+    
+	<!-- Chart JS -->
+    <script src="dist/js/pages/chartjs/chartjs.init.js"></script>
+    <script src="assets/libs/chart.js/dist/Chart.min.js"></script>
+    
+    <!-- c3 CDN -->
+   	<!-- Load c3.css -->
+	<link href="assets/css/c3.css" rel="stylesheet">
+	<script src="assets/js/c3.js"></script>
+	<script src="https://d3js.org/d3.v5.min.js"></script>
+	<script src="assets/js/c3.min.js"></script>
+	<link href="assets/css/c3.css" rel="stylesheet">
+
 
 <%
 /* String userID = null;
@@ -29,24 +94,20 @@ script.println("</script>");
 
 %>
 <style>
+
 .box{
 	width:146px;
 
 }
-.container-lg {
-	margin-top: 30px;
-}
-
 
 .submit {
 	margin-top: 20px;
 	text-align: center;
 }
-span{ 
+span1{ 
 background:#3CB371;
  border-radius:30px;
 font-color
-
 }
 
 #stitle{
@@ -71,28 +132,32 @@ border-radius: 15%;
 border-style: double;
 
 }
+
 #aa{
 align=center;
 }
+
 </style>
 <title>예약 등록</title>
 
 </head>
 
 <body>
-<br>
-<br>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="d-flex align-items-center">
+    <div class="container d-flex align-items-center justify-content-between">
+
+      <h1 class="logo"><a href="#" class="logo"><img src="assets/img/g_logo.png" alt=""></a><a href="index.jsp"> 코로나바이러스감염증-19<span> (COVID-19)</span></a></h1>
+
+    </div>
+  </header><!-- End Header -->
 <br>
 
-	<div class="container">
-		<div class="row gx-5">
-		<div class="col-md-4"></div>
-			<div class="col-md-4">
-			
-			
+		<!-- ========= Start reserv_join ========= -->
+		<div class="reserv" style="width:350px; height: 600px; top: 120px; position: absolute; left: 50px;">
 				<div id="stitle" ><h4>선별진료소 검사 예약</h4></div>
-<br>
-<br>
+				<br>
 				<div class="p-3 border bg-light">
 					<form method="post" action="reserv_join_action.jsp">
 						<div class="mb-3">
@@ -168,33 +233,25 @@ align=center;
 							<input class="form-check-input" type="checkbox" value="동거가족 중 현재 자가격리자 있음"
 								id="flexCheckChecked" name="symptoms"> <label
 								class="form-check-label" for="flexCheckChecked"> 동거가족 중 현재 자가격리자 있음 </label>
-						</div>
-
-						<br> <br>
-						<div class="mb-3">
-							<label for="reservation" class="form-label">예약 날짜</label>
-							<input type='date' name="date" /> 
-							</div>
-							<div class="mb-3">
-							<label for="reservation" class="form-label">예약 시간</label> 
-							<input type='time' name="time" />
-							<br>
-						</div>
-
-
-
+						</div>		
+						<br>
 						<div class="submit">
 							<button type="submit" class="btn btn-primary" id=sumbmitBtn>등록</button>
 						</div>
-
 					</form>
-
-
 				</div>
+				
 			</div>
-				<div class="col-md-4"></div>
-		</div>
-	</div>
+			<!-- ========= End reserv_join ========= -->
+			
+				<!-- ========= Start reserv_join_calendar ========== -->
+				<div class="reserved_cal" style="float:left; position: absolute; top: 120px; left: 450px; width:100%">
+				
+				<jsp:include page="reserve_join_calendar2.jsp" flush="false" />
+				
+				</div>
+				<!-- ========= End reserv_join_calendar ========= -->
+		
 
 	<script>
 	function check_jumin(jumin) { 
@@ -324,5 +381,7 @@ align=center;
 	}
 
 	</script>
+	
+	
 </body>
 </html>

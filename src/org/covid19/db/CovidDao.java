@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.reservation.util.JdbcUtil;
 
 public class CovidDao {
 	private Connection conn = null;
@@ -17,7 +18,7 @@ public class CovidDao {
 	private ResultSet rs = null;
 	
 	public JSONArray search(String placename, String phone) {
-		conn = JU.getConnection();
+		conn = JdbcUtil.getConnection();
 		JSONArray voList = new JSONArray();
 		String sql = "SELECT SIDO, SIGUNGU, NAME, JUSO, WEEKDAY, SATURDAY, NUMBER FROM COVIDDB where name = '" + placename + "' or number = '" + phone + "'";
 		System.out.println(placename);
@@ -38,9 +39,9 @@ public class CovidDao {
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
-			JU.close(rs);
-			JU.close(pstmt);
-			JU.close(conn);
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+			JdbcUtil.close(conn);
 		}
 		return voList;
 	}

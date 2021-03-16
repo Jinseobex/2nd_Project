@@ -204,7 +204,7 @@
       <h2>찾고자 하는 선별진료소의 시, 군, 구를 입력해주세요</h2>
       <div class="d-flex">
         <a href="#about" class="btn-get-started scrollto">진료소 찾기</a>
-        <a href="https://www.youtube.com/watch?v=vZAtsL6t_4Y" class="glightbox btn-watch-video"><i class="bi bi-play-circle"></i><span>코로나19 정부 브리핑</span></a> 
+        <a href="https://www.youtube.com/watch?v=EW9NAeZjiZI" class="glightbox btn-watch-video"><i class="bi bi-play-circle"></i><span>코로나19 정부 브리핑</span></a> 
       </div>
     </div>
   </section><!-- End Hero -->
@@ -355,7 +355,7 @@
 										</h2>
                                         <span
                                             class="badge bg-primary font-12 text-white font-weight-medium badge-pill ml-2 d-lg-block d-md-none">
-											+<%=jsonKorea.get("TotalCaseBefore")%>명										</span>
+											<%=jsonKorea.get("TotalCaseBefore")%>명										</span>
                                     </div>
                                     <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">국내 치료중</h6>
                                 </div>
@@ -525,8 +525,7 @@
 					<div class="col-md-6 col-lg-12">
                         <div class="card">
                             <div class="card-body">
-							<h4 class="card-title"><b><strong>대한민국 시도별 발생동향 한눈에 보기</strong></b></h4>
-							<hr>
+							<h4 class="card-title">대한민국 시도별 발생동향 한눈에 보기</h4>
 							<div class="row">
 								<div class="col-sm-4">
 								<br><br>
