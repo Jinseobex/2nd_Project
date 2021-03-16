@@ -415,7 +415,7 @@
         </div>
       </div>
     </div>
-    <p> 마포구 선별진료소, 남구 선별진료소와 같이 검색해주세요.</p>
+    <p> 자신의 위치를 입력해주세요. </p>
     </footer>
         </div>
         <div style="weight:1300px; height:600px;">

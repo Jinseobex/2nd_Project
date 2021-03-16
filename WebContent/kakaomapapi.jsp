@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="org.covid19.db.CovidVo"%>
+<%@page import="org.covid19.db.CovidDao"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,18 +10,17 @@
     
 </head>
 <body>
-
 <div id="map" style="width:100%;height:100%;"></div>
-
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=30a29ea7804c67c48615f24d77121766
-&libraries=services"></script>
+&libraries=services">
+</script>
 <script>
 // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
 var infowindow = new kakao.maps.InfoWindow({zIndex:1});
 
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = {
-        center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+        center: new kakao.maps.LatLng(37.57046299160746, 126.98533403351219), // 지도의 중심좌표
         level: 3 // 지도의 확대 레벨
     };  
 
@@ -31,7 +32,7 @@ var ps = new kakao.maps.services.Places();
 
 //키워드 검색을 요청하는 함수입니다
 function searchPlaces() {
-    var keyword = document.getElementById('keyword').value;
+    var keyword = document.getElementById('keyword').value + '선별진료소';
     if (!keyword.replace(/^\s+|\s+$/g, '')) {
         alert('키워드를 입력해주세요!');
         return false;
@@ -56,24 +57,58 @@ function placesSearchCB (data, status, pagination) {
 }
 
 // 지도에 마커를 표시하는 함수입니다
-function displayMarker(place) { 
+function displayMarker(place) {
     // 마커를 생성하고 지도에 표시합니다
     var marker = new kakao.maps.Marker({
         map: map,
         position: new kakao.maps.LatLng(place.y, place.x) 
     });	
-    
-    var placename = place.place_name.split(" ");
     // 마커에 클릭이벤트를 등록합니다
     kakao.maps.event.addListener(marker, 'click', function() {
-        // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
-        infowindow.setContent('<div style="padding:5px; font-size:12px; width:237px; height:100px; text-align: center;">' 
-        + place.place_name
-        + '</div>');
-        infowindow.open(map, marker);
+    	var placename = place.place_name.split(" ")[1];
+    	var phone = place.phone;
+    	var noplace = place.place_name.split(" ")[2];
+    	console.log(noplace);
+    	console.log(place.phone);
+    		$.ajax({
+    			type: "POST",
+    			url: "mapAction.jsp",
+    			data: {"name" : placename, "number" : phone},
+    			dataType: "JSON",
+    			success: function(data) {
+    				var name = "";
+    				if (noplace === "선별진료소") {
+    					var a = data[0];
+        				var name = a.name;
+        				var sido = a.sido;
+        				var sigungu = a.sigungu;
+        				var week = a.weekday;
+        				var sat = a.saturday;   				
+        				var num = a.number;
+    				var st = '<div style="margin:5px;font-size:12px;">';
+    				st += "<span> " + name + '</span> <br/>';
+    				st += "<span>" + sido + "시 ";
+    				st += sigungu + '</span><br/>';
+    				st += "<span>평일 : " + week + '</span><br/>';
+    				st += "<span>토요일 : " + sat + '</span><br/>';
+    				st += "<span>번호 : " + num + '</span><br/>';
+    				st += '<div style = "text-align:center;"><a href = "join.jsp?name='+name+'"> 예약하기 </a></div>';
+    				console.log(name);
+    				infowindow.setContent('<div style="margin:5px;font-size:12px;">' + st + '</div>'
+    				);
+    		        infowindow.open(map, marker);
+    				} else {
+    					infowindow.setContent('<div style="width:189px;height:18px;margin:5px;font-size:12px;text-align:center;"> 임시진료소는 확인되지 않습니다. </div>');
+    					infowindow.open(map, marker);
+    				}
+    			},
+    			error: function(data){
+    				console.log("ajax 안들어옴");
+    			}
+    		}); 	
     });
+    
 }
-
 
 //지도 위에 표시되고 있는 마커를 모두 제거합니다
 function removeMarker() {
@@ -83,5 +118,6 @@ function removeMarker() {
     markers = [];
 }
 </script>
+<script src="http://code.jquery.com/jquery.min.js"></script>
 </body>
 </html>

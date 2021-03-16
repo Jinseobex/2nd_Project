@@ -9,7 +9,9 @@
 <link rel="stylesheet" href="assets/css/bootstrap.css">
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="assets/js/bootstrap.js"></script>
-
+<%
+	String name = request.getParameter("name");
+%>
 <%
 /* String userID = null;
  if(session.getAttribute("ID") != null){
@@ -54,7 +56,7 @@ h2 {
 
 	<center>
 		<h3 class="wv-heading--title">
-			<img class="fit-picture" src="imgs/reserv.png" alt="img">
+			<%=name %> 검사예약
 		</h3>
 	</center>
 	<br>
