@@ -8,9 +8,11 @@
 <%
 String placename = (String)request.getParameter("name");
 String phone = (String)request.getParameter("number");
-
+String address1 = (String)request.getParameter("sido");
+String address2 = (String)request.getParameter("sigungu");
+String address3 = (String)request.getParameter("juso");
 CovidDao dao = new CovidDao();
-JSONArray jList = dao.search(placename, phone);
+JSONArray jList = dao.search(placename, phone, address1, address2, address3);
 
 System.out.println(jList.toString());
 %>

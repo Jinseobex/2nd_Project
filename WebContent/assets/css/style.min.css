@@ -6421,7 +6421,7 @@ sup {
 }
 
 a {
-    color: #5f76e8;
+    color:black;
     background-color: transparent
 }
 
@@ -6888,8 +6888,8 @@ pre code {
     position: relative;
     width: 100%;
     padding-right: 15px;
-    padding-left: 15px
-}
+    padding-left: 15px;
+} /* 재연수정 */
 
 .col {
     flex-basis: 0;
@@ -7287,7 +7287,7 @@ pre code {
 
     .col-md-6 {
         flex: 0 0 50%;
-        max-width: 50%
+        max-width: 30%;
     }
 
     .col-md-7 {
@@ -7454,7 +7454,8 @@ pre code {
 
     .col-lg-3 {
         flex: 0 0 25%;
-        max-width: 25%
+        max-width: 100%
+        
     }
 
     .col-lg-4 {
@@ -7469,7 +7470,7 @@ pre code {
 
     .col-lg-6 {
         flex: 0 0 50%;
-        max-width: 50%
+        max-width: 100%
     }
 
     .col-lg-7 {
@@ -10942,16 +10943,18 @@ fieldset:disabled a.btn {
     color: #fff
 }
 
+/* 재연수정 */
 .card {
     position: relative;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     min-width: 0;
     word-wrap: break-word;
     background-color: #fff;
     background-clip: border-box;
     border: 0 solid #e9ecef;
-    border-radius: .25rem
+    border-radius: .25rem;
+    float:left;
 }
 
 .card>hr {
@@ -10969,9 +10972,17 @@ fieldset:disabled a.btn {
     border-bottom-left-radius: .25rem
 }
 
+/* 재연수정 */ 
 .card-body {
     flex: 1 1 auto;
+    justify-content: center;
     padding: 25px
+}
+.card-body2 {
+    flex: 1 1 auto;
+    justify-content: center;
+    padding: 25px;
+    margin: 15px;
 }
 
 .card-footer,
@@ -10980,7 +10991,9 @@ fieldset:disabled a.btn {
     background-color: rgba(0, 0, 0, .03)
 }
 
+/* 재연수정 */ 
 .card-title {
+	color:black;
     margin-bottom: .75rem
 }
 
@@ -11086,10 +11099,11 @@ fieldset:disabled a.btn {
         margin-left: 15px
     }
 }
-
+/* 재연수정 */
 .card-group {
     display: flex;
-    flex-direction: column
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .card-group>.card {
@@ -18133,7 +18147,7 @@ strong {
 }
 
 .page-breadcrumb {
-    padding: 30px 35px 0
+    padding: 30px 35px 35px 30px
 }
 
 .page-breadcrumb .breadcrumb {
@@ -18322,6 +18336,12 @@ ul.list-style-none li a:hover {
     box-shadow: 0 3px 9px 0 rgba(169, 184, 200, .15);
     -webkit-box-shadow: 0 3px 9px 0 rgba(169, 184, 200, .15);
     -moz-box-shadow: 0 3px 9px 0 rgba(169, 184, 200, .15)
+}
+.card2 {
+	box-shadow: 0 3px 9px 0 rgba(169, 184, 200, .15);
+    -webkit-box-shadow: 0 3px 9px 0 rgba(169, 184, 200, .15);
+    -moz-box-shadow: 0 3px 9px 0 rgba(169, 184, 200, .15);
+    margin: 15px;
 }
 
 .card .card-subtitle {

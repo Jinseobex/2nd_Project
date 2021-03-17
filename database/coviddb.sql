@@ -19,7 +19,7 @@ USE `2nd_project`;
 -- 테이블 2nd_project.coviddb 구조 내보내기
 CREATE TABLE IF NOT EXISTS `coviddb` (
   `date` varchar(20) DEFAULT NULL,
-  `ceack` varchar(10) DEFAULT NULL,
+  `checkup` varchar(10) DEFAULT NULL,
   `sido` varchar(30) DEFAULT NULL,
   `sigungu` varchar(30) DEFAULT NULL,
   `name` varchar(50) DEFAULT NULL,

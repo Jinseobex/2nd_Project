@@ -15,9 +15,9 @@
 &libraries=services">
 </script>
 <script>
+var markers = [];
 // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
 var infowindow = new kakao.maps.InfoWindow({zIndex:1});
-
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = {
         center: new kakao.maps.LatLng(37.57046299160746, 126.98533403351219), // 지도의 중심좌표
@@ -43,6 +43,9 @@ function searchPlaces() {
 
 //키워드 검색 완료 시 호출되는 콜백함수 입니다
 function placesSearchCB (data, status, pagination) {
+	if(markers != null) {
+   	 removeMarker();
+   }
     if (status === kakao.maps.services.Status.OK) {
         // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
         // LatLngBounds 객체에 좌표를 추가합니다
@@ -63,17 +66,23 @@ function displayMarker(place) {
         map: map,
         position: new kakao.maps.LatLng(place.y, place.x) 
     });	
+    marker.setMap(map); // 지도 위에 마커를 표출합니다
+    markers.push(marker);  // 배열에 생성된 마커를 추가합니다
     // 마커에 클릭이벤트를 등록합니다
-    kakao.maps.event.addListener(marker, 'click', function() {
+    kakao.maps.event.addListener(marker, 'mouseover', function() {
     	var placename = place.place_name.split(" ")[1];
     	var phone = place.phone;
     	var noplace = place.place_name.split(" ")[2];
-    	console.log(noplace);
-    	console.log(place.phone);
+    	var address1 = place.road_address_name.split(" ")[0];
+    	var address2 = place.road_address_name.split(" ")[1];
+    	var address3 = place.road_address_name;
+    	console.log(place.place_name);
+    	console.log(phone);
+    	console.log(place.road_address_name);
     		$.ajax({
     			type: "POST",
-    			url: "mapAction.jsp",
-    			data: {"name" : placename, "number" : phone},
+    			url: "mapAction.jsp", 
+    			data: {"name" : placename, "number" : phone, "sido" : address1 ,"sigungu" : address2, "juso": address3},
     			dataType: "JSON",
     			success: function(data) {
     				var name = "";
@@ -85,17 +94,15 @@ function displayMarker(place) {
         				var week = a.weekday;
         				var sat = a.saturday;   				
         				var num = a.number;
-    				var st = '<div style="margin:5px;font-size:12px;">';
-    				st += "<span> " + name + '</span> <br/>';
-    				st += "<span>" + sido + "시 ";
+    				var st = '<div style="margin:5px;font-size:12px;width:157px;">';
+    				st += "<span>" + placename + '</span><br/>';
+    				st += "<span>" + sido + " ";
     				st += sigungu + '</span><br/>';
     				st += "<span>평일 : " + week + '</span><br/>';
     				st += "<span>토요일 : " + sat + '</span><br/>';
     				st += "<span>번호 : " + num + '</span><br/>';
-    				st += '<div style = "text-align:center;"><a href = "reserv_join.jsp?name='+name+'"> 예약하기 </a></div>';
     				console.log(name);
-    				infowindow.setContent('<div style="margin:5px;font-size:12px;">' + st + '</div>'
-    				);
+    				infowindow.setContent(st +"<span style='font-size:12px;'><a href='reserv_join.jsp?name='"+name+"'>예약하기</a></span>" + "</div>");
     		        infowindow.open(map, marker);
     				} else {
     					infowindow.setContent('<div style="width:189px;height:18px;margin:5px;font-size:12px;text-align:center;"> 임시진료소는 확인되지 않습니다. </div>');
@@ -107,7 +114,6 @@ function displayMarker(place) {
     			}
     		}); 	
     });
-    
 }
 
 //지도 위에 표시되고 있는 마커를 모두 제거합니다
