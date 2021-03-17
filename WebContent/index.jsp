@@ -917,10 +917,7 @@
 						allowfullscreen=""></iframe>
 					</div>
 				</div>
-    <!-- ======= End media Section ======= -->
-    
-    <section id="news">
-    
+
     <div class="container">
     <%
     for(String[] sarr: newsArray){
@@ -940,7 +937,8 @@
     
     </div>   
     
-    </section>
+       <!-- ======= End media Section ======= -->
+    
     
    <footer>
     <div class="container py-4">
