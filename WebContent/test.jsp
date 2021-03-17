@@ -17,7 +17,72 @@
 
 <body>
 
-<g clip-path="url(https://corona-19.kr/#c3-1615790527081-clip)" class="c3-chart"><g class="c3-event-rects c3-event-rects-single" style="fill-opacity: 0;"><rect class=" c3-event-rect c3-event-rect-0" x="0.671875" y="0" width="280.65625" height="296"></rect></g><g class="c3-chart-bars"><g class="c3-chart-bar c3-target c3-target-서울" style="pointer-events: none;"><g class=" c3-shapes c3-shapes-서울 c3-bars c3-bars-서울" style="cursor: pointer;"></g></g><g class="c3-chart-bar c3-target c3-target-기타" style="pointer-events: none;"><g class=" c3-shapes c3-shapes-기타 c3-bars c3-bars-기타" style="cursor: pointer;"></g></g><g class="c3-chart-bar c3-target c3-target-경기" style="pointer-events: none;"><g class=" c3-shapes c3-shapes-경기 c3-bars c3-bars-경기" style="cursor: pointer;"></g></g><g class="c3-chart-bar c3-target c3-target-대구" style="pointer-events: none;"><g class=" c3-shapes c3-shapes-대구 c3-bars c3-bars-대구" style="cursor: pointer;"></g></g><g class="c3-chart-bar c3-target c3-target-인천" style="pointer-events: none;"><g class=" c3-shapes c3-shapes-인천 c3-bars c3-bars-인천" style="cursor: pointer;"></g></g></g><g class="c3-chart-lines"><g class="c3-chart-line c3-target c3-target-서울" style="opacity: 1; pointer-events: none;"><g class=" c3-shapes c3-shapes-서울 c3-lines c3-lines-서울"></g><g class=" c3-shapes c3-shapes-서울 c3-areas c3-areas-서울"></g><g class=" c3-selected-circles c3-selected-circles-서울"></g><g class=" c3-shapes c3-shapes-서울 c3-circles c3-circles-서울" style="cursor: pointer;"></g></g><g class="c3-chart-line c3-target c3-target-기타" style="opacity: 1; pointer-events: none;"><g class=" c3-shapes c3-shapes-기타 c3-lines c3-lines-기타"></g><g class=" c3-shapes c3-shapes-기타 c3-areas c3-areas-기타"></g><g class=" c3-selected-circles c3-selected-circles-기타"></g><g class=" c3-shapes c3-shapes-기타 c3-circles c3-circles-기타" style="cursor: pointer;"></g></g><g class="c3-chart-line c3-target c3-target-경기" style="opacity: 1; pointer-events: none;"><g class=" c3-shapes c3-shapes-경기 c3-lines c3-lines-경기"></g><g class=" c3-shapes c3-shapes-경기 c3-areas c3-areas-경기"></g><g class=" c3-selected-circles c3-selected-circles-경기"></g><g class=" c3-shapes c3-shapes-경기 c3-circles c3-circles-경기" style="cursor: pointer;"></g></g><g class="c3-chart-line c3-target c3-target-대구" style="opacity: 1; pointer-events: none;"><g class=" c3-shapes c3-shapes-대구 c3-lines c3-lines-대구"></g><g class=" c3-shapes c3-shapes-대구 c3-areas c3-areas-대구"></g><g class=" c3-selected-circles c3-selected-circles-대구"></g><g class=" c3-shapes c3-shapes-대구 c3-circles c3-circles-대구" style="cursor: pointer;"></g></g><g class="c3-chart-line c3-target c3-target-인천" style="opacity: 1; pointer-events: none;"><g class=" c3-shapes c3-shapes-인천 c3-lines c3-lines-인천"></g><g class=" c3-shapes c3-shapes-인천 c3-areas c3-areas-인천"></g><g class=" c3-selected-circles c3-selected-circles-인천"></g><g class=" c3-shapes c3-shapes-인천 c3-circles c3-circles-인천" style="cursor: pointer;"></g></g></g><g class="c3-chart-arcs" transform="translate(140.328125,143)"><text class="c3-chart-arcs-title" style="text-anchor: middle; opacity: 1; font-family: Rubik;">시도별 확진환자 현황 / 단위: %</text><g class="c3-chart-arc c3-target c3-target-서울"><g class=" c3-shapes c3-shapes-서울 c3-arcs c3-arcs-서울"><path class=" c3-shape c3-shape c3-arc c3-arc-서울" transform="" style="fill: rgb(95, 118, 232); cursor: pointer;" d="M8.162988482800983e-15,-133.31171874999998A133.31171874999998,133.31171874999998 0 0,1 122.97076714570227,51.48013970140883L106.36702195827746,44.5291940282599A115.31171874999998,115.31171874999998 0 0,0 7.060806363568365e-15,-115.31171874999998Z"></path></g><text dy=".35em" class="" transform="translate(88.78724279744522,-59.08396317375922)" style="opacity: 1; text-anchor: middle; pointer-events: none;"></text></g><g class="c3-chart-arc c3-target c3-target-기타"><g class=" c3-shapes c3-shapes-기타 c3-arcs c3-arcs-기타"><path class=" c3-shape c3-shape c3-arc c3-arc-기타" transform="" style="fill: rgb(255, 79, 112); cursor: pointer;" d="M122.97076714570227,51.48013970140883A133.31171874999998,133.31171874999998 0 0,1 -69.65518170669128,113.66692578532648L-60.250207541804194,98.31940282695282A115.31171874999998,115.31171874999998 0 0,0 106.36702195827746,44.5291940282599Z"></path></g><text dy=".35em" class="" transform="translate(32.765220619800886,101.49152430437921)" style="opacity: 1; text-anchor: middle; pointer-events: none;"></text></g><g class="c3-chart-arc c3-target c3-target-경기"><g class=" c3-shapes c3-shapes-경기 c3-arcs c3-arcs-경기"><path class=" c3-shape c3-shape c3-arc c3-arc-경기" transform="" style="fill: rgb(1, 202, 241); cursor: pointer;" d="M-69.65518170669128,113.66692578532648A133.31171874999998,133.31171874999998 0 0,1 -102.77181648529161,-84.91153097425958L-88.89537175799528,-73.44661572248864A115.31171874999998,115.31171874999998 0 0,0 -60.250207541804194,98.31940282695282Z"></path></g><text dy=".35em" class="" transform="translate(-105.1965575060453,17.543473908206636)" style="opacity: 1; text-anchor: middle; pointer-events: none;"></text></g><g class="c3-chart-arc c3-target c3-target-대구"><g class=" c3-shapes c3-shapes-대구 c3-arcs c3-arcs-대구"><path class=" c3-shape c3-shape c3-arc c3-arc-대구" transform="" style="fill: rgb(40, 167, 69); cursor: pointer;" d="M-102.77181648529161,-84.91153097425958A133.31171874999998,133.31171874999998 0 0,1 -40.55776803421701,-126.99244783908114L-35.081581608438846,-109.84568773024066A115.31171874999998,115.31171874999998 0 0,0 -88.89537175799528,-73.44661572248864Z"></path></g><text dy=".35em" class="" transform="translate(-59.7517174484135,-88.33924071360123)" style="opacity: 1; text-anchor: middle; pointer-events: none;"></text></g><g class="c3-chart-arc c3-target c3-target-인천"><g class=" c3-shapes c3-shapes-인천 c3-arcs c3-arcs-인천"><path class=" c3-shape c3-shape c3-arc c3-arc-인천" transform="" style="fill: rgb(237, 242, 246); cursor: pointer;" d="M-40.55776803421701,-126.99244783908114A133.31171874999998,133.31171874999998 0 0,1 -2.4488965448402948e-14,-133.31171874999998L-2.1182419090705096e-14,-115.31171874999998A115.31171874999998,115.31171874999998 0 0,0 -35.081581608438846,-109.84568773024066Z"></path></g><text dy=".35em" class="" transform="translate(-16.418846404119638,-105.37794204978835)" style="opacity: 1; text-anchor: middle; pointer-events: none;"></text></g></g><g class="c3-chart-texts"><g class="c3-chart-text c3-target c3-target-서울" style="opacity: 1; pointer-events: none;"><g class=" c3-texts c3-texts-서울"></g></g><g class="c3-chart-text c3-target c3-target-기타" style="opacity: 1; pointer-events: none;"><g class=" c3-texts c3-texts-기타"></g></g><g class="c3-chart-text c3-target c3-target-경기" style="opacity: 1; pointer-events: none;"><g class=" c3-texts c3-texts-경기"></g></g><g class="c3-chart-text c3-target c3-target-대구" style="opacity: 1; pointer-events: none;"><g class=" c3-texts c3-texts-대구"></g></g><g class="c3-chart-text c3-target c3-target-인천" style="opacity: 1; pointer-events: none;"><g class=" c3-texts c3-texts-인천"></g></g></g></g>
+ <section id="media" class="d-flex align-items-center">
+    
+     <div class="page-wrapper" style="display: block;">
+            <div class="page-breadcrumb">
+                <div class="row">
+                    <div class="col-7 align-self-center">
+                    
+                        <h1 class="page-title text-truncate text-dark font-weight-medium mb-1">실시간 뉴스</h1>
+
+                        <div class="d-flex align-items-center">
+                            <nav aria-label="breadcrumb">
+                            
+                                <ol class="breadcrumb m-0 p-0">
+                                    <li class="breadcrumb-item">
+									2개의 방송사에서 24시간 진행하는 라이브 뉴스를 보여드립니다.
+                                    </li>
+                                </ol>
+                                
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          <div class="row">
+            <div class="container-fluid2" style="
+											    padding-right: 15px;
+											    padding-left: 15px;
+											    margin-right: auto;
+    											margin-left: auto;
+											    width: 100%
+											    ">
+												    
+                <div class="card-group1" style="
+											    margin-right: auto;
+    											margin-left: auto;
+											    width: 300%
+											    ">
+                    <div class="col-md-6 col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex align-items-start">
+                                    <h4 class="card-title mb-0"><small id="name13" class="badge badge-default badge-danger form-text text-white">실시간
+						</small> 연합뉴스 LIVE </h4>
+                                </div>
+								<br>
+								<iframe width="100%" height="315" src="https://www.youtube-nocookie.com/embed/0GN8t2u3flc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>                    </div>
+						</div>
+					</div>
+                    <div class="col-md-6 col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex align-items-start">
+                                    <h4 class="card-title mb-0"><small id="name13" class="badge badge-default badge-danger form-text text-white">실시간
+						</small> YTN LIVE</h4>
+                                </div>
+								<br>
+								<iframe width="100%" height="315" src="https://www.youtube-nocookie.com/embed/GoXPbGQl-uQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>						</div>
+						</div>
+					</div>
+				</div>
+			</div>
+    	</div>
+    	</div>
+    </section>
+    <!-- ======= End media Section ======= -->
+
 
 </body>
 </html>

@@ -1,3 +1,4 @@
+
 create table coviddb (
     date varchar(20), ## 기준일
     checkup varchar(10), ## 검체채취 가능유무

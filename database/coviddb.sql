@@ -1,3 +1,4 @@
+
 -- --------------------------------------------------------
 -- 호스트:                          127.0.0.1
 -- 서버 버전:                        10.4.17-MariaDB - mariadb.org binary distribution
@@ -661,3 +662,4 @@ INSERT INTO `coviddb` (`date`, `ceack`, `sido`, `sigungu`, `name`, `juso`, `week
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+

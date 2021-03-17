@@ -80,8 +80,6 @@ aside {
 	width: 100%;
 	margin: 0px;
 	padding: 50px 0 50px 0;
-	border: 0px currentColor;
-	border-image: none;
 }
 
 .box-login {
@@ -149,7 +147,7 @@ aside {
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 }
-#container1 {
+#Calcontainer {
     width: 550px;
     float:left;
 }
@@ -157,6 +155,23 @@ aside {
     width: 500px;.
     float:right;
 }
+
+#stitle {
+align=center;
+style=width:50%; 
+height: 70px;
+border-radius: 4em;
+background-color: #04B486;
+padding:20px;
+}
+
+h4 {
+font-weight: bold;
+color: white;
+text-align: center;
+
+}
+
 </style>
 <script>
 	function insert_cate(cate_val, cate_nval) {
@@ -178,19 +193,22 @@ aside {
 </script>
 </head>
 <body>
-  <div id='container'>
-  <div class="col-md-1"></div>
-   <div class="col-md-6">
-<label>예약날짜</label><br>
-  <div id='container1'>
+
+  <div id='Calcontainer'>
+  
+   <div id="stitle" ><h4>예약 날짜</h4></div>
+   <br><br><br><br>
     <div id='calendar'></div>
-    </div><br>
-    <label>예약시간</label>
-  </div>
- 
+    
+    </div>
+    
+    <!-- ========= Start timeSection ========= -->
+   <div id='timeContainer' style="float:left;">
+   
+    <div id="stitle" ><h4>예약 시간</h4></div>
+    <br><br><br><br>
     <div class="col-md-5">
-			<form name="form_par" id="form_par" onsubmit="join()" action=""
-				method="">
+			<form name="form_par" id="form_par" onsubmit="join()" action="" method="">
 				<div class="box-login">
 					<div class="wrap-input floatL">
 						<div class="content_cate_area" style="text-align: center;">
@@ -222,15 +240,15 @@ aside {
 							<input type="text" name="catecodename" id="catecodename"
 								placeholder="선택" class="text" readonly="readonly"> <input
 								type="text" name="catecode" id="catecode" class="text">
+								</div>
+							</div>
 						</div>
-
-
-					</div>
+					</form>
 				</div>
+				
+			</div>
+			<!-- ========= End timeSection ========= -->
 
-			</form>
-</div>
-</div>
 
 </body>
 </html>

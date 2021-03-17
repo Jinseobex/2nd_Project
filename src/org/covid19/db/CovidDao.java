@@ -15,6 +15,7 @@ public class CovidDao {
 	private PreparedStatement pstmt = null;
 	private ResultSet rs = null;
 	
+
 	public JSONArray search(String placename, String phone, String address1, String address2, String address3) {
 		conn = JdbcUtil.getConnection();
 		JSONArray voList = new JSONArray();

@@ -6,8 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-
-
 public class JdbcUtil {
 	static String url = "jdbc:mariadb://localhost:3306/2nd_project";
 	static String user = "admin";
