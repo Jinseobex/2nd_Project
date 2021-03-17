@@ -879,7 +879,7 @@
     
     <!-- ======= 미디어센터, media Section ======= -->
 
-                                      <div class="section-title" id="media">
+                 				 <div class="section-title" id="media">
 									<h3>미디어센터</h3>
 									<p>2개의 방송사에서 24시간 진행하는 라이브 뉴스를 보여드립니다.</p>
                        				 </div>

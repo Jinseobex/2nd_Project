@@ -145,35 +145,61 @@
 	
 	// ================ 뉴스 api =================
 	
-		JSONObject naverNews = NaverNewsApi.naver_news();
-		
-		String[][] newsArray = new String[20][4];
+	JSONObject naverNews = NaverNewsApi.naver_news();
+	
+	String[][] newsArray1 = new String[5][4];
 
-		for(int k=0; k < naverNews.getJSONArray("items").length(); k++) {
-			
-			newsArray[k][0] = naverNews.getJSONArray("items").getJSONObject(k).getString("title");
-			newsArray[k][1] = naverNews.getJSONArray("items").getJSONObject(k).getString("link");
-			newsArray[k][2] = naverNews.getJSONArray("items").getJSONObject(k).getString("description");
-			newsArray[k][3] = naverNews.getJSONArray("items").getJSONObject(k).getString("pubDate");
-			
-		}
+	for(int k=0; k < 5; k++) {
 		
-		request.setAttribute("news", newsArray);
-
-			
-		%>
-		
-		
-	<style>
-
-	#bootstrap-overrides hr {
-		color:blue;
-		size:30;
-		width:70%;
-		align:center;
+		newsArray1[k][0] = naverNews.getJSONArray("items").getJSONObject(k).getString("title");
+		newsArray1[k][1] = naverNews.getJSONArray("items").getJSONObject(k).getString("link");
+		newsArray1[k][2] = naverNews.getJSONArray("items").getJSONObject(k).getString("description");
+		newsArray1[k][3] = naverNews.getJSONArray("items").getJSONObject(k).getString("pubDate");
 	}
+	
+	String[][] newsArray2 = new String[5][4];
+	
+	for(int x=0, z=5; x < 5; x++, z++) {
+		
+		newsArray2[x][0] = naverNews.getJSONArray("items").getJSONObject(z).getString("title");
+		newsArray2[x][1] = naverNews.getJSONArray("items").getJSONObject(z).getString("link");
+		newsArray2[x][2] = naverNews.getJSONArray("items").getJSONObject(z).getString("description");
+		newsArray2[x][3] = naverNews.getJSONArray("items").getJSONObject(z).getString("pubDate");
+	}
+	
+	%>
+	
+	
+<style>
 
-	</style>
+#bootstrap-overrides hr {
+	color:blue;
+	size:30;
+	width:70%;
+	align:center;
+}
+
+#newsLeft {
+	margin:20px;
+	border:10px soild gold;
+	float:left;
+	position:relative;
+	width:40%;
+}
+
+#newsRight {
+	margin:20px;
+	border:10px soild red;
+	float:left;
+	position:relative;
+}
+
+#news_container {
+	margin:150px;
+	
+}
+
+</style>
 	
 	
 </head>
@@ -854,65 +880,98 @@
     
       <!-- ======= 미디어센터, media Section ======= -->
 
-                                      <div class="section-title" id="media">
-									<h3>미디어센터</h3>
-									<p>2개의 방송사에서 24시간 진행하는 라이브 뉴스를 보여드립니다.</p>
-                       				 </div>
-                                <br>
-         
-				<div class="card-body" style="height:500px; width:600px;">
-					<div class="card-body1" style="position: absolute; left: 1050px;">
-						<div class="d-flex align-items-start">
-							<h4 class="card-title mb-0">
-								<small id="name13"
-									class="badge badge-default badge-danger form-text text-white">실시간
-								</small> 연합뉴스 LIVE
-							</h4>
-						</div>
-						<br>
-						<iframe width="600" height="415"
-							src="https://www.youtube-nocookie.com/embed/0GN8t2u3flc?autoplay=0&mute=1"
-							frameborder="0"
-							allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-							allowfullscreen=""></iframe>
-					</div>
-					<div class="card-body2" style="position:absolute; left: 250px;">
-						<div class="d-flex align-items-start">
-						 <h4 class="card-title mb-0">
-						  <small id="name13" class="badge badge-default badge-danger form-text text-white">실시간
-								</small> YTN LIVE
-							</h4>
-						</div>
-						<br>
-					
-					<iframe width="600" height="415"
-						src="https://www.youtube-nocookie.com/embed/GoXPbGQl-uQ?autoplay=0&mute=1"
-						frameborder="0"
-						allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-						allowfullscreen=""></iframe>
-					</div>
-				</div>
-    
-    <div class="container">
-    <%
-    for(String[] sarr: newsArray){
-    	
-    %>
-	<div>
-		<h3>
-			<a href="<%=sarr[1] %>"><%=sarr[0] %></a>
-		</h3>
-		<h4>
-			<%=sarr[2]%><br>
-			<%=sarr[3] %>
-		</h4>
+	<div class="section-title" id="media">
+		<h3>미디어센터</h3>
+		<p>2개의 방송사에서 24시간 진행하는 라이브 뉴스를 보여드립니다.</p>
 	</div>
-    <%} %>
-    
-    
-    </div>   
-    
-    <!-- ======= End media Section ======= -->
+	<br>
+
+	<div class="card-body" style="height: 500px; width: 600px;">
+		<div class="card-body1" style="position: absolute; left: 1050px;">
+			<div class="d-flex align-items-start">
+				<h4 class="card-title mb-0">
+					<small id="name13"
+						class="badge badge-default badge-danger form-text text-white">실시간
+					</small> 연합뉴스 LIVE
+				</h4>
+			</div>
+			<br>
+			<iframe width="600" height="415"
+				src="https://www.youtube-nocookie.com/embed/0GN8t2u3flc?autoplay=0&mute=1"
+				frameborder="0"
+				allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+				allowfullscreen=""></iframe>
+		</div>
+		<div class="card-body2" style="position: absolute; left: 250px;">
+			<div class="d-flex align-items-start">
+				<h4 class="card-title mb-0">
+					<small id="name13"
+						class="badge badge-default badge-danger form-text text-white">실시간
+					</small> YTN LIVE
+				</h4>
+			</div>
+			<br>
+
+			<iframe width="600" height="415"
+				src="https://www.youtube-nocookie.com/embed/GoXPbGQl-uQ?autoplay=0&mute=1"
+				frameborder="0"
+				allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+				allowfullscreen=""></iframe>
+		</div>
+	</div>
+	
+	<br>
+	<br>
+
+	<br>
+	<br>
+
+	<div class="news_container" id="news_container">
+
+		<div class="newsLeft" id="newsLeft">
+			<%
+			for (String[] sarr : newsArray1) {
+			%>
+			<div class="newsInner">
+				<h3>
+					<a href="<%=sarr[1]%>"><%=sarr[0]%></a>
+				</h3>
+				<h4>
+					<%=sarr[2]%><br>
+					<%=sarr[3]+"\n"%>
+				</h4>
+				<%
+				}
+				%>
+			</div>
+		</div>
+			
+		<br>
+
+		<div class="newsRight" id="newsRight">
+		
+			<%
+			for (String[] sarr2 : newsArray2) {
+			%>
+			<div class="newsInner">
+				<h3>
+					<a href="<%=sarr2[1]%>"><%=sarr2[0]%></a>
+				</h3>
+				<h4>
+					<%=sarr2[2]%><br>
+					<%=sarr2[3]%>
+				</h4>
+				<%
+				}
+				%>
+			</div>
+		
+		
+		</div>
+
+	</div>
+
+	<!-- ======= End media Section ======= -->
    
 	<footer>
 		<div class="container py-4">
