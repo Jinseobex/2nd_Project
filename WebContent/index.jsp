@@ -1,3 +1,4 @@
+<%@page import="org.covid19.naver.NaverNewsApi"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="org.json.JSONArray"%>
 <%@page import="org.covid19.statusBoardApi.StatusBoard"%>
@@ -76,8 +77,9 @@
 	<script src="assets/js/c3.min.js"></script>
 	<link href="assets/css/c3.css" rel="stylesheet">
 
-	<!-- 현황판 api -->
+	<!-- 현황판, 뉴스 api -->
 	<%	
+	// ================ 현황판 api =================
 	JSONObject jsonKorea = StatusBoard.status_korea();
 	
 	JSONObject jsonCity = StatusBoard.status_city();
@@ -142,11 +144,40 @@
 	
 	DecimalFormat format = new DecimalFormat("###,###");
 	
+	// ================ 뉴스 api =================
+	
+	JSONObject naverNews = NaverNewsApi.naver_news();
+	
+	String[][] newsArray = new String[20][4];
+
+	for(int k=0; k < naverNews.getJSONArray("items").length(); k++) {
+		
+		newsArray[k][0] = naverNews.getJSONArray("items").getJSONObject(k).getString("title");
+		newsArray[k][1] = naverNews.getJSONArray("items").getJSONObject(k).getString("link");
+		newsArray[k][2] = naverNews.getJSONArray("items").getJSONObject(k).getString("description");
+		newsArray[k][3] = naverNews.getJSONArray("items").getJSONObject(k).getString("pubDate");
+		
+	}
+	
+	request.setAttribute("news", newsArray);
+
+		
 	%>
+	
+<style>
+
+#bootstrap-overrides hr {
+	color:blue;
+	size:30;
+	width:70%;
+	align:center;
+}
+
+</style>
 	
 </head>
 
-<body>
+<body id="bootstrap-overrides">
 
   <!-- ======= Top Bar ======= -->
   <section id="topbar" class="d-flex align-items-center">
@@ -171,6 +202,7 @@
          <li><a class="nav-link scrollto active" href="#hero">안내</a></li>
           <li><a class="nav-link scrollto" href="#about">진료소 찾기</a></li>
           <li><a class="nav-link scrollto" href="#services">국내 현황판</a></li>
+          <li><a class="nav-link scrollto" href="#media">미디어 센터</a></li>
           <!-- <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               <li><a href="#">Drop Down 1</a></li>
@@ -810,7 +842,7 @@
 								<div class="card">
 									<div class="card-body collapse show">
 										<h4 class="card-title"><a href="http://www.gyeongnam.go.kr/corona.html"target="_blank"><span style="color: #000000;"><u>경남</u></span><u>(정보보기)</u></a></h4> 
-										확진자: <span style="color: #f89009;"><%=stringKorea.get("totalCase")%>명</span> <span style="color: #ffbb33;">[+<%=stringGyeongnam.get("newCase")%>명]</span>
+										확진자: <span style="color: #f89009;"><%=stringGyeongnam.get("totalCase")%>명</span> <span style="color: #ffbb33;">[+<%=stringGyeongnam.get("newCase")%>명]</span>
 										<br>
 										완치자: <span style="color: #009a87;"><%=stringGyeongnam.get("recovered")%>명</span><br>
 										사망자: <span style="color: #ee2323;"><%=stringGyeongnam.get("death")%>명</span><br>
@@ -844,6 +876,72 @@
 							</div>				</div>
 			</div>
     </section><!-- End Services Section -->
+    
+    <!-- ======= 미디어센터, media Section ======= -->
+
+                                      <div class="section-title" id="media">
+									<h3>미디어센터</h3>
+									<p>2개의 방송사에서 24시간 진행하는 라이브 뉴스를 보여드립니다.</p>
+                       				 </div>
+                                <br>
+         
+				<div class="card-body" style="height:500px; width:600px;">
+					<div class="card-body1" style="position: absolute; left: 1050px;">
+						<div class="d-flex align-items-start">
+							<h4 class="card-title mb-0">
+								<small id="name13"
+									class="badge badge-default badge-danger form-text text-white">실시간
+								</small> 연합뉴스 LIVE
+							</h4>
+						</div>
+						<br>
+						<iframe width="600" height="415"
+							src="https://www.youtube-nocookie.com/embed/0GN8t2u3flc?autoplay=0&mute=1"
+							frameborder="0"
+							allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+							allowfullscreen=""></iframe>
+					</div>
+					<div class="card-body2" style="position:absolute; left: 250px;">
+						<div class="d-flex align-items-start">
+						 <h4 class="card-title mb-0">
+						  <small id="name13" class="badge badge-default badge-danger form-text text-white">실시간
+								</small> YTN LIVE
+							</h4>
+						</div>
+						<br>
+					
+					<iframe width="600" height="415"
+						src="https://www.youtube-nocookie.com/embed/GoXPbGQl-uQ?autoplay=0&mute=1"
+						frameborder="0"
+						allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+						allowfullscreen=""></iframe>
+					</div>
+				</div>
+    <!-- ======= End media Section ======= -->
+    
+    <section id="news">
+    
+    <div class="container">
+    <%
+    for(String[] sarr: newsArray){
+    	
+    %>
+	<div>
+		<h3>
+			<a href="<%=sarr[1] %>"><%=sarr[0] %></a>
+		</h3>
+		<h4>
+			<%=sarr[2]%><br>
+			<%=sarr[3] %>
+		</h4>
+	</div>
+    <%} %>
+    
+    
+    </div>   
+    
+    </section>
+    
    <footer>
     <div class="container py-4">
       <div class="copyright">

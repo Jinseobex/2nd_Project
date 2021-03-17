@@ -6625,14 +6625,6 @@ hr {
     font-size: 3.5rem
 }
 
-hr {
-    box-sizing: content-box;
-    height: 0;
-    margin-top: 1rem;
-    border: 0;
-    border-top: 1px solid rgba(0, 0, 0, .1)
-}
-
 .img-fluid,
 .img-thumbnail {
     max-width: 100%;
@@ -6741,6 +6733,7 @@ kbd kbd {
     margin-left: auto;
     width: 100%
 }
+
 
 .badge,
 .btn,
