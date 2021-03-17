@@ -8,16 +8,17 @@ public class ReservationDto {
 	public String symptoms;
 	public String date;
 	public String time;
+	public String location;
 
 	public ReservationDto() {
-		this(0, "", "", "", "", "", "");
+		this(0, "", "", "", "", "", "","");
 	}
 
 	public ReservationDto(int no) {
-		this(no, "", "", "", "", "", "");
+		this(no, "", "", "", "", "", "","");
 	}
 
-	public ReservationDto(int no, String name, String jumin, String tel, String symptoms, String date, String time) {
+	public ReservationDto(int no, String name, String jumin, String tel, String symptoms, String date, String time, String location) {
 		this.no = no;
 		this.name = name;
 		this.jumin = jumin;
@@ -25,16 +26,20 @@ public class ReservationDto {
 		this.symptoms = symptoms;
 		this.date = date;
 		this.time = time;
+		this.location=location;
 	}
 
-	public ReservationDto(String name, String jumin, String tel, String symptoms, String date, String time) {
+	public ReservationDto(String name, String jumin, String tel, String symptoms, String date, String time, String location) {
 		this.name = name;
 		this.jumin = jumin;
 		this.tel = tel;
 		this.symptoms = symptoms;
 		this.date = date;
 		this.time = time;
+		this.location = location;
 	}
+
+
 
 	public int getNo() {
 		return no;
@@ -91,11 +96,19 @@ public class ReservationDto {
 	public void setTime(String time) {
 		this.time = time;
 	}
+	
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
 
 	@Override
 	public String toString() {
 		return "ReservationDto [no=" + no + ", name=" + name + ", jumin=" + jumin + ", tel=" + tel + ", symptoms="
-				+ symptoms + ", date=" + date + ", time=" + time + "]";
+				+ symptoms + ", date=" + date + ", time=" + time + ", location=" + location + "]";
 	}
 
 }
