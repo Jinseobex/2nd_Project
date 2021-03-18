@@ -286,12 +286,12 @@
 				<div class="customize-input float-right">
 				</div>
             </div>
-			<div class="container-fluid">
+			<div class="container-fluid" style="width:70%">
           		<div class="card-group">
-            		<div class="card border-right">
+            		<div class="card border-right" style="margin-right: 50px;">
               			<div class="card-body">
                 			<div class="d-flex d-lg-flex d-md-block align-items-center">
-                  				<div class="test" style="margin-right:100px;">
+                  				<div class="test" style="margin-right:10px;">
                     				<div class="d-inline-flex align-items-center">
                     				<h2 class="text-dark mb-1 font-weight-medium">
 									<span style="color: #f89009;">
@@ -319,10 +319,10 @@
             				</div>
              			</div>
            			</div>
-					<div class="card border-right">
+					<div class="card border-right" style="margin-right: 50px;">
 						<div class="card-body">
 							<div class="d-flex d-lg-flex d-md-block align-items-center">
-								<div class="test" style="margin-right:100px;">
+								<div class="test" style="margin-right:10px;">
 									<div class="d-inline-flex align-items-center">
 										<h2 class="text-dark mb-1 font-weight-medium">
 										<span style="color: #009a87;">
@@ -356,12 +356,12 @@
 				<div class="customize-input float-right">
 				</div>
             </div>
-            <div class="container-fluid">
+            <div class="container-fluid" style="width:70%">
             	<div class="card-group">
-	 				<div class="card border-right">
+	 				<div class="card border-right" style="margin-right: 50px;">
 						<div class="card-body">						
 							<div class="d-flex d-lg-flex d-md-block align-items-center">
-								<div class="test" style="margin-right:100px;">
+								<div class="test" style="margin-right:35px;">
 	     							<div class="d-inline-flex align-items-center">
 										<h2 class="text-dark mb-1 font-weight-medium">
 										<span style="color: #ee2323;">
@@ -385,10 +385,10 @@
 							</div>
 						</div>
 					</div>
-					<div class="card border-right">
+					<div class="card border-right" style="margin-right: 50px;">
 						<div class="card-body">
 							<div class="d-flex d-lg-flex d-md-block align-items-center">
-								<div class="test" style="margin-right:100px;">
+								<div class="test" style="margin-right:20px;">
 		  							<div class="d-inline-flex align-items-center">
 										<h2 class="text-dark mb-1 font-weight-medium">
 										<span style="color: #006dd7;">
@@ -416,9 +416,9 @@
 				</div>
 			</div>
 		</div>	
-	<div class="container">
+	<div class="container" data-aos="fade-up">
 			<div class="row">  
-				<div class="col-lg-8 col-md-12">
+				<div class="col-lg-8 col-md-12" style="text-align:center">
 					<div class="card">
 						<div class="card-body">
 							<h4 class="card-title" style="color:black" > 전일대비 확진환자 증감 비율 </h4>
@@ -455,21 +455,17 @@
 											},
 										});
 							</script>
-							<ul class="list-inline text-center mt-2 mb-12">
-								<li class="list-inline-item text-muted">당일 00시 데이터가 아직 없는 경우 전날의 데이터가 연계됩니다.</li>
-								<li class="list-inline-item text-muted">해외입국확진(검역)은 <b><%=stringQuarantine.get("newCase")%>명</b>, 국내 확진자는 <b><%=domestic%>명</b> 입니다.</li>
-							</ul>
 						</div>
 					</div>
 				</div>
-				<div class="col-lg-4 col-md-12">
+				<div class="col-lg-4 col-md-12" style="text-align:center">
 					<div class="card">
 						<div class="card-body">
 							<h4 class="card-title">국내 부가 정보</h4>
-							<div class="card border-right">
-								<div class="card-body">
+							<div class="card border-right" style="width:70%; margin:3% 15% 3% 15%;">
+								<div class="card-body" style="width:50%">
 									<div class="d-flex d-lg-flex d-md-block align-items-center">
-										<div class="test" style="margin-right:300px;">
+										<div class="test" style="margin-right:35px;">
 											<div class="d-inline-flex align-items-center">
 												<h2 class="text-dark mb-1 font-weight-medium">
 												<span style="color: #f89009;">
@@ -494,10 +490,10 @@
 									</div>
 								</div>
 							</div>
-							<div class="card border-right">
-								<div class="card-body">
+							<div class="card border-right" style="width:70%; margin:3% 15% 3% 15%;">
+								<div class="card-body" style="width:50%">
 									<div class="d-flex d-lg-flex d-md-block align-items-center">
-										<div class="test" style="margin-right:280px;">
+										<div class="test" style="margin-right:35px;">
 											<h2 class="text-dark mb-1 font-weight-medium">
 											<span style="color: #009a87;">
 											<!-- 국내 완치율 -->
@@ -519,10 +515,10 @@
 									</div>
 								</div>
 							</div>
-							<div class="card border-right">
-								<div class="card-body">
+							<div class="card border-right" style="width:70%; margin:3% 15% 3% 15%;">
+								<div class="card-body" style="width:50%">
 									<div class="d-flex d-lg-flex d-md-block align-items-center">
-										<div class="test" style="margin-right:300px;">
+										<div class="test" style="margin-right:35px;">
 											<div class="d-inline-flex align-items-center">
 												<h2 class="text-dark mb-1 font-weight-medium">
 												<span style="color: #ee2323;">
@@ -546,102 +542,100 @@
 								</div>
 							</div>
 						</div>
-						<ul class="list-inline text-center mt-5 mb-2">
-							<li class="list-inline-item text-muted">당일 데이터가 없는 경우 전날의 데이터가 연계됩니다.</li>
-							<li class="list-inline-item text-muted">확진율 = 결과양성(<%=jsonKorea.get("caseCount")%>) / 총 검사완료수(<%=jsonKorea.get("TotalChecking")%>) * 100%</li>
-						</ul>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="container">
-		<div class="col-md-6 col-lg-12">
-			<div class="card">
-				<div class="card-body">
-					<h4 class="card-title"><b><strong>대한민국 시도별 발생동향 한눈에 보기</strong></b></h4>
-					<hr>
-					<div class="row">
-						<div class="col-sm-4">
-							<br><br>
-							<div class="gray" style="color:gray;">
-								<p>대한민국 시도별 발생동향을 확인하실 수 있습니다.</p>
-								<p>발생률: 인구 10만명당 (지역별 인구 출처 : 행정안전부, 주민등록인구현황 (’20.1월 기준))</p>
-								<p>※ 지역구분은 신고지를 기준으로 하며, 초기 신고 이후 소관지역이 변경된 경우 변동 가능</p>
-								<p>※ 발생률은 반올림되어 표기되었습니다.</p>
+	<div class="container" data-aos="fade-up">
+		<div class="row">  
+			<div class="col-md-6 col-lg-12">
+				<div class="card">
+					<div class="card-body">
+						<h4 class="card-title"><b><strong>대한민국 시도별 발생동향 한눈에 보기</strong></b></h4>
+						<hr>
+						<div class="row">
+							<div class="col-sm-4">
+								<br><br>
+								<div class="gray" style="color:gray;">
+									<p>대한민국 시도별 발생동향을 확인하실 수 있습니다.</p>
+									<p>발생률: 인구 10만명당 (지역별 인구 출처 : 행정안전부, 주민등록인구현황 (’20.1월 기준))</p>
+									<p>※ 지역구분은 신고지를 기준으로 하며, 초기 신고 이후 소관지역이 변경된 경우 변동 가능</p>
+									<p>※ 발생률은 반올림되어 표기되었습니다.</p>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<br><br>
+								<!-- 시도별 발생동향 그래프 -->
+								<div id="City-status"></div>
+									<script>
+										var chart = c3.generate({
+											bindto: "#City-status",
+											data: { 
+												columns: [
+													['<%=jsonKorea.get("city1n")%>',  <%=jsonKorea.get("city1p")%>],
+										 			['<%=jsonKorea.get("city2n")%>',  <%=jsonKorea.get("city2p")%>],
+										 			['<%=jsonKorea.get("city3n")%>',  <%=jsonKorea.get("city3p")%>],
+										 			['<%=jsonKorea.get("city4n")%>',  <%=jsonKorea.get("city4p")%>],
+										 			['<%=jsonKorea.get("city5n")%>',  <%=jsonKorea.get("city5p")%>],
+										        ],
+											type: 'donut'
+											},
+											donut: {
+												label: { show: false },
+												title: '시도별 확진환자 현황 / 단위:%',
+												width: 18
+											},
+										});
+									</script>
+							</div>
+							<div class="col-sm-4">
+								<br><br>
+								<ul class="list-style-none mb-0">
+									<li>
+										<i class="fas fa-circle text-primary font-10 mr-2" style="color: tomato;"></i>
+										<span class="text-muted"><%=jsonKorea.get("city1n")%></span>
+										<span class="text-dark float-right font-weight-medium">
+										<%=jsonKorea.get("city1p")%>%</span>
+									</li>
+									<li class="mt-3">
+										<i class="fas fa-circle text-danger font-10 mr-2"></i>
+										<span class="text-muted"><%=jsonKorea.get("city2n")%></span>
+										<span class="text-dark float-right font-weight-medium">
+										<%=jsonKorea.get("city2p")%>%</span>
+									</li>
+									<li class="mt-3">
+										<i class="fas fa-circle text-cyan font-10 mr-2"></i>
+										<span class="text-muted"><%=jsonKorea.get("city3n")%></span>
+										<span class="text-dark float-right font-weight-medium">
+										<%=jsonKorea.get("city3p")%>%</span>
+									</li>
+									<li class="mt-3">
+										<i class="fas fa-circle text-success font-10 mr-2"></i>
+										<span class="text-muted"><%=jsonKorea.get("city4n")%></span>
+										<span class="text-dark float-right font-weight-medium">
+										<%=jsonKorea.get("city4p")%>%</span>
+									</li>
+									<li class="mt-3">
+										<i class="fas fa-circle text-light font-10 mr-2"></i>
+										<span class="text-muted"><%=jsonKorea.get("city5n")%></span>
+										<span class="text-dark float-right font-weight-medium">
+										<%=jsonKorea.get("city5p")%>%</span>
+									</li>
+								</ul>
+								<ul class="list-inline text-center mt-5 mb-2">
+									<li class="list-inline-item text-muted">차트에 마우스를 올리거나 클릭하면 정확한 수치를 확인할 수 있습니다.</li>
+								</ul>
 							</div>
 						</div>
-						<div class="col-sm-4">
-							<br><br>
-							<!-- 시도별 발생동향 그래프 -->
-							<div id="City-status"></div>
-								<script>
-									var chart = c3.generate({
-										bindto: "#City-status",
-										data: { 
-											columns: [
-												['<%=jsonKorea.get("city1n")%>',  <%=jsonKorea.get("city1p")%>],
-									 			['<%=jsonKorea.get("city2n")%>',  <%=jsonKorea.get("city2p")%>],
-									 			['<%=jsonKorea.get("city3n")%>',  <%=jsonKorea.get("city3p")%>],
-									 			['<%=jsonKorea.get("city4n")%>',  <%=jsonKorea.get("city4p")%>],
-									 			['<%=jsonKorea.get("city5n")%>',  <%=jsonKorea.get("city5p")%>],
-									        ],
-										type: 'donut'
-										},
-										donut: {
-											label: { show: false },
-											title: '시도별 확진환자 현황 / 단위:%',
-											width: 18
-										},
-									});
-								</script>
-						</div>
-						<div class="col-sm-4">
-							<br><br>
-							<ul class="list-style-none mb-0">
-								<li>
-									<i class="fas fa-circle text-primary font-10 mr-2" style="color: tomato;"></i>
-									<span class="text-muted"><%=jsonKorea.get("city1n")%></span>
-									<span class="text-dark float-right font-weight-medium">
-									<%=jsonKorea.get("city1p")%>%</span>
-								</li>
-								<li class="mt-3">
-									<i class="fas fa-circle text-danger font-10 mr-2"></i>
-									<span class="text-muted"><%=jsonKorea.get("city2n")%></span>
-									<span class="text-dark float-right font-weight-medium">
-									<%=jsonKorea.get("city2p")%>%</span>
-								</li>
-								<li class="mt-3">
-									<i class="fas fa-circle text-cyan font-10 mr-2"></i>
-									<span class="text-muted"><%=jsonKorea.get("city3n")%></span>
-									<span class="text-dark float-right font-weight-medium">
-									<%=jsonKorea.get("city3p")%>%</span>
-								</li>
-								<li class="mt-3">
-									<i class="fas fa-circle text-success font-10 mr-2"></i>
-									<span class="text-muted"><%=jsonKorea.get("city4n")%></span>
-									<span class="text-dark float-right font-weight-medium">
-									<%=jsonKorea.get("city4p")%>%</span>
-								</li>
-								<li class="mt-3">
-									<i class="fas fa-circle text-light font-10 mr-2"></i>
-									<span class="text-muted"><%=jsonKorea.get("city5n")%></span>
-									<span class="text-dark float-right font-weight-medium">
-									<%=jsonKorea.get("city5p")%>%</span>
-								</li>
-							</ul>
-							<ul class="list-inline text-center mt-5 mb-2">
-								<li class="list-inline-item text-muted">차트에 마우스를 올리거나 클릭하면 정확한 수치를 확인할 수 있습니다.</li>
-							</ul>
-						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="container">	
+	<div class="container"  data-aos="fade-up">
 		<div class="container-fluid">
-			<div class="card">
+			<div class="card" style="float:left;margin:10px; width:23%;">
 				<div class="card-body">
 					<h4 class="card-title"><a href="http://ncov.mohw.go.kr/"target="_blank">대한민국</a></h4> 
 					확진자: <span style="color: #f89009;"><%=stringKorea.get("totalCase")%>명</span> 
@@ -651,7 +645,7 @@
 					발생률: <span style="color: #006dd7;"><%=stringKorea.get("percentage")%>%</span>
 				</div>
 			</div>	
-			<div class="card">
+			<div class="card" style="float:left;margin:10px; width:23%;">
 				<div class="card-body">
 					<h4 class="card-title"><a href="http://www.seoul.go.kr/coronaV/coronaStatus.do"target="_blank">서울</a></h4> 
 					확진자: <span style="color: #f89009;"><%=stringSeoul.get("totalCase")%>명</span> 
@@ -661,7 +655,7 @@
 					발생률: <span style="color: #006dd7;"><%=stringSeoul.get("percentage")%>%</span>
 				</div>
 			</div>	
-			<div class="card">
+			<div class="card" style="float:left;margin:10px; width:23%;">
 				<div class="card-body">
 					<h4 class="card-title"><a href="http://www.busan.go.kr/corona19/index"target="_blank">부산</a></h4> 
 					확진자: <span style="color: #f89009;"><%=stringBusan.get("totalCase")%>명</span>
@@ -671,7 +665,7 @@
 					발생률: <span style="color: #006dd7;"><%=stringBusan.get("percentage")%>%</span>
 				</div>
 			</div>
-			<div class="card">
+			<div class="card" style="float:left;margin:10px; width:23%;">
 				<div class="card-body">
 					<h4 class="card-title"><a href="http://www.daegu.go.kr/"target="_blank">대구</a></h4> 
 						확진자: <span style="color: #f89009;"><%=stringDaegu.get("totalCase")%>명</span>
@@ -683,9 +677,9 @@
 			</div>
 		</div>
 	</div>
-	<div class="container">	
+	<div class="container"  data-aos="fade-up">	
 		<div class="container-fluid">	
-			<div class="card">
+			<div class="card" style="float:left;margin:10px; width:23%;">
 				<div class="card-body">
 					<h4 class="card-title"><a href="https://www.incheon.go.kr/"target="_blank">인천</a></h4> 
 					확진자: <span style="color: #f89009;"><%=stringIncheon.get("totalCase")%>명</span>
@@ -695,7 +689,7 @@
 					발생률: <span style="color: #006dd7;"><%=stringIncheon.get("percentage")%>%</span>
 				</div>
 			</div>	
-			<div class="card">
+			<div class="card" style="float:left;margin:10px; width:23%;">
 				<div class="card-body">
 					<h4 class="card-title"><a href="https://www.gwangju.go.kr/"target="_blank">광주</a></h4> 
 					확진자: <span style="color: #f89009;"><%=stringGwangju.get("totalCase")%>명</span>
@@ -705,7 +699,7 @@
 					발생률: <span style="color: #006dd7;"><%=stringGwangju.get("percentage")%>%</span>
 				</div>
 			</div>	
-			<div class="card">
+			<div class="card" style="float:left;margin:10px; width:23%;">
 				<div class="card-body">
 					<h4 class="card-title"><a href="https://www.daejeon.go.kr/corona19/index.do"target="_blank">대전</a></h4> 
 						확진자: <span style="color: #f89009;"><%=stringDaejeon.get("totalCase")%>명</span>
@@ -715,7 +709,7 @@
 						발생률: <span style="color: #006dd7;"><%=stringDaejeon.get("percentage")%>%</span>
 				</div>
 			</div>
-			<div class="card">
+			<div class="card" style="float:left;margin:10px; width:23%;">
 				<div class="card-body">
 					<h4 class="card-title"><a href="http://www.ulsan.go.kr/corona.jsp"target="_blank">울산</a></h4> 
 					확진자: <span style="color: #f89009;"><%=stringUlsan.get("totalCase")%>명</span>
@@ -727,9 +721,9 @@
 			</div>
 		</div>
 	</div>
-	<div class="container">	
+	<div class="container"  data-aos="fade-up">	
 		<div class="container-fluid">
-			<div class="card">
+			<div class="card" style="float:left;margin:10px; width:23%;">
 				<div class="card-body">
 					<h4 class="card-title"><a href="https://www.sejong.go.kr/life/sub05_0704.do"target="_blank">세종</a></h4> 
 					확진자: <span style="color: #f89009;"><%=stringSejong.get("totalCase")%>명</span>
@@ -739,7 +733,7 @@
 					발생률: <span style="color: #006dd7;"><%=stringSejong.get("percentage")%>%</span>
 				</div>
 			</div>
-			<div class="card">
+			<div class="card" style="float:left;margin:10px; width:23%;">
 				<div class="card-body">
 					<h4 class="card-title"><a href="https://www.gg.go.kr/bbs/boardView.do?bsIdx=464&bIdx=2296956&menuId=1535"target="_blank">경기</a></h4> 
 					확진자: <span style="color: #f89009;"><%=stringGyeonggi.get("totalCase")%>명</span>
@@ -749,7 +743,7 @@
 					발생률: <span style="color: #006dd7;"><%=stringGyeonggi.get("percentage")%>%</span>
 				</div>
 			</div>
-			<div class="card">
+			<div class="card" style="float:left;margin:10px; width:23%;">
 				<div class="card-body">
 					<h4 class="card-title"><a href="http://www.provin.gangwon.kr/"target="_blank">강원</a></h4> 
 					확진자: <span style="color: #f89009;"><%=stringGangwon.get("totalCase")%>명</span>
@@ -759,7 +753,7 @@
 					발생률: <span style="color: #006dd7;"><%=stringGangwon.get("percentage")%>%</span>
 				</div>
 			</div>	
-			<div class="card">
+			<div class="card" style="float:left;margin:10px; width:23%;">
 				<div class="card-body">
 					<h4 class="card-title"><a href="http://www.chungbuk.go.kr/"target="_blank">충북</a></h4> 
 					확진자: <span style="color: #f89009;"><%=stringChungbuk.get("totalCase")%>명</span>
@@ -771,9 +765,9 @@
 			</div>
 		</div>
 	</div>
-	<div class="container">	
+	<div class="container"  data-aos="fade-up">	
 		<div class="container-fluid">
-			<div class="card">
+			<div class="card" style="float:left;margin:10px; width:23%;">
 				<div class="card-body">
 					<h4 class="card-title"><a href="http://www.chungnam.go.kr/coronaStatus.do"target="_blank">충남</a></h4> 
 					확진자: <span style="color: #f89009;"><%=stringChungnam.get("totalCase")%>명</span>
@@ -783,7 +777,7 @@
 					발생률: <span style="color: #006dd7;"><%=stringChungnam.get("percentage")%>%</span>
 				</div>
 			</div>		
-			<div class="card">
+			<div class="card" style="float:left;margin:10px; width:23%;">
 				<div class="card-body">
 					<h4 class="card-title"><a href="http://www.jeonbuk.go.kr/"target="_blank">전북</a></h4> 
 					확진자: <span style="color: #f89009;"><%=stringJeonbuk.get("totalCase")%>명</span>
@@ -793,7 +787,7 @@
 					발생률: <span style="color: #006dd7;"><%=stringJeonbuk.get("percentage")%>%</span>
 				</div>
 			</div>		
-			<div class="card">
+			<div class="card" style="float:left;margin:10px; width:23%;">
 				<div class="card-body">
 					<h4 class="card-title"><a href="https://www.jeonnam.go.kr/coronaMainPage.do"target="_blank">전남</a></h4> 
 					확진자: <span style="color: #f89009;"><%=stringJeonnam.get("totalCase")%>명</span>
@@ -803,7 +797,7 @@
 					발생률: <span style="color: #006dd7;"><%=stringJeonnam.get("percentage")%>%</span>
 				</div>
 			</div>
-			<div class="card">
+			<div class="card" style="float:left;margin:10px; width:23%;">
 				<div class="card-body">
 					<h4 class="card-title"><a href="http://www.gb.go.kr/Main/index.html"target="_blank">경북</a></h4> 
 					확진자: <span style="color: #f89009;"><%=stringGyeongbuk.get("totalCase")%>명</span>
@@ -815,9 +809,9 @@
 			</div>
 		</div>
 	</div>
-	<div class="container">	
+	<div class="container"  data-aos="fade-up">	
 		<div class="container-fluid">	
-			<div class="card">
+			<div class="card" style="float:left;margin:10px; width:23%;">
 				<div class="card-body">
 					<h4 class="card-title"><a href="http://www.gyeongnam.go.kr/corona.html"target="_blank">경남</a></h4> 
 					확진자: <span style="color: #f89009;"><%=stringGyeongnam.get("totalCase")%>명</span>
@@ -827,7 +821,7 @@
 					발생률: <span style="color: #006dd7;"><%=stringGyeongnam.get("percentage")%>%</span>
 				</div>
 			</div>	
-			<div class="card">
+			<div class="card" style="float:left;margin:10px; width:23%;">
 				<div class="card-body">
 					<h4 class="card-title"><a href="https://jeju.go.kr/covid19.jsp"target="_blank">제주</a></h4> 
 						확진자: <span style="color: #f89009;"><%=stringJeju.get("totalCase")%>명</span>
@@ -837,8 +831,8 @@
 						발생률: <span style="color: #006dd7;"><%=stringJeju.get("percentage")%>%</span>
 				</div>
 			</div>
-			<div class="card">
-				<div class="card-body">
+			<div class="card" style="float:left;margin:10px; width:23%;">
+				<div class="card-body"> 
 					<h4 class="card-title"><a href="http://ncov.mohw.go.kr/"target="_blank">검역</a></h4> 
 					확진자: <span style="color: #f89009;"><%=stringQuarantine.get("totalCase")%>명</span>
 					<span style="color: #ffbb33;">[+<%=stringQuarantine.get("newCase")%>명]</span><br>

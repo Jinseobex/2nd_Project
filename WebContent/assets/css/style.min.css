@@ -10947,7 +10947,6 @@ fieldset:disabled a.btn {
     background-clip: border-box;
     border: 0 solid #e9ecef;
     border-radius: .25rem;
-    float:left;
 }
 
 .card>hr {

@@ -36,11 +36,11 @@ public class NaverNewsApi {
 	     
 	            while ((inputLine = br.readLine()) != null) {
 	            	sb.append(inputLine);  
-	            	System.out.println(inputLine);
+	            	// System.out.println(inputLine);
 	            }
 	            
 	            JSONObject naverNews = new JSONObject(sb.toString());  
-	            //System.out.println(naverNews);
+	            // System.out.println(naverNews);
 	            return naverNews;
 	            
 }

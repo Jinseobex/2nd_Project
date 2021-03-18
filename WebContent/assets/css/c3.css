@@ -189,6 +189,9 @@
 }
 
 /*-- Arc --*/
+.c3-chart-arcs {
+	padding:10px;
+}
 .c3-chart-arcs-title {
   dominant-baseline: middle;
   font-size: 1.3em;
