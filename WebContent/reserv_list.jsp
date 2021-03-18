@@ -18,7 +18,7 @@
 <script src="assets/js/bootstrap.js"></script>
 <head>
 <%
-/*
+
 String userID = request.getParameter("ID");
 if (session.getAttribute("ID") != null) {
 	userID = (String) session.getAttribute("ID");
@@ -27,18 +27,20 @@ if (userID == null) {
 	PrintWriter script = response.getWriter();
 	script.println("<script>");
 	script.println("alert('로그인이 필요한 서비스입니다.')");
-	script.println("location.href = '' ");
+	script.println("location.href = 'reserv_login.jsp' ");
 	script.println("</script>");
 }
 
+/*  // 미정
 if (userID.equals("admin") == false) {
 	PrintWriter script = response.getWriter();
 	script.println("<script>");
 	script.println("alert('잘못된 접근입니다.')");
 	script.println("location.href = 'index.jsp'");
 	script.println("</script>");
-}
+} 
 */
+
 %>
 
 
@@ -84,7 +86,6 @@ h2 {
 
     </div>
   </header><!-- End Header -->
-<br>
 <br>
 	<h2>예약 리스트</h2>
 
@@ -152,6 +153,7 @@ h2 {
 			%>
 		
 	</table>
-	<a href="join.jsp">예약하기(테스트용)</a>
+	<a href="reserv_join.jsp">예약하기(테스트)</a><br>
+	<a href="reserv_logout_action.jsp">로그아웃(테스트)</a>
 </body>
 </html>
