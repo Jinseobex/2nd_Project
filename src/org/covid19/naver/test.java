@@ -9,18 +9,17 @@ public class test {
 		
 		JSONObject naverNews = NaverNewsApi.naver_news();
 		
-		String[][] newsArray = new String[20][4];
+		String[][] newsArray2 = new String[10][4];
 
-		System.out.println();
-		for(int k=0; k < naverNews.getJSONArray("items").length(); k++) {
 		
-			newsArray[k][0] = naverNews.getJSONArray("items").getJSONObject(k).getString("title");
-			newsArray[k][1] = naverNews.getJSONArray("items").getJSONObject(k).getString("link");
-			newsArray[k][2] = naverNews.getJSONArray("items").getJSONObject(k).getString("description");
-			newsArray[k][3] = naverNews.getJSONArray("items").getJSONObject(k).getString("pubDate");
-			System.out.println("!!!"+newsArray[k][0]);
+		for(int z=5; z < 10; z++) {
+			
+			newsArray2[z][0] = naverNews.getJSONArray("items").getJSONObject(z).getString("title");
+			newsArray2[z][1] = naverNews.getJSONArray("items").getJSONObject(z).getString("link");
+			newsArray2[z][2] = naverNews.getJSONArray("items").getJSONObject(z).getString("description");
+			newsArray2[z][3] = naverNews.getJSONArray("items").getJSONObject(z).getString("pubDate");
+			System.out.println(newsArray2[z][0]);
 		}
-		
 		
 	}
 	
