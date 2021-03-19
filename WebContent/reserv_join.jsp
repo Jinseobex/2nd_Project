@@ -31,7 +31,7 @@
 	$(function() {
 		$("#datepicker").datepicker(
 				{
-					dateFormat : 'yy-mm-dd',
+					dateFormat : 'yy년 mm월 dd일', // 년 월일 추가
 					showOtherMonths : true //빈 공간에 현재월의 앞뒤월의 날짜 표시
 					,
 					showMonthAfterYear : true // 년도 먼저 
@@ -41,22 +41,25 @@
 					showOn : "both" // 픽스
 					,
 					yearSuffix : "년",
-					monthNamesShort : [ '1', '2', '3', '4', '5', '6', '7', '8',
-							'9', '10', '11', '12' ],
-					monthNames : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월',
-							'8월', '9월', '10월', '11월', '12월' ],
+					monthNamesShort : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월',
+							'9월', '10월', '11월', '12월' ],
 					dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ],
 					dayNames : [ '일요일', '월요일', '화요일', '수요일', '목요일', '금요일',
 							'토요일' ],
 					minDate : "+1D" // 현재일 기준최소
 					,
-					maxDate : "+20D" // 최대  
+					maxDate : "+30D" // 최대  
 					,
 					onSelect : function() {
 						var myDate = $('#datepicker').val();
-						alert(myDate);
+						alert("선택하신 예약날짜는 "+myDate+" 입니다.");
 						$("#dat").val(myDate);
-					}
+					},
+					 beforeShowDay: function(date) {
+					        var day = date.getDay();
+					        return [(day != 0), ''];
+					    }
+
 				});
 	});
 </script>
@@ -67,22 +70,37 @@
 		var od_cate_length = od_cate.length;
 
 		if (od_cate_length > 0) {
-			$("#id_cateimg_" + od_cate).css({
+			$("#time_" + od_cate).css({
 				"background-color" : "#fd7d01"
 			});
 		}
 
-		$("#id_cateimg_" + cate_val).css({
+		$("#time_" + cate_val).css({
 			"background-color" : "red"
 		});
 		$("#catecode").val(cate_val);
 		$("#catecodename").val(cate_nval);
 	}
 </script>
+<script type="text/javascript">
+$("#form1").on("click",fuciton(){
+	var tel = $("#tel").val();
+	
+	if(tel==""){
+		alert("전화번호입력 안함");
+		$('#tel').focus();
+	}
+	alert("전화번호입력 함");
 
-<%
+	document.getElementById("postFrom").submit();
+	
+});
+
+</script>
+
+<%-- <%
 String locationName = request.getParameter("name");
-%>
+%> --%>
 <style>
 .box {
 	width: 146px;
@@ -110,6 +128,12 @@ h4 {
 	color: white;
 	text-align: center;
 }
+h4 {
+	font-weight: bold;
+	
+	text-align: center;
+}
+
 
 #aa {align =center;
 	
@@ -137,14 +161,12 @@ body {
 	width: 400px;
 }
 
-.btn_cate_food1 {
+.time_btn {
 	width: 107px;
 	display: inline-block;
 	background: rgb(253, 125, 1) none repeat scroll 0 0;
 	border: medium none currentcolor;
 	color: rgb(255, 255, 255);
-	font-family: "NanumGothic", "Tahoma", "Helvetica", "AppleGothic",
-		"sans-serif";
 	font-size: 15px;
 	font-weight: bold;
 	height: 35px;
@@ -156,10 +178,12 @@ body {
 }
 
 .ui-datepicker {
-	font-size: 23px;
+	font-size: 30px;
 	width: 100%;
-	height: 350px;
+	height: 440px;
 }
+
+
 </style>
 
 
@@ -181,10 +205,11 @@ body {
 
 			<nav id="navbar" class="navbar">
 				<ul>
-					<li><a class="nav-link scrollto" href="#hero">안내</a></li>
-					<li><a class="nav-link scrollto" href="#about">진료소 찾기</a></li>
-					<li><a class="nav-link scrollto" href="#services">국내 현황판</a></li>
-					<li><a class="nav-link scrollto" href="#contact">관리자</a></li>
+					<li><a class="nav-link scrollto" href="/index.jsp#hero">안내</a></li>
+					<li><a class="nav-link scrollto" href="/index.jsp#about">진료소 찾기</a></li>
+					<li><a class="nav-link scrollto" href="/index.jsp#services">국내 현황판</a></li>
+					<li><a class="nav-link scrollto" href="/index.jsp#media">미디어 센터</a></li>
+					<li><a class="nav-link scrollto" href="/reserv_list.jsp">관리자</a></li>
 				</ul>
 				<i class="bi bi-list mobile-nav-toggle"></i>
 			</nav>
@@ -195,7 +220,7 @@ body {
 	<!-- End Header -->
 	<br>
 	<br>
-	<form method="post" action="reserv_join_action.jsp">
+	<form id="form1" method="post" action="reserv_join_action.jsp">
 		<div class="row gx-5">
 			<div class="col-md-1"></div>
 
@@ -213,16 +238,14 @@ body {
 						<input type="hidden" name="location"
 							value="<%=request.getParameter("name")%>"> <label
 							for="name" class="form-label"><strong>예약자명</strong></label> <input
-							type="text" id="name" class="form-control" name="name"
-							placeholder="성함">
+							type="text" id="name" class="form-control" name="name" maxlength='12'
+							placeholder="성함(First Name)">
 					</div>
 
 					<label for="rrn" class="form-label"><strong>생년월일</strong></label>
 					<div class="input-group mb-3">
 						<input type="text" id="jumin" name="jumin" class="form-control"
-							aria-label="Username" placeholder="생년월일 8자리"> <input
-							type="button" name="button" class="btn btn-primary" value="확인하기"
-							onClick="checkAlert(this.form,this.form.jumin.value)">
+							aria-label="Username" placeholder="생년월일 8자리(RRN)" maxlength='8'>
 					</div>
 
 					<div class="mb-3">
@@ -317,28 +340,28 @@ body {
 					<div class="box-login">
 						<div class="wrap-input floatL">
 							<div class="content_cate_area" style="text-align: center;">
-								<br>
+								
 								<h5>오전</h5>
 								<br> <a href="javascript:insert_cate('1','9:00');">
-									<div id="id_cateimg_1" class="btn_cate_food1">9:00</div>
+									<div id="time_1" class="time_btn">9:00</div>
 								</a> <a href="javascript:insert_cate('2','10:00');">
-									<div id="id_cateimg_2" class="btn_cate_food1">10:00</div>
+									<div id="time_2" class="time_btn">10:00</div>
 								</a> <a href="javascript:insert_cate('3','11:00');">
-									<div id="id_cateimg_3" class="btn_cate_food1">11:00</div>
-								</a> <br> <br> <br>
+									<div id="time_3" class="time_btn">11:00</div>
+								</a> <br> 
 								<h5>오후</h5>
 								<br> <a href="javascript:insert_cate('4','12:00');">
-									<div id="id_cateimg_4" class="btn_cate_food1">12:00</div>
+									<div id="time_4" class="time_btn">12:00</div>
 								</a> <a href="javascript:insert_cate('5','1:00');">
-									<div id="id_cateimg_5" class="btn_cate_food1">1:00</div>
+									<div id="time_5" class="time_btn">1:00</div>
 								</a> <a href="javascript:insert_cate('6','2:00');">
-									<div id="id_cateimg_6" class="btn_cate_food1">2:00</div>
+									<div id="time_6" class="time_btn">2:00</div>
 								</a> <a href="javascript:insert_cate('7','3:00');">
-									<div id="id_cateimg_7" class="btn_cate_food1">3:00</div>
+									<div id="time_7" class="time_btn">3:00</div>
 								</a> <a href="javascript:insert_cate('8','4:00');">
-									<div id="id_cateimg_8" class="btn_cate_food1">4:00</div>
+									<div id="time_8" class="time_btn">4:00</div>
 								</a> <a href="javascript:insert_cate('9','5:00');">
-									<div id="id_cateimg_9" class="btn_cate_food1">5:00</div>
+									<div id="time_9" class="time_btn">5:00</div>
 								</a> <br> <label class="form-label"><strong>예약날짜</strong></label>
 
 								<input type="text" name="date" id="dat" placeholder="예약날짜"
@@ -365,8 +388,9 @@ body {
 
 
 	<script>
+	
 		$("#jumin").keyup(function(event) {
-			regexp = /[^0-9]/;
+			regexp = /[^0-9]$/;
 			v = $(this).val();
 			if (regexp.test(v)) {
 				alert("숫자만 입력가능 합니다.");
@@ -375,19 +399,19 @@ body {
 		});
 
 		$("#tel").keyup(function(event) {
-			regexp = /[^0-9]/;
+			regexp = /[^0-9]$/;
 			v = $(this).val();
 			if (regexp.test(v)) {
 				alert("숫자만 입력가능 합니다.\n-(하이픈)을 제외한 숫자만 입력하여 주세요.");
 				$(this).val(v.replace(regexp, ''));
 			}
 		});
-
+ 
 		$("#name").keyup(function(event) {
-			regexp = /[a-z0-9]/g;
+			regexp = /[^ㄱ-ㅎ|가-힣|a-z|A-Z]$/;
 			v = $(this).val();
 			if (regexp.test(v)) {
-				alert("이름은 한글로 입력해주세요");
+				alert("이름은 한글이나 영어로만 입력해주세요");
 				$(this).val(v.replace(regexp, ''));
 			}
 		});
