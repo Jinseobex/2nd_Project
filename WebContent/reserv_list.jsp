@@ -76,10 +76,11 @@ h2 {
 
       <nav id="navbar" class="navbar">
         <ul>
-         <li><a class="nav-link scrollto" href="#hero">안내</a></li>
-          <li><a class="nav-link scrollto" href="#about">진료소 찾기</a></li>
-          <li><a class="nav-link scrollto" href="#services">국내 현황판</a></li>
-          <li><a class="nav-link scrollto" href="#contact">관리자</a></li>
+         <li><a class="nav-link scrollto" href="/index.jsp#hero">안내</a></li>
+          <li><a class="nav-link scrollto" href="/index.jsp#about">진료소 찾기</a></li>
+          <li><a class="nav-link scrollto" href="/index.jsp#services">국내 현황판</a></li>
+          <li><a class="nav-link scrollto" href="/index.jsp#media">미디어 센터</a></li>
+          <li><a class="nav-link scrollto" href="">관리자</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
