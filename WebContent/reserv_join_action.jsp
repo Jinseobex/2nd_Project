@@ -32,7 +32,8 @@ for (int i = 0; i < symptoms.length; i++) {
 request.setAttribute("symtomsarray", symList);
 dto = new ReservationDto(name, jumin, tel, temp, date, time, location);
 
-System.out.println(dto);
+System.out.println(dto); 
+
 ReservationDao.insert(dto);
 
 /* ArrayList<ReservationDto> list = ReservationDao.selectAll();
