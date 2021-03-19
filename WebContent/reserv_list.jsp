@@ -7,13 +7,18 @@
 <%@page import="java.util.List"%>
 <!DOCTYPE html>
 <html>
-<link rel="shortcut icon" type="image/x-icon"
-	href="https://corona-19.kr/img/favicon.ico">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width initial-scale=1">
+<link rel="shortcut icon" type="image/x-icon" href="https://corona-19.kr/img/favicon.ico">
+<link rel="stylesheet" href="assets/css/bootstrap.css">
+<link href="assets/css/style.css" rel="stylesheet">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 
-<link href="assets/css/styles.css" rel="stylesheet" />
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="assets/js/bootstrap.js"></script>
 <head>
 <%
-/*
+
 String userID = request.getParameter("ID");
 if (session.getAttribute("ID") != null) {
 	userID = (String) session.getAttribute("ID");
@@ -22,24 +27,22 @@ if (userID == null) {
 	PrintWriter script = response.getWriter();
 	script.println("<script>");
 	script.println("alert('로그인이 필요한 서비스입니다.')");
-	script.println("location.href = '' ");
+	script.println("location.href = 'reserv_login.jsp' ");
 	script.println("</script>");
 }
 
+/*  // 미정
 if (userID.equals("admin") == false) {
 	PrintWriter script = response.getWriter();
 	script.println("<script>");
 	script.println("alert('잘못된 접근입니다.')");
 	script.println("location.href = 'index.jsp'");
 	script.println("</script>");
-}
+} 
 */
+
 %>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width initial-scale=1">
-<link rel="stylesheet" href="css/bootstrap.css">
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="js/bootstrap.js"></script>
+
 
 <script>
 	function noDelete(delNo) {
@@ -63,7 +66,27 @@ h2 {
 </style>
 
 </head>
-<body>
+<body> 
+<!-- ======= Header ======= -->
+  <header id="header" class="d-flex align-items-center">
+    <div class="container d-flex align-items-center justify-content-between">
+
+      <h1 class="logo"><a href="#" class="logo"><img src="assets/img/g_logo.png" alt=""></a><a href="index.jsp"> 코로나바이러스감염증-19<span> (COVID-19)</span></a></h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+
+      <nav id="navbar" class="navbar">
+        <ul>
+         <li><a class="nav-link scrollto" href="#hero">안내</a></li>
+          <li><a class="nav-link scrollto" href="#about">진료소 찾기</a></li>
+          <li><a class="nav-link scrollto" href="#services">국내 현황판</a></li>
+          <li><a class="nav-link scrollto" href="#contact">관리자</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->
+<br>
 	<h2>예약 리스트</h2>
 
 	<br>
@@ -112,7 +135,7 @@ h2 {
 				<td><%=reserve.getJumin()%></td>
 				<td><%=reserve.getTel()%></td>
 				<td><%=reserve.getSymptoms()%></td>
-				<td>선별진료소(예정)</td>
+				<td><%=reserve.getLocation()%></td>
 				<td><%=reserve.getDate()%></td>
 				<td><%=reserve.getTime()%></td>
 				<td>
@@ -130,6 +153,7 @@ h2 {
 			%>
 		
 	</table>
-	<a href="join.jsp">예약하기(테스트용)</a>
+	<a href="reserv_join.jsp">예약하기(테스트)</a><br>
+	<a href="reserv_logout_action.jsp">로그아웃(테스트)</a>
 </body>
 </html>

@@ -1,4 +1,4 @@
-package org.reservation;
+ package org.reservation;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,18 +6,20 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import org.reservation.ReservationDto;
+
 import org.reservation.util.*;
 
 public class ReservationDao {
 
 	static String SELECT_ALL = "SELECT * FROM RESERV ORDER BY NO DESC";
 	static String SELECT_ONE = "SELECT * FROM RESERV WHERE NO=?";
-	static String UPDATE = "UPDATE RESERV SET NAME=?, JUMIN=?, TEL=?, SYMPTOMS, DATE=?, TIME=? WHERE NO=?";
+	static String UPDATE = "UPDATE RESERV SET NAME=?, JUMIN=?, TEL=?, SYMPTOMS, DATE=?, TIME=?, LOCATION=? WHERE NO=?";
 	static String DELETE = "DELETE FROM RESERV WHERE NO=?";
-	static String INSERT = "INSERT INTO RESERV(NAME, JUMIN, TEL, SYMPTOMS, DATE, TIME) VALUES(?,?,?,?,?,?)";
-	static String INSERT1 = "INSERT INTO RESERV(NAME, JUMIN, TEL, SYMPTOMS) VALUES(?,?,?,?)";
+	static String INSERT = "INSERT INTO RESERV(NAME, JUMIN, TEL, SYMPTOMS, DATE, TIME, Location) VALUES(?,?,?,?,?,?,?)";
+	static String INSERT1 = "INSERT INTO RESERV(NAME, JUMIN, TEL, SYMPTOMS, LOCATION) VALUES(?,?,?,?,?)";
 	static String INSERT2 = "INSERT INTO RESERV(DATE, TIME) VALUES(?,?)";
+	static String INSERT3 = "INSERT INTO RESERV(TIME) VALUES(?)";
+
 
 	private static Connection conn = null;
 	private static Statement stmt = null;
@@ -38,7 +40,8 @@ public class ReservationDao {
 				String symptoms = rs.getString(5);
 				String date = rs.getString(6);
 				String time = rs.getString(7);
-				list.add(new ReservationDto(no, name, jumin, tel, symptoms, date, time));
+				String location = rs.getString(8);
+				list.add(new ReservationDto(no, name, jumin, tel, symptoms, date, time, location));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -64,6 +67,8 @@ public class ReservationDao {
 				reserv.setSymptoms(rs.getString(5));
 				reserv.setDate(rs.getString(6));
 				reserv.setTime(rs.getString(7));
+				reserv.setLocation(rs.getString(8));
+
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -83,6 +88,7 @@ public class ReservationDao {
 			pstmt.setString(4, dto.getSymptoms());
 			pstmt.setString(5, dto.getDate());
 			pstmt.setString(6, dto.getTime());
+			pstmt.setString(7, dto.getLocation());
 
 			int cnt = pstmt.executeUpdate();
 
@@ -111,6 +117,7 @@ public class ReservationDao {
 			pstmt.setString(4, dto.getSymptoms());
 			pstmt.setString(5, dto.getDate());
 			pstmt.setString(6, dto.getTime());
+			pstmt.setString(7, dto.getLocation());
 			pstmt.setInt(6, dto.getNo());
 			int cnt = pstmt.executeUpdate();
 			if (cnt > 0) {
@@ -142,4 +149,25 @@ public class ReservationDao {
 			JdbcUtil.close(conn, pstmt, rs);
 		}
 	}
+	
+	public static void insert3(ReservationDto dto) {
+		conn = JdbcUtil.getConnection();
+		try {
+			pstmt = conn.prepareStatement(INSERT);
+			pstmt.setString(1, dto.getTime());
+			int cnt = pstmt.executeUpdate();
+			if (cnt > 0) {
+				conn.commit();
+				System.out.println("insert 완료");
+			} else {
+				System.out.println("insert 실패!");
+				conn.rollback();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(conn, pstmt, rs);
+		}
+	}
+
 }

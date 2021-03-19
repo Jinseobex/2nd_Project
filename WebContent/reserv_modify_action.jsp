@@ -11,6 +11,7 @@ String jumin = request.getParameter("jumin");
 String tel = request.getParameter("tel");
 String date = request.getParameter("date");
 String time = request.getParameter("time");
+String location = request.getParameter("location");
 String[] symptoms = request.getParameterValues("symptoms");
 
 String temp = "";
@@ -22,7 +23,7 @@ for (int i = 0; i < symptoms.length; i++) {
 	}
 }
 
-ReservationDto dto = new ReservationDto(name, jumin, tel, temp, date, time);
+ReservationDto dto = new ReservationDto(name, jumin, tel, temp, date, time, location);
 
 System.out.println(dto);
 ReservationDao.update(dto);
