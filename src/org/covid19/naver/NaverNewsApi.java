@@ -21,7 +21,7 @@ public class NaverNewsApi {
 	
 	public static JSONObject naver_news() throws Exception {
 		
-			    String text = URLEncoder.encode("코로나19", "UTF-8"); //검색어";
+			    String text = URLEncoder.encode("코로나19", "UTF-8"); // 검색어
 			    String apiURL = "https://openapi.naver.com/v1/search/news.json?query="+ text + "&display=10&start=1&sort=sim"; // 뉴스의 json 결과
 	            URL url = new URL(apiURL);
 	            conn = (HttpURLConnection)url.openConnection();
@@ -35,6 +35,7 @@ public class NaverNewsApi {
 	            String inputLine;
 	     
 	            while ((inputLine = br.readLine()) != null) {
+	            	inputLine = inputLine.replaceAll("<b>", "");
 	            	sb.append(inputLine);  
 	            	// System.out.println(inputLine);
 	            }

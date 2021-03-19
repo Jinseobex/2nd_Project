@@ -261,6 +261,7 @@
 			      		</div>
 					</div>
     				<p> 가까운 도로명 주소를 입력하시면 선별진료소의 위치가 확인됩니다. </p>
+    				<p> 예) 종로 3가 / 동두천시 지행동 </p>
 				</footer>
         	</div>
 			<div style="weight:1300px; height:600px;">
@@ -299,7 +300,7 @@
 											</span>
 								  		</h2>
 			                        	<span class="badge bg-warning font-12 text-white font-weight-medium badge-pill ml-2 d-lg-block d-md-none">
-			                        	<%=stringKorea.get("newCase")%>명 
+			                        	+ <%=stringKorea.get("newCase")%>명 
 			                        	</span>
 			                    	</div>
 			                 		<h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">국내 확진자</h6>   
@@ -330,7 +331,7 @@
 											</span>
 										</h2>
 										<span class="badge bg-success font-12 text-white font-weight-medium badge-pill ml-2 d-lg-block d-md-none">
-										<%=jsonKorea.get("TodayRecovered")%>명										
+										+ <%=jsonKorea.get("TodayRecovered")%>명										
 										</span>
 									</div>
 			 						<h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">국내 완치자</h6>
@@ -359,7 +360,7 @@
 											</span>
 										</h2>
 										<span class="badge bg-danger font-12 text-white font-weight-medium badge-pill ml-2 d-lg-block d-md-none">
-										<%=jsonKorea.get("TodayDeath")%>명
+										+ <%=jsonKorea.get("TodayDeath")%>명
 										</span>                                    
 									</div>
 									<h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">국내 사망자</h6>
@@ -387,7 +388,7 @@
 											</span>
 										</h2>
 										<span class="badge bg-primary font-12 text-white font-weight-medium badge-pill ml-2 d-lg-block d-md-none">
-										<%=jsonKorea.get("TotalCaseBefore")%>명										
+										+ <%=jsonKorea.get("TotalCaseBefore")%>명										
 										</span>
 									</div>
 									<h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">국내 치료중</h6>
@@ -412,7 +413,9 @@
 							</h4>
 							<div class="row" style="padding:20px">
 								<div class="col-sm-8" style="flex:0 0 50%; padding-left:45px">
+								
 									<!-- 시도별 발생동향 그래프 -->
+									
 									<div id="City-status"></div>
 									<script>
 										var chart = c3.generate({
@@ -425,7 +428,14 @@
 														 	['<%=jsonKorea.get("city4n")%>',  <%=jsonKorea.get("city4p")%>],
 														 	['<%=jsonKorea.get("city5n")%>',  <%=jsonKorea.get("city5p")%>],
 													],
-												type: 'donut'
+												type: 'donut',
+												colors: {
+													'<%=jsonKorea.get("city1n")%>' : '#0275d8',
+													'<%=jsonKorea.get("city2n")%>' : '#d9534f',
+													'<%=jsonKorea.get("city3n")%>' : '#5bc0de',
+													'<%=jsonKorea.get("city4n")%>' : '#5cb85c',
+													'<%=jsonKorea.get("city5n")%>' : '#f0ad4e'
+												}
 											},
 											donut: {
 												label: { 
@@ -439,7 +449,7 @@
 								<div class="col-sm-4" style="flex:0 0 50%; margin-left:20px; margin-top:50px; text-align:left">
 									<ul class="list-style-none">
 										<li>
-											<i class="fas fa-circle text-primary font-10 mr-2" style="color: tomato;"></i>
+											<i class="fas fa-circle text-primary font-10 mr-2"></i>
 											<span class="text-muted"><%=jsonKorea.get("city1n")%></span>
 											<span class="text-dark float-right font-weight-medium">
 											<%=jsonKorea.get("city1p")%>%</span>
@@ -463,7 +473,7 @@
 											<%=jsonKorea.get("city4p")%>%</span>
 										</li>
 										<li class="mt-3">
-											<i class="fas fa-circle text-light font-10 mr-2"></i>
+											<i class="fas fa-circle text-warning font-10 mr-2"></i>
 											<span class="text-muted"><%=jsonKorea.get("city5n")%></span>
 											<span class="text-dark float-right font-weight-medium">
 											<%=jsonKorea.get("city5p")%>%</span>
@@ -476,7 +486,9 @@
 				</div>
 			</div>
 		</div>
+		
 		<!-- 전일대비확진자컨테이너 -->
+		
 		<div class="container" data-aos="fade-up" style="margin-top:25px">
 				<div class="row">  
 					<div class="col-lg-8 col-md-12" style="text-align:center">
@@ -826,7 +838,7 @@
 	<section id="services" class="services">
 		<div class="section-title" id="media" style="margin-bottom:30px">
 			<h3>미디어센터</h3>
-			<p>2개의 방송사에서 24시간 진행하는 라이브 뉴스를 보여드립니다.</p>
+			<p>24시간 진행하는 라이브 뉴스와 코로나 관련 최신 뉴스를 보여드립니다.</p>
 		</div>
 		<div class="container"  data-aos="fade-up">
 			<div class="container-fluid">
