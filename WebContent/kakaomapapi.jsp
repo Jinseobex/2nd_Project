@@ -11,9 +11,11 @@
 </head>
 <body>
 <div id="map" style="width:100%;height:100%;"></div>
+
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=30a29ea7804c67c48615f24d77121766
 &libraries=services">
 </script>
+
 <script>
 var markers = [];
 // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
@@ -102,7 +104,7 @@ function displayMarker(place) {
     				st += "<span>토요일 : " + sat + '</span><br/>';
     				st += "<span>번호 : " + num + '</span><br/>';
     				console.log(name);
-    				infowindow.setContent(st +"<span style='font-size:12px;'><a href='reserv_join.jsp?name='"+name+"'>예약하기</a></span>" + "</div>");
+    				infowindow.setContent(st + "<span style=font-size:12px><a href='reserv_join.jsp?name="+name+"'>예약하기</a></span></div>");
     		        infowindow.open(map, marker);
     				} else {
     					infowindow.setContent('<div style="width:189px;height:18px;margin:5px;font-size:12px;text-align:center;"> 임시진료소는 확인되지 않습니다. </div>');
@@ -112,7 +114,7 @@ function displayMarker(place) {
     			error: function(data){
     				console.log("ajax 안들어옴");
     			}
-    		}); 	
+    	}); 	
     });
 }
 
