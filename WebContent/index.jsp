@@ -8,11 +8,15 @@
 <!DOCTYPE html>
 <style>
 .news-body {
-	background-color:#dee8fb;
+	background-color:#fff;
 	margin-top:5px;
 	margin-bottom:20px;
 	padding:10px;
-	border-radius:25px;
+	box-shadow: 0 3px 9px 0 rgba(169, 184, 200, .15);
+    -webkit-box-shadow: 0 3px 9px 0 rgba(169, 184, 200, .15);
+    -moz-box-shadow: 0 3px 9px 0 rgba(169, 184, 200, .15);
+    border:0 solid #e9ecef;
+    border-radius:.25rem;
 }
 .newsTitle {
 	 text-decoration: underline;
@@ -213,10 +217,11 @@
 					<li><a href="#">Drop Down 4</a></li>
 				</ul>
 			-->
-					<li><a class="nav-link scrollto" href="#contact">관리자</a></li>
+					<li><a class="nav-link scrollto" href="reserv_list.jsp">관리자</a></li>
 				</ul>
 		        	<i class="bi bi-list mobile-nav-toggle"></i>
-		      </nav><!-- .navbar -->
+		      </nav>
+		      <!-- End navbar -->
     	</div>
 	</header>
 	<!-- End Header -->
@@ -255,7 +260,7 @@
 							</div>
 			      		</div>
 					</div>
-    				<p> 자신의 위치를 입력해주세요. </p>
+    				<p> 가까운 도로명 주소를 입력하시면 선별진료소의 위치가 확인됩니다. </p>
 				</footer>
         	</div>
 			<div style="weight:1300px; height:600px;">
@@ -819,40 +824,42 @@
 	
 	<!-- ======= 미디어센터, media Section ======= -->
 	<section id="services" class="services">
-		<div class="section-title" id="media">
+		<div class="section-title" id="media" style="margin-bottom:30px">
 			<h3>미디어센터</h3>
 			<p>2개의 방송사에서 24시간 진행하는 라이브 뉴스를 보여드립니다.</p>
 		</div>
 		<div class="container"  data-aos="fade-up">
-			<div class="row" style="margin-bottom:30px;margin-top:30px">
-				<div class="col-md-8 col-lg-6 aos-init aos-animate">
-					<div class="d-flex align-items-start">
-						<h4 class="card-title mb-0">
-						<small id="name13" class="badge badge-default badge-danger form-text text-white">실시간
-						</small> 연합뉴스 LIVE
-						</h4>
+			<div class="container-fluid">
+				<div class="card">
+					<div class="col-md-8 col-lg-6 aos-init aos-animate" style="padding:15px">
+						<div class="d-flex align-items-start" style="padding-left:25%;padding-bottom:3%">
+							<h4 class="card-title mb-0" >
+							<small id="name13" class="badge badge-default badge-danger form-text text-white" style="margin-top:0;margin-right:10px;" >실시간
+							</small> <span> 연합뉴스 LIVE </span>
+							</h4>
+						</div>
+						<div class="card board-right">
+							<iframe width="100%" height="400"
+							src="https://www.youtube-nocookie.com/embed/0GN8t2u3flc?autoplay=0&mute=1"
+							frameborder="0"
+							allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"allowfullscreen="">
+							</iframe>
+						</div>
 					</div>
-					<div class="card board-right">
-						<iframe width="540" height="415"
-						src="https://www.youtube-nocookie.com/embed/0GN8t2u3flc?autoplay=0&mute=1"
-						frameborder="0"
-						allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"allowfullscreen="">
-						</iframe>
-					</div>
-				</div>
-				<div class="col-md-8 col-lg-6 aos-init aos-animate" >
-					<div class="d-flex align-items-start">
-						<h4 class="card-title mb-0">
-						<small id="name13" class="badge badge-default badge-danger form-text text-white">실시간
-						</small> YTN LIVE
-						</h4>
-					</div>
-					<div class="card board-right">
-						<iframe width="540" height="415"
-						src="https://www.youtube-nocookie.com/embed/GoXPbGQl-uQ?autoplay=0&mute=1"
-						frameborder="0"
-						allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="">
-						</iframe>
+					<div class="col-md-8 col-lg-6 aos-init aos-animate" style="padding:15px" >
+						<div class="d-flex align-items-start" style="padding-left:25%;padding-bottom:3%">
+							<h4 class="card-title mb-0">
+							<small id="name13" class="badge badge-default badge-danger form-text text-white" style="margin-right:10px;">실시간
+							</small> YTN LIVE
+							</h4>
+						</div>
+						<div class="card board-right">
+							<iframe width="100%" height="400"
+							src="https://www.youtube-nocookie.com/embed/GoXPbGQl-uQ?autoplay=0&mute=1"
+							frameborder="0"
+							allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="">
+							</iframe>
+						</div>
 					</div>
 				</div>
 			</div>

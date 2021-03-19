@@ -68,6 +68,7 @@ function displayMarker(place) {
         map: map,
         position: new kakao.maps.LatLng(place.y, place.x) 
     });	
+    
     marker.setMap(map); // 지도 위에 마커를 표출합니다
     markers.push(marker);  // 배열에 생성된 마커를 추가합니다
     // 마커에 클릭이벤트를 등록합니다
@@ -78,6 +79,7 @@ function displayMarker(place) {
     	var address1 = place.road_address_name.split(" ")[0];
     	var address2 = place.road_address_name.split(" ")[1];
     	var address3 = place.road_address_name;
+    	
     	console.log(place.place_name);
     	console.log(phone);
     	console.log(place.road_address_name);
@@ -104,7 +106,7 @@ function displayMarker(place) {
     				st += "<span>토요일 : " + sat + '</span><br/>';
     				st += "<span>번호 : " + num + '</span><br/>';
     				console.log(name);
-    				infowindow.setContent(st + "<span style=font-size:12px><a href='reserv_join.jsp?name="+name+"'>예약하기</a></span></div>");
+    				infowindow.setContent(st + "<span><a href='reserv_join.jsp?name="+name+"' style='color:#106eea'>예약하기</a></span></div>");
     		        infowindow.open(map, marker);
     				} else {
     					infowindow.setContent('<div style="width:189px;height:18px;margin:5px;font-size:12px;text-align:center;"> 임시진료소는 확인되지 않습니다. </div>');
