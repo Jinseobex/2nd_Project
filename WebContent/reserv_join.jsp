@@ -64,6 +64,26 @@
 	});
 </script>
 <script type="text/javascript">
+
+$(function(){
+	$("#confirm").click(function(){
+		$.get("reserv_confirm.jsp?tel="+$("#tel").val(), function(data, status){
+			var res = JSON.parse(data.trim());
+			if(res.success === "가능") {
+				alert("예약가능 합니다.");
+				console.log("중복안댐!");
+				$('#tel').attr('disabled', true);
+				$('#sumbmitBtn').attr('disabled', false);
+			}else if (res.success === "불가능"){
+				console.log("중복!");
+				alert("이미 예약하셨습니다.")
+			}
+		})
+	});
+});
+
+</script>
+<script type="text/javascript">
 	// 예약 시간
 	function insert_cate(cate_val, cate_nval) {
 		var od_cate = $("#catecode").val();
@@ -83,7 +103,7 @@
 	}
 </script>
 <script type="text/javascript">
-$("#form1").on("click",fuciton(){
+/* $("#form1").on("click",fuciton(){
 	var tel = $("#tel").val();
 	
 	if(tel==""){
@@ -94,7 +114,7 @@ $("#form1").on("click",fuciton(){
 
 	document.getElementById("postFrom").submit();
 	
-});
+}); */
 
 </script>
 
@@ -248,11 +268,13 @@ body {
 							aria-label="Username" placeholder="생년월일 8자리(RRN)" maxlength='8'>
 					</div>
 
-					<div class="mb-3">
+			
 						<label for="phone" class="form-label"><strong>전화번호</strong></label>
-						<input type="text" id="tel" class="form-control" name="tel"
-							aria-describedby="namebox" placeholder="(-)없이 번호만 입력하세요.">
-					</div>
+						<div class="input-group mb-3">
+						<input type="text" id="tel" class="form-control" name="tel" 
+						aria-describedby="namebox" placeholder="(-)없이 번호만 입력하세요." maxlength='13'>
+						<input type="button" name="button" class="btn btn-primary" id="confirm" value="확인하기"></div>
+
 					<label for="name" class="form-label"><strong>*
 							코로나19 의심증상</strong></label> <br>
 
@@ -372,7 +394,7 @@ body {
 									type="hidden" name="catecode" id="catecode" class="text">
 
 								<div class="submit">
-									<button type="submit" class="btn btn-primary" id=sumbmitBtn>예약
+									<button type="submit" class="btn btn-primary" id=sumbmitBtn disabled="disabled">예약
 										등록</button>
 								</div>
 							</div>
@@ -398,14 +420,18 @@ body {
 			}
 		});
 
-		$("#tel").keyup(function(event) {
+/* 		$("#tel").keyup(function(event) {
 			regexp = /[^0-9]$/;
 			v = $(this).val();
 			if (regexp.test(v)) {
 				alert("숫자만 입력가능 합니다.\n-(하이픈)을 제외한 숫자만 입력하여 주세요.");
 				$(this).val(v.replace(regexp, ''));
 			}
-		});
+		}); */
+		
+		$(document).on("keyup", "#tel", function() {
+			$(this).val( $(this).val().replace(/[^0-9]/g, "").replace(/(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})$/,"$1-$2-$3").replace("--", "-") ); });
+
  
 		$("#name").keyup(function(event) {
 			regexp = /[^ㄱ-ㅎ|가-힣|a-z|A-Z]$/;

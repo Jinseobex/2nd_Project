@@ -6,6 +6,9 @@
 <%
 request.setCharacterEncoding("utf-8");
 
+
+int no = Integer.parseInt(request.getParameter("no"));
+
 String name = request.getParameter("name");
 String jumin = request.getParameter("jumin");
 String tel = request.getParameter("tel");
@@ -23,9 +26,8 @@ for (int i = 0; i < symptoms.length; i++) {
 	}
 }
 
-ReservationDto dto = new ReservationDto(name, jumin, tel, temp, date, time, location);
+ReservationDto dto = new ReservationDto(no, name, jumin, tel, temp, date, time, location);
 
-System.out.println(dto);
 ReservationDao.update(dto);
 
 PrintWriter script = response.getWriter();

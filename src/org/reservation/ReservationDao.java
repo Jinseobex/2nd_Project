@@ -1,4 +1,4 @@
- package org.reservation;
+package org.reservation;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,13 +13,12 @@ public class ReservationDao {
 
 	static String SELECT_ALL = "SELECT * FROM RESERV ORDER BY NO DESC";
 	static String SELECT_ONE = "SELECT * FROM RESERV WHERE NO=?";
-	static String UPDATE = "UPDATE RESERV SET NAME=?, JUMIN=?, TEL=?, SYMPTOMS, DATE=?, TIME=?, LOCATION=? WHERE NO=?";
+	static String UPDATE = "UPDATE RESERV SET NAME=?, JUMIN=?, TEL=?, SYMPTOMS=?, DATE=?, TIME=?, LOCATION=? WHERE NO=?";
 	static String DELETE = "DELETE FROM RESERV WHERE NO=?";
 	static String INSERT = "INSERT INTO RESERV(NAME, JUMIN, TEL, SYMPTOMS, DATE, TIME, Location) VALUES(?,?,?,?,?,?,?)";
 	static String INSERT1 = "INSERT INTO RESERV(NAME, JUMIN, TEL, SYMPTOMS, LOCATION) VALUES(?,?,?,?,?)";
 	static String INSERT2 = "INSERT INTO RESERV(DATE, TIME) VALUES(?,?)";
 	static String INSERT3 = "INSERT INTO RESERV(TIME) VALUES(?)";
-
 
 	private static Connection conn = null;
 	private static Statement stmt = null;
@@ -118,7 +117,7 @@ public class ReservationDao {
 			pstmt.setString(5, dto.getDate());
 			pstmt.setString(6, dto.getTime());
 			pstmt.setString(7, dto.getLocation());
-			pstmt.setInt(6, dto.getNo());
+			pstmt.setInt(8, dto.getNo());
 			int cnt = pstmt.executeUpdate();
 			if (cnt > 0) {
 				conn.commit();
@@ -149,7 +148,7 @@ public class ReservationDao {
 			JdbcUtil.close(conn, pstmt, rs);
 		}
 	}
-	
+
 	public static void insert3(ReservationDto dto) {
 		conn = JdbcUtil.getConnection();
 		try {
@@ -168,6 +167,46 @@ public class ReservationDao {
 		} finally {
 			JdbcUtil.close(conn, pstmt, rs);
 		}
+	}
+
+//	public static boolean duplication(String tel) {
+//		conn = JdbcUtil.getConnection();
+//		String dup = "select tel from reserv where tel=?";
+//		try {
+//			pstmt = conn.prepareStatement(dup);
+//			pstmt.setString(1, tel);
+//			rs = pstmt.executeQuery();
+//			if (rs.next()) {
+//				return false;
+//			} else {
+//				return true;
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			JdbcUtil.close(conn, pstmt, rs);
+//		}
+//		return false;
+//	}
+//	
+	public static int duplication(String tel) {
+		conn = JdbcUtil.getConnection();
+		String dup = "select tel from reserv where tel=?";
+		try {
+			pstmt = conn.prepareStatement(dup);
+			pstmt.setString(1, tel);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				return 1; // 중복
+			} else {
+				return 0; // 중복 x
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(conn, pstmt, rs);
+		}
+		return -2;  // 디비오류
 	}
 
 }

@@ -29,6 +29,7 @@ $(function() {
 <%
 int no = Integer.parseInt(request.getParameter("no"));
 ReservationDto reserv = ReservationDao.selectOne(new ReservationDto(no));
+
 %>
 
 <style>
@@ -82,12 +83,16 @@ text-align: center;
 				<div class="p-3 border bg-light">
 					<form method="post" action="join_action.jsp">
 						<div class="mb-3">
+						<input type="hidden" name="no"
+							value="<%=no%>">
+						<input type="hidden" name="location"
+							value="<%=reserv.getLocation()%>">
 							<label for="name" class="form-label"><strong>예약자명</strong></label>
 							<input type="text" class="form-control" name="name"
-								placeholder="성함" value="<%=reserv.getName()%>" disabled="disabled">
+								placeholder="성함" value="<%=reserv.getName()%>" >
 						</div>
 
-						<label for="rrn" class="form-label"><strong>주민등록번호</strong></label>
+						<label for="rrn" class="form-label"><strong>생년월일</strong></label>
 						<div class="input-group mb-3">
 							<input type="text" class="form-control" name="jumin"
 								aria-label="Username" placeholder="(-없이 13자리)"
@@ -97,7 +102,7 @@ text-align: center;
 						<div class="mb-3">
 							<label for="phone" class="form-label"><strong>전화번호</strong></label>
 							<input type="text" class="form-control" name="tel"
-								aria-describedby="namebox" value="<%=reserv.getTel()%>">
+								aria-describedby="namebox" disabled="disabled" value="<%=reserv.getTel()%>">
 						</div>
 						<label for="name" class="form-label"><strong>*
 								코로나19 의심증상</strong></label> <br>
