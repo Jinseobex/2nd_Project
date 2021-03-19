@@ -68,93 +68,90 @@ h2 {
 </head>
 <body> 
 <!-- ======= Header ======= -->
-  <header id="header" class="d-flex align-items-center">
-    <div class="container d-flex align-items-center justify-content-between">
-
-      <h1 class="logo"><a href="#" class="logo"><img src="assets/img/g_logo.png" alt=""></a><a href="index.jsp"> 코로나바이러스감염증-19<span> (COVID-19)</span></a></h1>
-      <!-- Uncomment below if you prefer to use an image logo -->
-
-      <nav id="navbar" class="navbar">
-        <ul>
-         <li><a class="nav-link scrollto" href="/index.jsp#hero">안내</a></li>
-          <li><a class="nav-link scrollto" href="/index.jsp#about">진료소 찾기</a></li>
-          <li><a class="nav-link scrollto" href="/index.jsp#services">국내 현황판</a></li>
-          <li><a class="nav-link scrollto" href="/index.jsp#media">미디어 센터</a></li>
-          <li><a class="nav-link scrollto" href="">관리자</a></li>
-        </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav><!-- .navbar -->
-
-    </div>
-  </header><!-- End Header -->
-<br>
-	<h2>예약 리스트</h2>
-
-	<br>
-	<form class="row row-cols-lg-auto g-3 align-items-center"
-		style="float: right; margin-right: 30px">
-		<div class="input-group mb-3">
-
-			<input type="text" class="form-control" placeholder="검색어 입력"
-				aria-label="Recipient's username" aria-describedby="basic-addon2"
-				id="myInput">
-			<div class="input-group-append">
-				<button class="btn btn-primary" type="submit">검색</button>
-			</div>
-
+	<header id="header" class="d-flex align-items-center">
+		<div class="container d-flex align-items-center justify-content-between">
+			<h1 class="logo"><a href="#" class="logo"><img src="assets/img/g_logo.png" alt=""></a>
+			<a href="index.jsp"> 코로나바이러스감염증-19<span> (COVID-19)</span></a></h1>
+			<nav id="navbar" class="navbar">
+				<ul>
+					<li><a class="nav-link scrollto" href="/index.jsp#hero">안내</a></li>
+					<li><a class="nav-link scrollto" href="/index.jsp#about">진료소 찾기</a></li>
+					<li><a class="nav-link scrollto" href="/index.jsp#services">국내 현황판</a></li>
+					<li><a class="nav-link scrollto" href="/index.jsp#media">미디어 센터</a></li>
+					<li><a class="nav-link scrollto" href="">관리자</a></li>
+				</ul>
+				<i class="bi bi-list mobile-nav-toggle"></i>
+			</nav><!-- .navbar -->
 		</div>
-	</form>
-	<br>
-	<table class="table"
-		style="text-align: center; border: 1px solid #ddddd">
-		<thead>
-			<tr>
-				<th style="background-color: #fafafa; text-align: center;">번호</th>
-				<th style="background-color: #fafafa; text-align: center;">이름</th>
-				<th style="background-color: #fafafa; text-align: center;">주민등록번호</th>
-				<th style="background-color: #fafafa; text-align: center;">전화번호</th>
-				<th style="background-color: #fafafa; text-align: center;">코로나
-					의심증상</th>
-				<th style="background-color: #fafafa; text-align: center;">선별진료소</th>
-				<th style="background-color: #fafafa; text-align: center;">예약날짜</th>
-				<th style="background-color: #fafafa; text-align: center;">예약시간</th>
-				<th style="background-color: #fafafa; text-align: center;">수정</th>
-				<th style="background-color: #fafafa; text-align: center;">삭제</th>
-
-
-			</tr>
-		</thead>
-		<%
-		ArrayList<ReservationDto> list = ReservationDao.selectAll();
-		for (int i = 0; i < list.size(); i++) {
-			ReservationDto reserve = list.get(i);
-		%>
-		<tbody id="myTable">
-			<tr>
-				<td><%=reserve.getNo()%></td>
-				<td><%=reserve.getName()%></td>
-				<td><%=reserve.getJumin()%></td>
-				<td><%=reserve.getTel()%></td>
-				<td><%=reserve.getSymptoms()%></td>
-				<td><%=reserve.getLocation()%></td>
-				<td><%=reserve.getDate()%></td>
-				<td><%=reserve.getTime()%></td>
-				<td>
-					<button onclick="noModify('<%=reserve.getNo()%>');" type="button"
-						class="btn btn-outline-success">수정</button>
-				</td>
-				<td>
-					<button onclick="noDelete('<%=reserve.getNo()%>');" type="button"
-						class="btn btn-outline-danger">삭제</button>
-				</td>
-
-			</tr>
-			<%
-			}
-			%>
-		
-	</table>
-	<a href="reserv_join.jsp">예약하기(테스트)</a><br>
-	<a href="reserv_logout_action.jsp">로그아웃(테스트)</a>
+	</header>
+	<!-- End Header -->
+	
+	<section id="about" class="about section-bg">
+		<div class="section-title"> <h3> 예약 리스트 </h3>
+		</div>
+		<div class="container">
+			<form style="width:auto;width:20%;margin-left:77.8%;">
+				<div class="input-group mb-3">
+					<input type="text" class="form-control" placeholder="검색어 입력"
+					aria-label="Recipient's username" aria-describedby="basic-addon2" id="myInput">
+					<div class="input-group-append">
+					<button class="btn btn-primary" type="submit">검색</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="container">
+			<div class="container-fluid">
+				<div class="card border-right" style="border:1px solid rgba(0, 0, 0, 0.125); margin:15px; padding:20px;">
+					<table class="table" style="text-align: center;">
+							<tr>
+								<th>번호</th>
+								<th>이름</th>
+								<th>주민등록번호</th>
+								<th>전화번호</th>
+								<th>코로나 의심증상</th>
+								<th>선별진료소</th>
+								<th>예약날짜</th>
+								<th>예약시간</th>
+								<th>수정</th>
+								<th>삭제</th>
+							</tr>
+				
+						<%
+						ArrayList<ReservationDto> list = ReservationDao.selectAll();
+						for (int i = 0; i < list.size(); i++) {
+							ReservationDto reserve = list.get(i);
+						%>	
+						<tr>
+							<td><%=reserve.getNo()%></td>
+							<td><%=reserve.getName()%></td>
+							<td><%=reserve.getJumin()%></td>
+							<td><%=reserve.getTel()%></td>
+							<td><%=reserve.getSymptoms()%></td>
+							<td><%=reserve.getLocation()%></td>
+							<td><%=reserve.getDate()%></td>
+							<td><%=reserve.getTime()%></td>
+							<td> <button onclick="noModify('<%=reserve.getNo()%>');" type="button" class="btn btn-outline-success">수정</button> </td>
+							<td> <button onclick="noDelete('<%=reserve.getNo()%>');" type="button" class="btn btn-outline-danger">삭제</button> </td>
+						</tr>
+						<%
+						}
+						%>		
+					</table>
+					<div style="text-align:center">
+						<button type="button" class="btn btn-outline-primary" onclick="location.href='reserv_join.jsp'">예약하기</button>
+						<button type="button" class="btn btn-outline-primary" onclick="location.href='reserv_logout_action.jsp'">로그아웃</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<footer>
+		<div class="container py-4">
+			<div class="copyright" style="text-align:center;">
+			Copyright <strong><span>김진섭, 최재연, 석현일</span></strong>. All Rights Reserved
+			</div>
+    	</div>
+	</footer>
 </body>
 </html>
