@@ -62,7 +62,7 @@
 	} else if (result == -1) {
 		PrintWriter script = response.getWriter();
 		script.println("<script>");
-		script.println("alert('서버 오류 입니다.')");
+		script.println("alert('아이디 비밀번호 둘다 입력하지 않으셨습니다.')");
 		script.println("location.href = 'index.jsp'");
 		script.println("</script>");
 	}
