@@ -51,7 +51,7 @@ if (userID.equals("admin") == false) {
 	}
 
 	function noModify(modiNo) {
-		if (confirm("수정?"))
+		if (confirm("수정하시겠습니까?"))
 			location.href = "reserv_modify.jsp?no=" + modiNo;
 	}
 </script>

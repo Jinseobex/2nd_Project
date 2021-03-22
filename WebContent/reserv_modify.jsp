@@ -15,6 +15,9 @@
 <script src="assets/js/bootstrap.js"></script>
 <link rel="shortcut icon" type="image/x-icon"
 	href="https://corona-19.kr/img/favicon.ico">
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 
 <script>
 $(function() {
@@ -24,6 +27,41 @@ $(function() {
 		this.submit();
 		alert("수정되었습니다.");
 	});
+});
+
+$(function() {
+	$("#datepicker").datepicker(
+			{
+				dateFormat : 'yy년 mm월 dd일', // 년 월일 추가
+				showOtherMonths : true //빈 공간에 현재월의 앞뒤월의 날짜 표시
+				,
+				showMonthAfterYear : true // 년도 먼저 
+				,
+				changeMonth : true // 월 선택 가능    셀렉박스             
+				,
+				showOn : "both" // 픽스
+				,
+				yearSuffix : "년",
+				monthNamesShort : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월',
+						'9월', '10월', '11월', '12월' ],
+				dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ],
+				dayNames : [ '일요일', '월요일', '화요일', '수요일', '목요일', '금요일',
+						'토요일' ],
+				minDate : "+1D" // 현재일 기준최소
+				,
+				maxDate : "+21D" // 최대  
+				,
+				onSelect : function() {
+					var myDate = $('#datepicker').val();
+					alert("선택하신 예약날짜는 "+myDate+" 입니다.");
+					$("#dat").val(myDate);
+				},
+				 beforeShowDay: function(date) {
+				        var day = date.getDay();
+				        return [(day != 0), ''];
+				    }
+
+			});
 });
 </script>
 <%
@@ -378,7 +416,7 @@ text-align: center;
 						<br> <br>
 						<div class="mb-3">
 							<label for="reservation" class="form-label">예약 날짜</label> <input
-								type='date' name="date" value="<%=reserv.getDate()%>">
+								type='text' name="date" id="datepicker" value="<%=reserv.getDate()%>">
 						</div>
 						<div class="mb-3">
 							<label for="reservation" class="form-label">예약 시간</label> <input

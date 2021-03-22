@@ -72,7 +72,7 @@ $(function(){
 			if(res.success === "가능") {
 				alert("예약가능 합니다.");
 				console.log("중복안댐!");
-				$('#tel').attr('disabled', true);
+				$('#tel').attr('readonly', true);
 				$('#sumbmitBtn').attr('disabled', false);
 			}else if (res.success === "불가능"){
 				console.log("중복!");
@@ -420,17 +420,17 @@ body {
 			}
 		});
 
-/* 		$("#tel").keyup(function(event) {
+ 		$("#tel").keyup(function(event) {
 			regexp = /[^0-9]$/;
 			v = $(this).val();
 			if (regexp.test(v)) {
 				alert("숫자만 입력가능 합니다.\n-(하이픈)을 제외한 숫자만 입력하여 주세요.");
 				$(this).val(v.replace(regexp, ''));
 			}
-		}); */
+		}); 
 		
-		$(document).on("keyup", "#tel", function() {
-			$(this).val( $(this).val().replace(/[^0-9]/g, "").replace(/(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})$/,"$1-$2-$3").replace("--", "-") ); });
+//		$(document).on("keyup", "#tel", function() {
+//			$(this).val( $(this).val().replace(/[^0-9]/g, "").replace(/(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})$/,"$1-$2-$3").replace("--", "-") ); });
 
  
 		$("#name").keyup(function(event) {

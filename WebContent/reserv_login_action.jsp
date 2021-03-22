@@ -63,6 +63,7 @@
 		PrintWriter script = response.getWriter();
 		script.println("<script>");
 		script.println("alert('서버 오류 입니다.')");
+		script.println("location.href = 'index.jsp'");
 		script.println("</script>");
 	}
 	%>
