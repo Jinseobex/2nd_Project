@@ -89,20 +89,20 @@ text-align: center;
 							value="<%=reserv.getLocation()%>">
 							<label for="name" class="form-label"><strong>예약자명</strong></label>
 							<input type="text" class="form-control" name="name"
-								placeholder="성함" value="<%=reserv.getName()%>" >
+								placeholder="성함" readonly value="<%=reserv.getName()%>" >
 						</div>
 
 						<label for="rrn" class="form-label"><strong>생년월일</strong></label>
 						<div class="input-group mb-3">
 							<input type="text" class="form-control" name="jumin"
 								aria-label="Username" placeholder="(-없이 13자리)"
-								value="<%=reserv.getJumin()%>" disabled="disabled"> 
+								value="<%=reserv.getJumin()%>" readonly> 
 						</div>
 
 						<div class="mb-3">
 							<label for="phone" class="form-label"><strong>전화번호</strong></label>
 							<input type="text" class="form-control" name="tel"
-								aria-describedby="namebox" disabled="disabled" value="<%=reserv.getTel()%>">
+								aria-describedby="namebox" readonly value="<%=reserv.getTel()%>">
 						</div>
 						<label for="name" class="form-label"><strong>*
 								코로나19 의심증상</strong></label> <br>

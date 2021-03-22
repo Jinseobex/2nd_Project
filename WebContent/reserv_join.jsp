@@ -48,7 +48,7 @@
 							'토요일' ],
 					minDate : "+1D" // 현재일 기준최소
 					,
-					maxDate : "+30D" // 최대  
+					maxDate : "+21D" // 최대  
 					,
 					onSelect : function() {
 						var myDate = $('#datepicker').val();
