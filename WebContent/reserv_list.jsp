@@ -100,7 +100,7 @@ h2 {
 				</div>
 			</form>
 		</div>
-		<div class="container">
+		<div class="col-xl-12">
 			<div class="container-fluid">
 				<div class="card border-right" style="border:1px solid rgba(0, 0, 0, 0.125); margin:15px; padding:20px;">
 					<table class="table" style="text-align: center;">
