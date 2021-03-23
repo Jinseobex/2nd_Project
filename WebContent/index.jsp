@@ -230,10 +230,10 @@
 	<section id="hero" class="d-flex align-items-center">
 		<div class="container" data-aos="zoom-out" data-aos-delay="100">
 			<h1>코로나19 선별진료소 <span>안내</span> 및 <span>예약 </span>시스템</h1>
-			<h2>찾고자 하는 선별진료소의 시, 군, 구를 입력해주세요</h2>
+			<h2>가까운 선별진료소를 빠르게 찾고 예약하실 수 있습니다.</h2>
 			<div class="d-flex">
 				<a href="#about" class="btn-get-started scrollto">진료소 찾기</a>
-				<a href="https://www.youtube.com/watch?v=vZAtsL6t_4Y" class="glightbox btn-watch-video"><i class="bi bi-play-circle"></i>
+				<a href="https://www.youtube.com/watch?v=OuvRVr9058E" class="glightbox btn-watch-video"><i class="bi bi-play-circle"></i>
 				<span>코로나19 정부 브리핑</span></a> 
 			</div>
 		</div>
@@ -260,8 +260,8 @@
 							</div>
 			      		</div>
 					</div>
-    				<p> 가까운 도로명 주소를 입력하시면 선별진료소의 위치가 확인됩니다. </p>
-    				<p> 예) 종로 3가 / 동두천시 지행동 </p>
+    				<p> 찾으시는 지역명을 입력하시면 선별진료소의 위치가 확인됩니다. </p>
+    				<p> 예) 종각 / 동두천시 지행동 </p>
 				</footer>
         	</div>
 			<div style="weight:1300px; height:600px;">

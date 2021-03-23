@@ -9,7 +9,7 @@
 <html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width initial-scale=1">
-<link rel="shortcut icon" type="image/x-icon" href="https://corona-19.kr/img/favicon.ico">
+<link rel="shortcut icon" type="image/x-icon" href="assets/img/g_logo.png">
 <link rel="stylesheet" href="assets/css/bootstrap.css">
 <link href="assets/css/style.css" rel="stylesheet">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">

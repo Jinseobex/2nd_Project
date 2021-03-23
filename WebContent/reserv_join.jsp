@@ -14,8 +14,7 @@
 <link rel="stylesheet" href="assets/css/bootstrap.css">
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-<link rel="shortcut icon" type="image/x-icon"
-	href="https://corona-19.kr/img/favicon.ico">
+<link rel="shortcut icon" type="image/x-icon" href="assets/img/g_logo.png">
 
 <!-- Template Main CSS File -->
 <link href="assets/css/style.css" rel="stylesheet">

@@ -41,7 +41,7 @@ public class NaverNewsApi {
 	            }
 	            
 	            JSONObject naverNews = new JSONObject(sb.toString());  
-	            System.out.println(naverNews);
+	            //System.out.println(naverNews);
 	            return naverNews;
 	            
 }
